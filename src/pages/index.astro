@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import products from '../data/products.json';
+import banners from '../data/banners.json';
+
+const active = products.filter(p => !p.draft && p.availability);
+
+const countFemei = active.filter(p => p.category.includes('femei')).length;
+const countBarbati = active.filter(p => p.category.includes('barbati')).length;
+const countCopii = active.filter(p => p.category.includes('copii')).length;
+const countOferte = active.filter(p => p.old_price && p.old_price > p.price).length;
+
+const recommended = active.filter(p => p.recomandat).slice(0, 4);
+const featured = active.filter(p => p.featured);
+
+// Bannere active azi
+const today = new Date().toISOString().split('T')[0];
+const activeBanners = banners.filter(b =>
+  b.active &&
+  (!b.startDate || b.startDate <= today) &&
+  (!b.endDate || b.endDate >= today)
+);
+---
+
+<Layout
+  title="style.gherasimmarius.com — Pantofi & Încălțăminte Premium"
+  description="Descoperă colecții de pantofi și încălțăminte premium pentru femei, bărbați și copii. Steve Madden, Guess, Tommy Hilfiger, Calvin Klein și multe altele."
+>
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero-text">
+      <h1>Pantofi care<br/><em>spun ceva</em><br/>despre tine.</h1>
+      <p>Colecții curate din piele naturală și materiale premium — de la Benvenuti la Steve Madden, de la Premiata la Tommy Hilfiger.</p>
+      <div class="hero-ctas">
+        <a href="/femei" class="btn-primary">Femei</a>
+        <a href="/barbati" class="btn-secondary">Bărbați</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">{(countFemei + countBarbati + countCopii).toLocaleString('ro-RO')}</div>
+        <div class="stat-label">Modele disponibile</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{countOferte.toLocaleString('ro-RO')}</div>
+        <div class="stat-label">Produse cu reducere</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">28+</div>
+        <div class="stat-label">Branduri premium</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Categorii</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner activ -->
+  {activeBanners.map(b => (
+    <div class="promo-banner">
+      <div class="banner-text">
+        <h2>{b.title}</h2>
+        <p>{b.subtitle}</p>
+      </div>
+      <a href={b.url} class="banner-cta">{b.cta}</a>
+    </div>
+  ))}
+
+  <!-- Categorii -->
+  <div class="section-title">Colecții</div>
+  <div class="cat-grid">
+    <a href="/femei" class="cat-card">
+      <span class="cat-label">Femei</span>
+      <span class="cat-count">{countFemei} modele</span>
+      <span class="cat-arrow">→</span>
+    </a>
+    <a href="/barbati" class="cat-card">
+      <span class="cat-label">Bărbați</span>
+      <span class="cat-count">{countBarbati} modele</span>
+      <span class="cat-arrow">→</span>
+    </a>
+    <a href="/copii" class="cat-card">
+      <span class="cat-label">Copii</span>
+      <span class="cat-count">{countCopii} modele</span>
+      <span class="cat-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- Recomandate -->
+  {recommended.length > 0 && (
+    <>
+      <div class="section-title">Recomandate</div>
+      <div class="product-grid">
+        {recommended.map(p => <ProductCard product={p} />)}
+      </div>
+    </>
+  )}
+
+  <!-- Oferta saptamanii -->
+  {featured.length > 0 && (
+    <>
+      <div class="section-title">Oferta săptămânii</div>
+      <div class="product-grid">
+        {featured.map(p => <ProductCard product={p} />)}
+      </div>
+    </>
+  )}
+
+  <!-- Newsletter -->
+  <section class="newsletter-section">
+    <h2>Oferte direct în inbox</h2>
+    <p>Abonează-te și fii primul care află despre reduceri și colecții noi.</p>
+    <div data-mailerlite-form-id="STYLE_FORM_ID"></div>
+  </section>
+
+</Layout>

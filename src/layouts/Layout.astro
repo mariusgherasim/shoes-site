@@ -1,0 +1,212 @@
+---
+const {
+  title = 'style.gherasimmarius.com — Pantofi & Încălțăminte Premium',
+  description = 'Descoperă colecții de pantofi și încălțăminte premium pentru femei, bărbați și copii — Steve Madden, Guess, Tommy Hilfiger, Calvin Klein și multe altele.',
+  canonical = Astro.url.href,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ro_RO" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HS59YL4Y3D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HS59YL4Y3D', { 'page_location': window.location.href });
+  </script>
+
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+<body>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consimțământ cookie-uri">
+    <p>
+      Acest site folosește cookie-uri pentru analiză (Google Analytics).
+      <a href="/confidentialitate">Politica de confidențialitate</a>
+    </p>
+    <button id="cookieAccept" class="cookie-btn">Am înțeles</button>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo">
+        <span class="logo-word">style</span><span class="logo-dot">.</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigare principală">
+        <a href="/femei">Femei</a>
+        <a href="/barbati">Bărbați</a>
+        <a href="/copii">Copii</a>
+        <a href="/oferte">Oferte</a>
+        <a href="/noutati">Noutăți</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Caută produse">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search overlay -->
+    <div class="search-overlay" id="searchOverlay" hidden>
+      <div class="search-inner">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Caută brand, model, culoare..."
+          autocomplete="off"
+          aria-label="Caută produse"
+        />
+        <button class="search-close" id="searchClose" aria-label="Închide căutarea">✕</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="site-logo">
+          <span class="logo-word">style</span><span class="logo-dot">.</span>
+        </a>
+        <p class="footer-tagline">Pantofi & accesorii premium</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Navigare footer">
+        <a href="/femei">Femei</a>
+        <a href="/barbati">Bărbați</a>
+        <a href="/copii">Copii</a>
+        <a href="/oferte">Oferte</a>
+        <a href="/sub-300-lei">Sub 300 Lei</a>
+      </nav>
+
+      <div class="footer-legal">
+        <a href="/confidentialitate">Politică de confidențialitate</a>
+        <a href="/termeni">Termeni și condiții</a>
+      </div>
+
+      <p class="footer-disclaimer">
+        Site afiliat — când cumperi prin linkurile de pe acest site, primim un comision mic,
+        fără niciun cost suplimentar pentru tine.
+        Prețurile și disponibilitatea pot varia față de site-ul partenerului.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Live Search Script -->
+  <script>
+    let allProducts = null;
+
+    const searchToggle = document.getElementById('searchToggle');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchClose = document.getElementById('searchClose');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    function openSearch() {
+      searchOverlay.hidden = false;
+      searchInput.focus();
+      if (!allProducts) loadProducts();
+    }
+
+    function closeSearch() {
+      searchOverlay.hidden = true;
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    }
+
+    async function loadProducts() {
+      try {
+        const res = await fetch('/search-index.json');
+        allProducts = await res.json();
+      } catch(e) {
+        console.error('Nu s-a putut încărca indexul de căutare', e);
+      }
+    }
+
+    function normalize(str) {
+      return str.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[șş]/g, 's').replace(/[țţ]/g, 't')
+        .replace(/[ăâ]/g, 'a').replace(/î/g, 'i');
+    }
+
+    let debounceTimer;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const q = normalize(searchInput.value.trim());
+        if (q.length < 2) { searchResults.innerHTML = ''; return; }
+        if (!allProducts) { searchResults.innerHTML = '<p class="sr-msg">Se încarcă...</p>'; return; }
+
+        const hits = allProducts
+          .filter(p => normalize(p.title).includes(q) || normalize(p.brand).includes(q))
+          .slice(0, 200);
+
+        if (!hits.length) {
+          searchResults.innerHTML = '<p class="sr-msg">Niciun rezultat găsit.</p>';
+          return;
+        }
+
+        searchResults.innerHTML = hits.map(p => `
+          <a href="${p.affiliate_url}" target="_blank" rel="nofollow noopener" class="sr-item" onclick="gtag('event','style_search_click',{product_id:'${p.id}',product_title:'${p.title.replace(/'/g,"\\'")}',brand:'${p.brand}'})">
+            <img src="${p.image_url}" alt="${p.title}" loading="lazy" width="56" height="56" />
+            <div class="sr-info">
+              <span class="sr-brand">${p.brand}</span>
+              <span class="sr-title">${p.title}</span>
+              <span class="sr-price">${p.price.toFixed(2)} RON${p.old_price ? ` <s>${p.old_price.toFixed(2)} RON</s>` : ''}</span>
+            </div>
+          </a>
+        `).join('');
+      }, 250);
+    });
+
+    searchToggle.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+  </script>
+
+  <!-- Cookie Script -->
+  <script>
+    const banner = document.getElementById('cookieBanner');
+    const btn = document.getElementById('cookieAccept');
+    if (localStorage.getItem('cookie_ok')) {
+      banner.hidden = true;
+    }
+    btn.addEventListener('click', () => {
+      localStorage.setItem('cookie_ok', '1');
+      banner.hidden = true;
+    });
+  </script>
+
+</body>
+</html>

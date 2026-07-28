@@ -1,0 +1,62 @@
+---
+const { product } = Astro.props;
+const { title, brand, price, old_price, image_url, affiliate_url, specs, id } = product;
+
+const discount = old_price && old_price > price
+  ? Math.round((1 - price / old_price) * 100)
+  : null;
+
+// Chipuri specs: culoare, material, stil (primele 2 relevante)
+const specKeys = ['culoare', 'material', 'stil'];
+const chips = specKeys
+  .filter(k => specs?.[k] && specs[k] !== 'Alte materiale')
+  .slice(0, 2);
+---
+
+<article class="product-card">
+  <a
+    href={affiliate_url}
+    target="_blank"
+    rel="nofollow noopener"
+    class="card-image-wrap"
+    onclick={`gtag('event','style_affiliate_click',{product_id:'${id}',product_title:'${title.replace(/'/g,"\\'")}',brand:'${brand}',price:${price}})`}
+    aria-label={`Vezi ${title} pe site-ul partenerului`}
+  >
+    <img
+      src={image_url}
+      alt={title}
+      loading="lazy"
+      width="400"
+      height="400"
+    />
+    {discount && <span class="badge-discount">-{discount}%</span>}
+  </a>
+
+  <div class="card-body">
+    <span class="card-brand">{brand}</span>
+    <h2 class="card-title">{title}</h2>
+
+    {chips.length > 0 && (
+      <div class="card-specs">
+        {chips.map(k => (
+          <span class="spec-chip">{specs[k]}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="card-price">
+      <span class="price-current">{price.toFixed(2)} RON</span>
+      {old_price && <span class="price-old">{old_price.toFixed(2)} RON</span>}
+    </div>
+
+    <a
+      href={affiliate_url}
+      target="_blank"
+      rel="nofollow noopener"
+      class="card-cta"
+      onclick={`gtag('event','style_affiliate_click',{product_id:'${id}',product_title:'${title.replace(/'/g,"\\'")}',brand:'${brand}',price:${price}})`}
+    >
+      Vezi oferta →
+    </a>
+  </div>
+</article>
