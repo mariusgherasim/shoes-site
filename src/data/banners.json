@@ -1,0 +1,12 @@
+[
+  {
+    "id": "banner-launch",
+    "title": "Colecție nouă disponibilă",
+    "subtitle": "Descoperă cele mai noi modele de pantofi din piele naturală",
+    "cta": "Vezi colecția",
+    "url": "/femei",
+    "startDate": "2026-07-01",
+    "endDate": "2026-12-31",
+    "active": true
+  }
+]

@@ -1,0 +1,53 @@
+name: Deploy & Actualizare Preturi
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Rulează zilnic la 07:00 ora României (05:00 UTC)
+    - cron: '0 5 * * *'
+  workflow_dispatch:  # permite rulare manuală din GitHub UI
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Actualizare preturi
+        run: node update-prices.cjs
+        continue-on-error: true  # dacă scraping-ul pică, build-ul continuă cu prețurile vechi
+
+      - name: Commit preturi actualizate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/products.json
+          git diff --staged --quiet || git commit -m "chore: actualizare preturi $(date +'%Y-%m-%d %H:%M')"
+          git push
+        continue-on-error: true
+
+      - name: Build Astro
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: style.gherasimmarius.com

@@ -1,0 +1,14 @@
+---
+// Redirect /femei → /femei/1
+import { MANUAL_CATEGORIES, AUTO_COLLECTIONS } from '../../data/categories.js';
+
+export async function getStaticPaths() {
+  const allCats = [...MANUAL_CATEGORIES, ...AUTO_COLLECTIONS];
+  return allCats.map(cat => ({
+    params: { categorie: cat.slug },
+  }));
+}
+
+const { categorie } = Astro.params;
+return Astro.redirect(`/${categorie}/1`, 301);
+---
