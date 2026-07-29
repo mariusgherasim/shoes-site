@@ -1,0 +1,13 @@
+<svg width="100%" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>style. — Pantofi &amp; Accesorii</title>
+<defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&amp;family=DM+Sans:wght@400&amp;display=swap');
+    .lt { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 72px; font-weight: 400; fill: #0B1F4A; letter-spacing: -2px; }
+    .ld { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 72px; font-weight: 400; fill: #C4883A; }
+    .ls { font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; font-weight: 400; fill: #8B7355; letter-spacing: 5px; }
+  </style>
+</defs>
+<text x="340" y="105" text-anchor="middle" class="lt">style<tspan class="ld">.</tspan></text>
+<text x="340" y="132" text-anchor="middle" class="ls">PANTOFI &amp; ACCESORII</text>
+</svg>
