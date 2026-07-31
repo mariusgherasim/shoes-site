@@ -4,15 +4,16 @@ import ProductCard from '../../components/ProductCard.astro';
 import products from '../../data/products.json';
 import banners from '../../data/banners.json';
 import { MANUAL_CATEGORIES, AUTO_COLLECTIONS } from '../../data/categories.js';
-
-export const PER_PAGE = 24;
+ 
+const PER_PAGE = 24;
 const MAX_VISIBLE = 20;
-
+ 
 export async function getStaticPaths() {
+  const PER_PAGE = 24;
   const active = products.filter(p => !p.draft && p.availability);
   const allCats = [...MANUAL_CATEGORIES, ...AUTO_COLLECTIONS];
   const paths = [];
-
+ 
   for (const cat of allCats) {
     let items;
     if (cat.filter) {
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
       items = active.filter(p => p.category.includes(cat.slug));
     }
     const totalPages = Math.max(1, Math.ceil(items.length / PER_PAGE));
-
+ 
     for (let page = 1; page <= totalPages; page++) {
       paths.push({
         params: { categorie: cat.slug, page: String(page) },
@@ -31,31 +32,24 @@ export async function getStaticPaths() {
   }
   return paths;
 }
-
+ 
 const { categorie, page } = Astro.params;
 const { cat, items, totalPages } = Astro.props;
 const currentPage = parseInt(page);
 const pageItems = items.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
-
-// Calculez fereastra de pagini vizibile (max 20)
-function getPageWindow(current: number, total: number, maxVisible: number) {
-  if (total <= maxVisible) {
-    return Array.from({ length: total }, (_, i) => i + 1);
-  }
-  const half = Math.floor(maxVisible / 2);
-  let start = Math.max(1, current - half);
-  let end = start + maxVisible - 1;
-  if (end > total) {
-    end = total;
-    start = Math.max(1, end - maxVisible + 1);
-  }
-  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+ 
+// Fereastra de pagini vizibile
+const half = Math.floor(MAX_VISIBLE / 2);
+let winStart = Math.max(1, currentPage - half);
+let winEnd = winStart + MAX_VISIBLE - 1;
+if (winEnd > totalPages) {
+  winEnd = totalPages;
+  winStart = Math.max(1, winEnd - MAX_VISIBLE + 1);
 }
-
-const pageWindow = getPageWindow(currentPage, totalPages, MAX_VISIBLE);
+const pageWindow = Array.from({ length: winEnd - winStart + 1 }, (_, i) => winStart + i);
 const showLeftEllipsis = pageWindow[0] > 1;
 const showRightEllipsis = pageWindow[pageWindow.length - 1] < totalPages;
-
+ 
 // Bannere active
 const today = new Date().toISOString().split('T')[0];
 const activeBanners = banners.filter(b =>
@@ -63,18 +57,18 @@ const activeBanners = banners.filter(b =>
   (!b.startDate || b.startDate <= today) &&
   (!b.endDate || b.endDate >= today)
 );
-
+ 
 const canonical = currentPage === 1
   ? `https://style.gherasimmarius.com/${categorie}`
   : `https://style.gherasimmarius.com/${categorie}/${page}`;
-
+ 
 const pageTitle = currentPage > 1
   ? `${cat.metaTitle} — Pagina ${currentPage}`
   : cat.metaTitle;
 ---
-
+ 
 <Layout title={pageTitle} description={cat.metaDescription} canonical={canonical}>
-
+ 
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -83,12 +77,12 @@ const pageTitle = currentPage > 1
     "url": `https://style.gherasimmarius.com/${categorie}`,
     "numberOfItems": items.length,
   })} />
-
+ 
   <div class="page-header">
     <h1>{cat.title}</h1>
     <p>{cat.description}</p>
   </div>
-
+ 
   {activeBanners.map(b => (
     <div class="promo-banner">
       <div class="banner-text">
@@ -98,44 +92,37 @@ const pageTitle = currentPage > 1
       <a href={b.url} class="banner-cta">{b.cta}</a>
     </div>
   ))}
-
+ 
   <div class="filters-bar">
     <span class="filter-count">{items.length} produse</span>
   </div>
-
+ 
   <div class="product-grid">
     {pageItems.map(p => <ProductCard product={p} />)}
   </div>
-
-  <!-- Paginare -->
+ 
   {totalPages > 1 && (
     <nav class="pagination" aria-label="Paginare">
-
+ 
       <div class="pagination-info">
         Pagina {currentPage} din {totalPages}
       </div>
-
+ 
       <div class="pagination-controls">
-        <!-- Prima pagină << -->
         {currentPage > 1 ? (
-          <a href={`/${categorie}/1`} class="page-link page-edge" aria-label="Prima pagină" title="Prima pagină">«</a>
+          <a href={`/${categorie}/1`} class="page-link page-edge" title="Prima pagină">«</a>
         ) : (
-          <span class="page-link page-edge disabled" aria-disabled="true">«</span>
+          <span class="page-link page-edge disabled">«</span>
         )}
-
-        <!-- Pagina anterioară < -->
+ 
         {currentPage > 1 ? (
-          <a href={`/${categorie}/${currentPage - 1}`} class="page-link page-arrow" aria-label="Pagina anterioară">‹</a>
+          <a href={`/${categorie}/${currentPage - 1}`} class="page-link page-arrow">‹</a>
         ) : (
-          <span class="page-link page-arrow disabled" aria-disabled="true">‹</span>
+          <span class="page-link page-arrow disabled">‹</span>
         )}
-
-        <!-- Ellipsis stânga -->
-        {showLeftEllipsis && (
-          <span class="page-ellipsis">…</span>
-        )}
-
-        <!-- Fereastra de pagini -->
+ 
+        {showLeftEllipsis && <span class="page-ellipsis">…</span>}
+ 
         {pageWindow.map(n => (
           <a
             href={`/${categorie}/${n}`}
@@ -143,28 +130,23 @@ const pageTitle = currentPage > 1
             aria-current={n === currentPage ? 'page' : undefined}
           >{n}</a>
         ))}
-
-        <!-- Ellipsis dreapta -->
-        {showRightEllipsis && (
-          <span class="page-ellipsis">…</span>
-        )}
-
-        <!-- Pagina următoare > -->
+ 
+        {showRightEllipsis && <span class="page-ellipsis">…</span>}
+ 
         {currentPage < totalPages ? (
-          <a href={`/${categorie}/${currentPage + 1}`} class="page-link page-arrow" aria-label="Pagina următoare">›</a>
+          <a href={`/${categorie}/${currentPage + 1}`} class="page-link page-arrow">›</a>
         ) : (
-          <span class="page-link page-arrow disabled" aria-disabled="true">›</span>
+          <span class="page-link page-arrow disabled">›</span>
         )}
-
-        <!-- Ultima pagină >> -->
+ 
         {currentPage < totalPages ? (
-          <a href={`/${categorie}/${totalPages}`} class="page-link page-edge" aria-label="Ultima pagină" title={`Ultima pagină (${totalPages})`}>»</a>
+          <a href={`/${categorie}/${totalPages}`} class="page-link page-edge" title={`Ultima pagină (${totalPages})`}>»</a>
         ) : (
-          <span class="page-link page-edge disabled" aria-disabled="true">»</span>
+          <span class="page-link page-edge disabled">»</span>
         )}
       </div>
-
+ 
     </nav>
   )}
-
+ 
 </Layout>
