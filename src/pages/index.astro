@@ -113,7 +113,52 @@ const activeBanners = banners.filter(b =>
   <section class="newsletter-section">
     <h2>Oferte direct în inbox</h2>
     <p>Abonează-te și fii primul care află despre reduceri și colecții noi.</p>
-    <div data-mailerlite-form-id="STYLE_FORM_ID"></div>
+    <!-- Înlocuiește <div data-mailerlite-form-id="STYLE_FORM_ID"></div> cu blocul de mai jos -->
+
+    <div id="mlb2-44253038" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-44253038">
+      <div class="ml-form-align-center">
+        <div class="ml-form-embedWrapper embedForm">
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1999265/forms/194310241415857526/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                <div class="ml-form-fieldRow ml-last-item">
+                  <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                    <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Adresa ta de email" autocomplete="email">
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="ml-submit" value="1">
+              <div class="ml-form-embedSubmit">
+                <button type="submit" class="primary">Abonează-te</button>
+                <button disabled="disabled" style="display:none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+          <div class="ml-form-successBody row-success" style="display:none">
+            <div class="ml-form-successContent">
+              <h4>Mulțumim!</h4>
+              <p>Te-ai abonat cu succes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function ml_webform_success_44253038() {
+        var $ = ml_jQuery || jQuery;
+        $('.ml-subscribe-form-44253038 .row-success').show();
+        $('.ml-subscribe-form-44253038 .row-form').hide();
+      }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
+    <script>
+      fetch("https://assets.mailerlite.com/jsonp/1999265/forms/194310241415857526/takel")
+    </script>
   </section>
 
 </Layout>

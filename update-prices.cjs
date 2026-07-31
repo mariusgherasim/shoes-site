@@ -32,23 +32,16 @@ async function scrapePrice(url) {
 
     const $ = cheerio.load(res.data);
 
-    // Selectoare WooCommerce standard — de verificat cu Inspect Element dacă dă erori
-    // Pret curent (cu reducere sau fara)
-    let priceText = $('p.price ins .woocommerce-Price-amount bdi').first().text().trim();
-    if (!priceText) {
-      priceText = $('p.price .woocommerce-Price-amount bdi').first().text().trim();
-    }
-
-    // Pret vechi (barat)
-    let oldPriceText = $('p.price del .woocommerce-Price-amount bdi').first().text().trim();
-
     const parsePrice = str => {
       if (!str) return null;
-      // ex: "239,00 lei" → 239.00
-      const num = str.replace(/[^\d,]/g, '').replace(',', '.');
+      // "599 Lei" sau "1.199 Lei" → 599 / 1199
+      const num = str.replace(/\./g, '').replace(/[^\d,]/g, '').replace(',', '.');
       const val = parseFloat(num);
       return isNaN(val) ? null : val;
     };
+
+    const priceText = $('.p_price').first().text().trim();
+    const oldPriceText = $('.p_old_price').first().text().trim();
 
     return {
       price: parsePrice(priceText),
