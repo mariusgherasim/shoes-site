@@ -6,7 +6,6 @@ import banners from '../../data/banners.json';
 import { MANUAL_CATEGORIES, AUTO_COLLECTIONS } from '../../data/categories.js';
  
 const PER_PAGE = 24;
-const MAX_VISIBLE = 20;
  
 export async function getStaticPaths() {
   const PER_PAGE = 24;
@@ -38,17 +37,31 @@ const { cat, items, totalPages } = Astro.props;
 const currentPage = parseInt(p);
 const pageItems = items.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
  
-// Fereastra de pagini vizibile
-const half = Math.floor(MAX_VISIBLE / 2);
-let winStart = Math.max(1, currentPage - half);
-let winEnd = winStart + MAX_VISIBLE - 1;
-if (winEnd > totalPages) {
-  winEnd = totalPages;
-  winStart = Math.max(1, winEnd - MAX_VISIBLE + 1);
+// Fereastra desktop (20 pagini)
+const MAX_DESKTOP = 20;
+const halfD = Math.floor(MAX_DESKTOP / 2);
+let winStartD = Math.max(1, currentPage - halfD);
+let winEndD = winStartD + MAX_DESKTOP - 1;
+if (winEndD > totalPages) {
+  winEndD = totalPages;
+  winStartD = Math.max(1, winEndD - MAX_DESKTOP + 1);
 }
-const pageWindow = Array.from({ length: winEnd - winStart + 1 }, (_, i) => winStart + i);
-const showLeftEllipsis = pageWindow[0] > 1;
-const showRightEllipsis = pageWindow[pageWindow.length - 1] < totalPages;
+const pageWindowDesktop = Array.from({ length: winEndD - winStartD + 1 }, (_, i) => winStartD + i);
+const showLeftEllipsisD = pageWindowDesktop[0] > 1;
+const showRightEllipsisD = pageWindowDesktop[pageWindowDesktop.length - 1] < totalPages;
+ 
+// Fereastra mobil (5 pagini)
+const MAX_MOBILE = 5;
+const halfM = Math.floor(MAX_MOBILE / 2);
+let winStartM = Math.max(1, currentPage - halfM);
+let winEndM = winStartM + MAX_MOBILE - 1;
+if (winEndM > totalPages) {
+  winEndM = totalPages;
+  winStartM = Math.max(1, winEndM - MAX_MOBILE + 1);
+}
+const pageWindowMobile = Array.from({ length: winEndM - winStartM + 1 }, (_, i) => winStartM + i);
+const showLeftEllipsisM = pageWindowMobile[0] > 1;
+const showRightEllipsisM = pageWindowMobile[pageWindowMobile.length - 1] < totalPages;
  
 // Bannere active
 const today = new Date().toISOString().split('T')[0];
@@ -109,6 +122,7 @@ const pageTitle = currentPage > 1
       </div>
  
       <div class="pagination-controls">
+ 
         {currentPage > 1 ? (
           <a href={`/${categorie}/1`} class="page-link page-edge" title="Prima pagină">«</a>
         ) : (
@@ -121,17 +135,27 @@ const pageTitle = currentPage > 1
           <span class="page-link page-arrow disabled">‹</span>
         )}
  
-        {showLeftEllipsis && <span class="page-ellipsis">…</span>}
- 
-        {pageWindow.map(n => (
+        {/* Desktop - 20 pagini */}
+        {showLeftEllipsisD && <span class="page-ellipsis hide-mobile">…</span>}
+        {pageWindowDesktop.map(n => (
           <a
             href={`/${categorie}/${n}`}
-            class={`page-link ${n === currentPage ? 'active' : ''}`}
+            class={`page-link hide-mobile ${n === currentPage ? 'active' : ''}`}
             aria-current={n === currentPage ? 'page' : undefined}
           >{n}</a>
         ))}
+        {showRightEllipsisD && <span class="page-ellipsis hide-mobile">…</span>}
  
-        {showRightEllipsis && <span class="page-ellipsis">…</span>}
+        {/* Mobil - 5 pagini */}
+        {showLeftEllipsisM && <span class="page-ellipsis hide-desktop">…</span>}
+        {pageWindowMobile.map(n => (
+          <a
+            href={`/${categorie}/${n}`}
+            class={`page-link hide-desktop ${n === currentPage ? 'active' : ''}`}
+            aria-current={n === currentPage ? 'page' : undefined}
+          >{n}</a>
+        ))}
+        {showRightEllipsisM && <span class="page-ellipsis hide-desktop">…</span>}
  
         {currentPage < totalPages ? (
           <a href={`/${categorie}/${currentPage + 1}`} class="page-link page-arrow">›</a>
@@ -144,8 +168,8 @@ const pageTitle = currentPage > 1
         ) : (
           <span class="page-link page-edge disabled">»</span>
         )}
-      </div>
  
+      </div>
     </nav>
   )}
  

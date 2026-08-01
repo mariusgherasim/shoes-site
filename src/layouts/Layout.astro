@@ -59,7 +59,7 @@ const {
         <img src="/logo-style.svg" alt="style. — Pantofi & Accesorii" height="40" />
       </a>
 
-      <nav class="main-nav" aria-label="Navigare principală">
+      <nav class="main-nav" id="mainNav" aria-label="Navigare principală">
         <a href="/femei">Femei</a>
         <a href="/barbati">Bărbați</a>
         <a href="/copii">Copii</a>
@@ -73,7 +73,19 @@ const {
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
+        <button class="burger-toggle" id="burgerToggle" aria-label="Meniu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
+    </div>
+
+    <!-- Nav mobil -->
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="/femei">Femei</a>
+      <a href="/barbati">Bărbați</a>
+      <a href="/copii">Copii</a>
+      <a href="/oferte">Oferte</a>
+      <a href="/noutati">Noutăți</a>
     </div>
 
     <!-- Search overlay -->
@@ -91,6 +103,18 @@ const {
       <div class="search-results" id="searchResults"></div>
     </div>
   </header>
+
+  <script>
+    const burger = document.getElementById('burgerToggle');
+    const mobileNav = document.getElementById('mobileNav');
+
+    burger.addEventListener('click', () => {
+      const isOpen = !mobileNav.hidden;
+      mobileNav.hidden = isOpen;
+      burger.setAttribute('aria-expanded', String(!isOpen));
+      burger.classList.toggle('open', !isOpen);
+    });
+  </script>
 
   <main>
     <slot />
