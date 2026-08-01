@@ -25,7 +25,7 @@ export async function getStaticPaths() {
  
     for (let page = 1; page <= totalPages; page++) {
       paths.push({
-        params: { categorie: cat.slug, page: String(page) },
+        params: { categorie: cat.slug, p: String(page) },
         props: { cat, items, totalPages },
       });
     }
@@ -33,9 +33,9 @@ export async function getStaticPaths() {
   return paths;
 }
  
-const { categorie, page } = Astro.params;
+const { categorie, p } = Astro.params;
 const { cat, items, totalPages } = Astro.props;
-const currentPage = parseInt(page);
+const currentPage = parseInt(p);
 const pageItems = items.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
  
 // Fereastra de pagini vizibile
