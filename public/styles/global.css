@@ -689,14 +689,6 @@ a { color: inherit; text-decoration: none; }
   .product-grid { padding: 0 16px 32px; }
 }
 
-@media (max-width: 600px) {
-  .hide-mobile { display: none; }
-}
-@media (min-width: 601px) {
-  .hide-desktop { display: none; }
-}
-
-
 /* ===========================
    BREADCRUMB
    =========================== */
@@ -721,7 +713,7 @@ a { color: inherit; text-decoration: none; }
    SUBCAT BAR
    =========================== */
 .subcat-bar {
-  background: var(--cream);
+  background: var(--white);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
@@ -733,8 +725,8 @@ a { color: inherit; text-decoration: none; }
 .subcat-inner {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 0 24px;
+  gap: 8px;
+  padding: 10px 24px;
   max-width: 1280px;
   margin: 0 auto;
   white-space: nowrap;
@@ -742,24 +734,35 @@ a { color: inherit; text-decoration: none; }
 
 .subcat-link {
   display: inline-block;
-  padding: 10px 14px;
+  padding: 6px 14px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--warm-mid);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  transition: all 0.15s;
   white-space: nowrap;
   flex-shrink: 0;
+  text-decoration: none;
 }
-.subcat-link:hover { color: var(--ink); border-bottom-color: var(--border); }
-.subcat-link.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+.subcat-link:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--white);
+}
+.subcat-link.active {
+  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+  font-weight: 500;
+}
 
 /* Nav active state */
-.main-nav a.active { color: var(--ink); }
+.main-nav a.active { color: var(--ink); font-weight: 600; }
 
 @media (max-width: 768px) {
-  .subcat-inner { padding: 0 16px; gap: 0; }
-  .subcat-link { padding: 10px 10px; font-size: 12px; }
+  .subcat-inner { padding: 8px 16px; gap: 6px; }
+  .subcat-link { padding: 5px 12px; font-size: 12px; }
 }

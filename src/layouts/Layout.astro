@@ -14,29 +14,29 @@ const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => path
 const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
 
 const subcatFemei = [
-  { slug: 'sneakers-femei', label: 'Sneakers' },
-  { slug: 'stiletto-femei', label: 'Stiletto' },
-  { slug: 'pantofi-cu-toc-femei', label: 'Cu toc' },
-  { slug: 'pantofi-sport-femei', label: 'Sport' },
-  { slug: 'sandale-femei', label: 'Sandale' },
-  { slug: 'balerini-femei', label: 'Balerini' },
-  { slug: 'saboti-femei-crocs', label: 'CROCS' },
-  { slug: 'saboti-femei', label: 'Saboți' },
-  { slug: 'poseta', label: 'Poșete' },
-  { slug: 'portmoneu-femei', label: 'Portmonee' },
-  { slug: 'pantofi-femei', label: 'Pantofi' },
+  { slug: 'sneakers-femei', label: 'Sneakers femei' },
+  { slug: 'stiletto-femei', label: 'Pantofi stiletto' },
+  { slug: 'pantofi-cu-toc-femei', label: 'Pantofi cu toc' },
+  { slug: 'pantofi-sport-femei', label: 'Pantofi sport femei' },
+  { slug: 'sandale-femei', label: 'Sandale femei' },
+  { slug: 'balerini-femei', label: 'Balerini femei' },
+  { slug: 'saboti-femei-crocs', label: 'Saboți femei CROCS' },
+  { slug: 'saboti-femei', label: 'Saboți femei' },
+  { slug: 'poseta', label: 'Poșetă' },
+  { slug: 'portmoneu-femei', label: 'Portmoneu femei' },
+  { slug: 'pantofi-femei', label: 'Pantofi femei' },
 ];
 
 const subcatBarbati = [
-  { slug: 'sneakers-barbati', label: 'Sneakers' },
-  { slug: 'pantofi-derby-barbati', label: 'Derby' },
-  { slug: 'pantofi-oxford-barbati', label: 'Oxford' },
-  { slug: 'mocasini-barbati', label: 'Mocasini' },
-  { slug: 'pantofi-sport-barbati', label: 'Sport' },
-  { slug: 'curea-barbati', label: 'Curele' },
-  { slug: 'portmoneu-barbati', label: 'Portmonee' },
-  { slug: 'pantofi-barbati', label: 'Pantofi' },
-  { slug: 'geanta-crossbody', label: 'Genți' },
+  { slug: 'sneakers-barbati', label: 'Sneakers bărbați' },
+  { slug: 'pantofi-derby-barbati', label: 'Pantofi derby' },
+  { slug: 'pantofi-oxford-barbati', label: 'Pantofi oxford' },
+  { slug: 'mocasini-barbati', label: 'Mocasini bărbați' },
+  { slug: 'pantofi-sport-barbati', label: 'Pantofi sport bărbați' },
+  { slug: 'curea-barbati', label: 'Curea' },
+  { slug: 'portmoneu-barbati', label: 'Portmoneu bărbați' },
+  { slug: 'pantofi-barbati', label: 'Pantofi bărbați' },
+  { slug: 'geanta-crossbody', label: 'Geantă crossbody' },
 ];
 
 const activeSubcats = isFemei ? subcatFemei : isBarbati ? subcatBarbati : null;
