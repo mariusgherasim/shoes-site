@@ -4,6 +4,42 @@ const {
   description = 'Descoperă colecții de pantofi și încălțăminte premium pentru femei, bărbați și copii — Steve Madden, Guess, Tommy Hilfiger, Calvin Klein și multe altele.',
   canonical = Astro.url.href,
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+
+const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
+const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
+
+const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => pathname.startsWith(`/${s}`));
+const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
+
+const subcatFemei = [
+  { slug: 'sneakers-femei', label: 'Sneakers' },
+  { slug: 'stiletto-femei', label: 'Stiletto' },
+  { slug: 'pantofi-cu-toc-femei', label: 'Cu toc' },
+  { slug: 'pantofi-sport-femei', label: 'Sport' },
+  { slug: 'sandale-femei', label: 'Sandale' },
+  { slug: 'balerini-femei', label: 'Balerini' },
+  { slug: 'saboti-femei-crocs', label: 'CROCS' },
+  { slug: 'saboti-femei', label: 'Saboți' },
+  { slug: 'poseta', label: 'Poșete' },
+  { slug: 'portmoneu-femei', label: 'Portmonee' },
+  { slug: 'pantofi-femei', label: 'Pantofi' },
+];
+
+const subcatBarbati = [
+  { slug: 'sneakers-barbati', label: 'Sneakers' },
+  { slug: 'pantofi-derby-barbati', label: 'Derby' },
+  { slug: 'pantofi-oxford-barbati', label: 'Oxford' },
+  { slug: 'mocasini-barbati', label: 'Mocasini' },
+  { slug: 'pantofi-sport-barbati', label: 'Sport' },
+  { slug: 'curea-barbati', label: 'Curele' },
+  { slug: 'portmoneu-barbati', label: 'Portmonee' },
+  { slug: 'pantofi-barbati', label: 'Pantofi' },
+  { slug: 'geanta-crossbody', label: 'Genți' },
+];
+
+const activeSubcats = isFemei ? subcatFemei : isBarbati ? subcatBarbati : null;
 ---
 <!DOCTYPE html>
 <html lang="ro">
@@ -20,10 +56,6 @@ const {
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ro_RO" />
-  <meta property="og:image" content="https://style.gherasimmarius.com/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -60,8 +92,8 @@ const {
       </a>
 
       <nav class="main-nav" id="mainNav" aria-label="Navigare principală">
-        <a href="/femei">Femei</a>
-        <a href="/barbati">Bărbați</a>
+        <a href="/femei" class={isFemei ? 'active' : ''}>Femei</a>
+        <a href="/barbati" class={isBarbati ? 'active' : ''}>Bărbați</a>
         <a href="/copii">Copii</a>
         <a href="/oferte">Oferte</a>
         <a href="/noutati">Noutăți</a>
@@ -78,6 +110,20 @@ const {
         </button>
       </div>
     </div>
+
+    <!-- Bara subcategorii -->
+    {activeSubcats && (
+      <div class="subcat-bar" aria-label="Subcategorii">
+        <div class="subcat-inner">
+          {activeSubcats.map(s => (
+            <a
+              href={`/${s.slug}/1`}
+              class={`subcat-link ${pathname.startsWith(`/${s.slug}`) ? 'active' : ''}`}
+            >{s.label}</a>
+          ))}
+        </div>
+      </div>
+    )}
 
     <!-- Nav mobil -->
     <div class="mobile-nav" id="mobileNav" hidden>
@@ -104,18 +150,6 @@ const {
     </div>
   </header>
 
-  <script>
-    const burger = document.getElementById('burgerToggle');
-    const mobileNav = document.getElementById('mobileNav');
-
-    burger.addEventListener('click', () => {
-      const isOpen = !mobileNav.hidden;
-      mobileNav.hidden = isOpen;
-      burger.setAttribute('aria-expanded', String(!isOpen));
-      burger.classList.toggle('open', !isOpen);
-    });
-  </script>
-
   <main>
     <slot />
   </main>
@@ -124,7 +158,7 @@ const {
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="/" class="site-logo">
-          <img src="/logo-style.svg" alt="style. — Pantofi & Accesorii" height="40" />
+          <img src="/logo-style.svg" alt="style. — Pantofi & Accesorii" height="32" />
         </a>
         <p class="footer-tagline">Pantofi & accesorii premium</p>
       </div>
@@ -221,6 +255,20 @@ const {
     searchToggle.addEventListener('click', openSearch);
     searchClose.addEventListener('click', closeSearch);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+  </script>
+
+  <!-- Burger Script -->
+  <script>
+    const burger = document.getElementById('burgerToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    if (burger && mobileNav) {
+      burger.addEventListener('click', () => {
+        const isOpen = !mobileNav.hidden;
+        mobileNav.hidden = isOpen;
+        burger.setAttribute('aria-expanded', String(!isOpen));
+        burger.classList.toggle('open', !isOpen);
+      });
+    }
   </script>
 
   <!-- Cookie Script -->
