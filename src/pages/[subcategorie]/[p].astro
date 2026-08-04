@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import products from '../../data/products.json';
+import banners from '../../data/banners.json';
+import { SUBCATEGORIES } from '../../data/subcategories.js';
+
+const PER_PAGE = 24;
+
+export async function getStaticPaths() {
+  const PER_PAGE = 24;
+  const active = products.filter(p => !p.draft && p.availability);
+  const paths = [];
+  const assigned = new Set();
+
+  for (const subcat of SUBCATEGORIES) {
+    const items = [];
+    for (const prod of active) {
+      if (!assigned.has(prod.id)) {
+        try {
+          if (subcat.rule(prod)) {
+            items.push(prod);
+            assigned.add(prod.id);
+          }
+        } catch(e) {}
+      }
+    }
+
+    const totalPages = Math.max(1, Math.ceil(items.length / PER_PAGE));
+    for (let page = 1; page <= totalPages; page++) {
+      paths.push({
+        params: { subcategorie: subcat.slug, p: String(page) },
+        props: { subcat, items, totalPages },
+      });
+    }
+  }
+  return paths;
+}
+
+const { subcategorie, p } = Astro.params;
+const { subcat, items, totalPages } = Astro.props;
+const currentPage = parseInt(p);
+const pageItems = items.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+
+const MAX_DESKTOP = 20;
+const halfD = Math.floor(MAX_DESKTOP / 2);
+let winStartD = Math.max(1, currentPage - halfD);
+let winEndD = winStartD + MAX_DESKTOP - 1;
+if (winEndD > totalPages) { winEndD = totalPages; winStartD = Math.max(1, winEndD - MAX_DESKTOP + 1); }
+const pageWindowDesktop = Array.from({ length: winEndD - winStartD + 1 }, (_, i) => winStartD + i);
+const showLeftEllipsisD = pageWindowDesktop[0] > 1;
+const showRightEllipsisD = pageWindowDesktop[pageWindowDesktop.length - 1] < totalPages;
+
+const MAX_MOBILE = 5;
+const halfM = Math.floor(MAX_MOBILE / 2);
+let winStartM = Math.max(1, currentPage - halfM);
+let winEndM = winStartM + MAX_MOBILE - 1;
+if (winEndM > totalPages) { winEndM = totalPages; winStartM = Math.max(1, winEndM - MAX_MOBILE + 1); }
+const pageWindowMobile = Array.from({ length: winEndM - winStartM + 1 }, (_, i) => winStartM + i);
+const showLeftEllipsisM = pageWindowMobile[0] > 1;
+const showRightEllipsisM = pageWindowMobile[pageWindowMobile.length - 1] < totalPages;
+
+const today = new Date().toISOString().split('T')[0];
+const activeBanners = banners.filter(b =>
+  b.active &&
+  (!b.startDate || b.startDate <= today) &&
+  (!b.endDate || b.endDate >= today)
+);
+
+const canonical = currentPage === 1
+  ? `https://style.gherasimmarius.com/${subcategorie}`
+  : `https://style.gherasimmarius.com/${subcategorie}/${p}`;
+
+const pageTitle = currentPage > 1
+  ? `${subcat.metaTitle} — Pagina ${currentPage}`
+  : subcat.metaTitle;
+---
+
+<Layout title={pageTitle} description={subcat.metaDescription} canonical={canonical}>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": subcat.title,
+    "description": subcat.description,
+    "url": `https://style.gherasimmarius.com/${subcategorie}`,
+    "numberOfItems": items.length,
+  })} />
+
+  <div class="page-header">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Acasă</a>
+      <span>›</span>
+      {subcat.parentSlug && <a href={`/${subcat.parentSlug}/1`}>{subcat.parentSlug === 'femei' ? 'Femei' : 'Bărbați'}</a>}
+      {subcat.parentSlug && <span>›</span>}
+      <span>{subcat.label}</span>
+    </nav>
+    <h1>{subcat.title}</h1>
+    <p>{subcat.description}</p>
+  </div>
+
+  {activeBanners.map(b => (
+    <div class="promo-banner">
+      <div class="banner-text">
+        <h2>{b.title}</h2>
+        <p>{b.subtitle}</p>
+      </div>
+      <a href={b.url} class="banner-cta">{b.cta}</a>
+    </div>
+  ))}
+
+  <div class="filters-bar">
+    <span class="filter-count">{items.length} produse</span>
+  </div>
+
+  <div class="product-grid">
+    {pageItems.map(prod => <ProductCard product={prod} />)}
+  </div>
+
+  {totalPages > 1 && (
+    <nav class="pagination" aria-label="Paginare">
+      <div class="pagination-info">Pagina {currentPage} din {totalPages}</div>
+      <div class="pagination-controls">
+        {currentPage > 1 ? (
+          <a href={`/${subcategorie}/1`} class="page-link page-edge" title="Prima pagină">«</a>
+        ) : (
+          <span class="page-link page-edge disabled">«</span>
+        )}
+        {currentPage > 1 ? (
+          <a href={`/${subcategorie}/${currentPage - 1}`} class="page-link page-arrow">‹</a>
+        ) : (
+          <span class="page-link page-arrow disabled">‹</span>
+        )}
+        {showLeftEllipsisD && <span class="page-ellipsis hide-mobile">…</span>}
+        {pageWindowDesktop.map(n => (
+          <a href={`/${subcategorie}/${n}`} class={`page-link hide-mobile ${n === currentPage ? 'active' : ''}`}>{n}</a>
+        ))}
+        {showRightEllipsisD && <span class="page-ellipsis hide-mobile">…</span>}
+        {showLeftEllipsisM && <span class="page-ellipsis hide-desktop">…</span>}
+        {pageWindowMobile.map(n => (
+          <a href={`/${subcategorie}/${n}`} class={`page-link hide-desktop ${n === currentPage ? 'active' : ''}`}>{n}</a>
+        ))}
+        {showRightEllipsisM && <span class="page-ellipsis hide-desktop">…</span>}
+        {currentPage < totalPages ? (
+          <a href={`/${subcategorie}/${currentPage + 1}`} class="page-link page-arrow">›</a>
+        ) : (
+          <span class="page-link page-arrow disabled">›</span>
+        )}
+        {currentPage < totalPages ? (
+          <a href={`/${subcategorie}/${totalPages}`} class="page-link page-edge" title={`Ultima pagină (${totalPages})`}>»</a>
+        ) : (
+          <span class="page-link page-edge disabled">»</span>
+        )}
+      </div>
+    </nav>
+  )}
+
+</Layout>
