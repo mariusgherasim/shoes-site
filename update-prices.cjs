@@ -34,13 +34,13 @@ async function scrapePrice(url) {
 
     const parsePrice = str => {
       if (!str) return null;
-      // "599 Lei" sau "1.199 Lei" → 599 / 1199
       const num = str.replace(/\./g, '').replace(/[^\d,]/g, '').replace(',', '.');
       const val = parseFloat(num);
       return isNaN(val) ? null : val;
     };
 
-    const priceText = $('.p_price').first().text().trim();
+    const priceEls = $('.p_price');
+    const priceText = priceEls.last().text().trim();
     const oldPriceText = $('.p_old_price').first().text().trim();
 
     return {
