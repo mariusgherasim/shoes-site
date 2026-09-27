@@ -1,0 +1,12 @@
+---
+// src/pages/oferte/[brand]/index.astro
+// Redirect /oferte/benvenuti → /oferte/benvenuti/1
+export async function getStaticPaths() {
+  return [
+    { params: { brand: 'benvenuti' } },
+    { params: { brand: 'gryxx' } },
+  ];
+}
+const { brand } = Astro.params;
+return Astro.redirect(`/oferte/${brand}/1`, 301);
+---
