@@ -7,8 +7,8 @@ const {
 
 const pathname = Astro.url.pathname;
 
-const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
-const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
+const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','ghete-femei','botine-femei','cizme-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
+const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
 
 const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => pathname.startsWith(`/${s}`));
 const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
@@ -19,6 +19,9 @@ const subcatFemei = [
   { slug: 'pantofi-cu-toc-femei', label: 'Pantofi cu toc' },
   { slug: 'pantofi-sport-femei', label: 'Pantofi sport femei' },
   { slug: 'sandale-femei', label: 'Sandale femei' },
+  { slug: 'ghete-femei', label: 'Ghete femei' },
+  { slug: 'botine-femei', label: 'Botine femei' },
+  { slug: 'cizme-femei', label: 'Cizme femei' },
   { slug: 'balerini-femei', label: 'Balerini femei' },
   { slug: 'saboti-femei-crocs', label: 'Saboți femei CROCS' },
   { slug: 'saboti-femei', label: 'Saboți femei' },
@@ -33,6 +36,7 @@ const subcatBarbati = [
   { slug: 'pantofi-oxford-barbati', label: 'Pantofi oxford' },
   { slug: 'mocasini-barbati', label: 'Mocasini bărbați' },
   { slug: 'pantofi-sport-barbati', label: 'Pantofi sport bărbați' },
+  { slug: 'ghete-barbati', label: 'Ghete bărbați' },
   { slug: 'curea-barbati', label: 'Curea' },
   { slug: 'portmoneu-barbati', label: 'Portmoneu bărbați' },
   { slug: 'pantofi-barbati', label: 'Pantofi bărbați' },
@@ -88,7 +92,7 @@ const activeSubcats = isFemei ? subcatFemei : isBarbati ? subcatBarbati : null;
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="site-logo">
-        <img src="/logo-style.svg" alt="style. — Pantofi & Accesorii" height="40" />
+        <span class="logo-word">style</span><span class="logo-dot">.</span>
       </a>
 
       <nav class="main-nav" id="mainNav" aria-label="Navigare principală">
