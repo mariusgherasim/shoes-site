@@ -8,10 +8,12 @@ const {
 const pathname = Astro.url.pathname;
 
 const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','ghete-femei','botine-femei','cizme-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
-const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
+const subcatBijuteriiSlugs = ['cercei-argint','bratari-argint','lantisoare-argint','inele-argint'];
+  const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
 
 const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => pathname.startsWith(`/${s}`));
-const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
+const isBijuterii = pathname.startsWith('/bijuterii') || subcatBijuteriiSlugs.some(s => pathname.startsWith(`/${s}`));
+  const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
 
 const subcatFemei = [
   { slug: 'sneakers-femei', label: 'Sneakers femei' },
@@ -30,7 +32,13 @@ const subcatFemei = [
   { slug: 'pantofi-femei', label: 'Pantofi femei' },
 ];
 
-const subcatBarbati = [
+const subcatBijuterii = [
+    { slug: 'cercei-argint', label: 'Cercei argint' },
+    { slug: 'bratari-argint', label: 'Brățări argint' },
+    { slug: 'lantisoare-argint', label: 'Lănțișoare argint' },
+    { slug: 'inele-argint', label: 'Inele argint' },
+  ];
+  const subcatBarbati = [
   { slug: 'sneakers-barbati', label: 'Sneakers bărbați' },
   { slug: 'pantofi-derby-barbati', label: 'Pantofi derby' },
   { slug: 'pantofi-oxford-barbati', label: 'Pantofi oxford' },
@@ -43,7 +51,7 @@ const subcatBarbati = [
   { slug: 'geanta-crossbody', label: 'Geantă crossbody' },
 ];
 
-const activeSubcats = isFemei ? subcatFemei : isBarbati ? subcatBarbati : null;
+const activeSubcats = isFemei ? subcatFemei : isBijuterii ? subcatBijuterii : isBarbati ? subcatBarbati : null;
 ---
 <!DOCTYPE html>
 <html lang="ro">

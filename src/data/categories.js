@@ -25,6 +25,14 @@ export const MANUAL_CATEGORIES = [
     metaDescription: 'Încălțăminte pentru copii — modele confortabile și durabile din piele naturală și materiale premium.',
   },
   {
+    slug: 'bijuterii',
+    label: 'Bijuterii',
+    title: 'Bijuterii Argint',
+    description: 'Colecție de bijuterii din argint — cercei, brățări, lănțișoare, inele și pandantive.',
+    metaTitle: 'Bijuterii Argint | style.gherasimmarius.com',
+    metaDescription: 'Bijuterii din argint — cercei, brățări, lănțișoare, inele. Colecție Picadili la prețuri accesibile.',
+  },
+  {
     slug: 'noutati',
     label: 'Noutăți',
     title: 'Modele Noi',

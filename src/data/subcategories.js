@@ -236,6 +236,48 @@ export const SUBCATEGORIES = [
     rule: (p) => p.category.includes('barbati') && /pantof/i.test(p.title),
   },
 
+
+  // ===== BIJUTERII =====
+  {
+    slug: 'cercei-argint',
+    label: 'Cercei Argint',
+    title: 'Cercei din Argint',
+    description: 'Cercei din argint pentru femei — modele clasice, moderne și statement din argint 925.',
+    metaTitle: 'Cercei Argint | style.gherasimmarius.com',
+    metaDescription: 'Cercei din argint 925 — colecție variată de modele elegante și casual. Picadili.',
+    parentSlug: 'bijuterii',
+    rule: (p) => p.category?.includes('bijuterii') && /cercei/i.test(p.title),
+  },
+  {
+    slug: 'bratari-argint',
+    label: 'Brățări Argint',
+    title: 'Brățări din Argint',
+    description: 'Brățări din argint pentru femei — modele delicate, cu charmuri și brățări de gleznă.',
+    metaTitle: 'Brățări Argint | style.gherasimmarius.com',
+    metaDescription: 'Brățări din argint 925 — modele fine și elegante. Picadili.',
+    parentSlug: 'bijuterii',
+    rule: (p) => p.category?.includes('bijuterii') && /br[aă][tț]ar[aă]|bratara/i.test(p.title),
+  },
+  {
+    slug: 'lantisoare-argint',
+    label: 'Lănțișoare Argint',
+    title: 'Lănțișoare și Pandantive din Argint',
+    description: 'Lănțișoare și pandantive din argint pentru femei — coliere fine, cu pandantive și charmuri.',
+    metaTitle: 'Lănțișoare Argint | style.gherasimmarius.com',
+    metaDescription: 'Lănțișoare din argint 925 — modele delicate cu pandantive. Picadili.',
+    parentSlug: 'bijuterii',
+    rule: (p) => p.category?.includes('bijuterii') && /lan[tț]i[sș]oa|pandantiv|charm|talisman/i.test(p.title),
+  },
+  {
+    slug: 'inele-argint',
+    label: 'Inele Argint',
+    title: 'Inele din Argint',
+    description: 'Inele din argint pentru femei — modele simple, cu pietre și statement rings.',
+    metaTitle: 'Inele Argint | style.gherasimmarius.com',
+    metaDescription: 'Inele din argint 925 — modele clasice și moderne. Picadili.',
+    parentSlug: 'bijuterii',
+    rule: (p) => p.category?.includes('bijuterii') && /inel/i.test(p.title),
+  },
   // ===== MIXT =====
   {
     slug: 'geanta-crossbody',
