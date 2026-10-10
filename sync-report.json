@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-10-10T06:58:08.235Z",
+  "sources": {
+    "benvenuti.com": {
+      "updated": 1469,
+      "added": 8,
+      "deactivated": 343
+    },
+    "gryxx.ro": {
+      "updated": 812,
+      "added": 51,
+      "deactivated": 0
+    },
+    "otter.ro": {
+      "updated": 4474,
+      "added": 143,
+      "deactivated": 808
+    },
+    "picadili.ro": {
+      "updated": 1908,
+      "added": 4,
+      "deactivated": 130
+    }
+  },
+  "summary": {
+    "total": 10382,
+    "active": 9101,
+    "with_old_price": 4963,
+    "size_mb": 8.1
+  }
+}

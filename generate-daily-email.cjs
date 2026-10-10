@@ -1,5 +1,5 @@
 // generate-daily-email.cjs
-// Generează emailul zilnic cu top reduceri femei + bărbați (benvenuti + gryxx mixt)
+// Generează emailul zilnic cu top reduceri femei + bărbați (benvenuti + gryxx + otter mixt)
 // Rulare: node generate-daily-email.cjs
 // Output: daily-email-output.html
 
@@ -50,7 +50,7 @@ function seededShuffle(arr, seed) {
 const today = new Date().toISOString().slice(0, 10);
 
 // Pool: top 40 per categorie dupa scor, shuffle zilnic, primele TOP_N
-// MIXT benvenuti + gryxx — nu mai filtram dupa sursa
+// MIXT benvenuti + gryxx + otter — fara filtru pe sursa
 const femeiPool = active
   .filter((p) => Array.isArray(p.category) && p.category.includes("femei"))
   .sort((a, b) => b._score - a._score)
@@ -116,7 +116,7 @@ function truncate(s, n=55) {
 
 function productCard(p) {
   const hasOld = p.old_price && p.old_price > p.price;
-  const src = p.source_site === 'gryxx.ro' ? 'Gryxx' : 'Benvenuti';
+  const src = p.source_site === 'gryxx.ro' ? 'Gryxx' : p.source_site === 'otter.ro' ? 'Otter' : p.source_site === 'picadili.ro' ? 'Picadili' : 'Benvenuti';
   return `
   <td style="width:50%;padding:8px;vertical-align:top;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
