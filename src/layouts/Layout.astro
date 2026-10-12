@@ -9,7 +9,7 @@ const pathname = Astro.url.pathname;
 
 const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','ghete-femei','botine-femei','cizme-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
 const subcatBijuteriiSlugs = ['cercei-argint','bratari-argint','lantisoare-argint','inele-argint'];
-  const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody'];
+  const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody','tricouri-barbati','tricouri-polo-barbati','camasi-barbati','blugi-barbati','pantaloni-barbati','pantaloni-scurti-barbati','pulovere-barbati','hanorace-barbati','bluze-barbati','geci-barbati','paltoane-barbati','sacouri-barbati','veste-barbati','lenjerie-barbati','costume-baie-barbati','accesorii-haine-barbati'];
 
 const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => pathname.startsWith(`/${s}`));
 const isBijuterii = pathname.startsWith('/bijuterii') || subcatBijuteriiSlugs.some(s => pathname.startsWith(`/${s}`));
@@ -49,6 +49,23 @@ const subcatBijuterii = [
   { slug: 'portmoneu-barbati', label: 'Portmoneu bărbați' },
   { slug: 'pantofi-barbati', label: 'Pantofi bărbați' },
   { slug: 'geanta-crossbody', label: 'Geantă crossbody' },
+  // Haine (Menzo)
+  { slug: 'tricouri-barbati', label: 'Tricouri' },
+  { slug: 'tricouri-polo-barbati', label: 'Tricouri polo' },
+  { slug: 'camasi-barbati', label: 'Cămăși' },
+  { slug: 'blugi-barbati', label: 'Blugi' },
+  { slug: 'pantaloni-barbati', label: 'Pantaloni' },
+  { slug: 'pantaloni-scurti-barbati', label: 'Pantaloni scurți' },
+  { slug: 'pulovere-barbati', label: 'Pulovere' },
+  { slug: 'hanorace-barbati', label: 'Hanorace' },
+  { slug: 'bluze-barbati', label: 'Bluze' },
+  { slug: 'geci-barbati', label: 'Geci & jachete' },
+  { slug: 'paltoane-barbati', label: 'Paltoane' },
+  { slug: 'sacouri-barbati', label: 'Sacouri' },
+  { slug: 'veste-barbati', label: 'Veste' },
+  { slug: 'lenjerie-barbati', label: 'Lenjerie & șosete' },
+  { slug: 'costume-baie-barbati', label: 'Costume de baie' },
+  { slug: 'accesorii-haine-barbati', label: 'Căciuli & fulare' },
 ];
 
 const activeSubcats = isFemei ? subcatFemei : isBijuterii ? subcatBijuterii : isBarbati ? subcatBarbati : null;
