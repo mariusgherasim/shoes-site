@@ -1,7 +1,7 @@
 // Reguli de clasificare automată în subcategorii
 // Ordinea contează — primul match câștigă
 
-export const SUBCATEGORIES = [
+const RAW_SUBCATEGORIES = [
   // ===== FEMEI =====
   {
     slug: 'sneakers-femei',
@@ -236,6 +236,168 @@ export const SUBCATEGORIES = [
     rule: (p) => p.category.includes('barbati') && /pantof/i.test(p.title),
   },
 
+  // ===== BĂRBAȚI — HAINE (Menzo) =====
+  // Produsele menzo.ro primesc subcategoria direct din sync (p.subcategory)
+  {
+    slug: 'tricouri-barbati',
+    label: 'Tricouri Bărbați',
+    title: 'Tricouri Bărbați',
+    description: 'Tricouri pentru bărbați — Jack & Jones, s.Oliver, Q/S. Modele basic, cu imprimeu, cu mânecă lungă și scurtă.',
+    metaTitle: 'Tricouri Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Tricouri bărbați Jack & Jones, s.Oliver — bumbac, croieli Regular, Slim și Relaxed fit. Reduceri zilnice.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'tricouri-barbati',
+  },
+  {
+    slug: 'tricouri-polo-barbati',
+    label: 'Tricouri Polo Bărbați',
+    title: 'Tricouri Polo Bărbați',
+    description: 'Tricouri polo pentru bărbați din piqué de bumbac — Jack & Jones, s.Oliver.',
+    metaTitle: 'Tricouri Polo Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Tricouri polo bărbați — Jack & Jones, s.Oliver. Piqué de bumbac, modele clasice și moderne.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'tricouri-polo-barbati',
+  },
+  {
+    slug: 'camasi-barbati',
+    label: 'Cămăși Bărbați',
+    title: 'Cămăși Bărbați',
+    description: 'Cămăși pentru bărbați — elegante și casual, cu mânecă lungă sau scurtă, Slim și Regular fit.',
+    metaTitle: 'Cămăși Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Cămăși bărbați — s.Oliver, Jack & Jones. Modele elegante și casual, bumbac și in.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'camasi-barbati',
+  },
+  {
+    slug: 'blugi-barbati',
+    label: 'Blugi Bărbați',
+    title: 'Blugi Bărbați',
+    description: 'Blugi pentru bărbați — croieli Slim, Regular, Tapered și Relaxed fit de la Jack & Jones și s.Oliver.',
+    metaTitle: 'Blugi Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Blugi bărbați Jack & Jones și s.Oliver — Slim, Regular, Tapered fit. Prețuri reduse.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'blugi-barbati',
+  },
+  {
+    slug: 'pantaloni-barbati',
+    label: 'Pantaloni Bărbați',
+    title: 'Pantaloni Bărbați',
+    description: 'Pantaloni pentru bărbați — chino, de costum, casual și sport.',
+    metaTitle: 'Pantaloni Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Pantaloni bărbați — chino, de costum și casual. Jack & Jones, s.Oliver.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'pantaloni-barbati',
+  },
+  {
+    slug: 'pantaloni-scurti-barbati',
+    label: 'Pantaloni Scurți Bărbați',
+    title: 'Pantaloni Scurți Bărbați',
+    description: 'Pantaloni scurți pentru bărbați — chino, din blug și sport.',
+    metaTitle: 'Pantaloni Scurți Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Pantaloni scurți bărbați — Jack & Jones, s.Oliver. Modele din bumbac, blug și sport.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'pantaloni-scurti-barbati',
+  },
+  {
+    slug: 'pulovere-barbati',
+    label: 'Pulovere Bărbați',
+    title: 'Pulovere și Cardigane Bărbați',
+    description: 'Pulovere și cardigane pentru bărbați — bumbac, lână și tricot, pentru sezonul rece.',
+    metaTitle: 'Pulovere și Cardigane Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Pulovere și cardigane bărbați — Jack & Jones, s.Oliver. Bumbac, lână, merinos.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'pulovere-barbati',
+  },
+  {
+    slug: 'hanorace-barbati',
+    label: 'Hanorace Bărbați',
+    title: 'Hanorace Bărbați',
+    description: 'Hanorace pentru bărbați — cu și fără glugă, cu sau fără fermoar.',
+    metaTitle: 'Hanorace Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Hanorace bărbați Jack & Jones și s.Oliver — cu glugă, cu fermoar, molton.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'hanorace-barbati',
+  },
+  {
+    slug: 'bluze-barbati',
+    label: 'Bluze Bărbați',
+    title: 'Bluze Bărbați',
+    description: 'Bluze pentru bărbați — cu și fără fermoar, din bumbac și molton.',
+    metaTitle: 'Bluze Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Bluze bărbați — Jack & Jones, s.Oliver. Modele casual din bumbac.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'bluze-barbati',
+  },
+  {
+    slug: 'geci-barbati',
+    label: 'Geci Bărbați',
+    title: 'Geci și Jachete Bărbați',
+    description: 'Geci și jachete pentru bărbați — matlasate, puffer, aviator, de primăvară și de iarnă.',
+    metaTitle: 'Geci și Jachete Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Geci și jachete bărbați — Jack & Jones, s.Oliver. Matlasate, puffer, cu glugă.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'geci-barbati',
+  },
+  {
+    slug: 'paltoane-barbati',
+    label: 'Paltoane Bărbați',
+    title: 'Paltoane Bărbați',
+    description: 'Paltoane pentru bărbați din amestec de lână — eleganță pentru sezonul rece.',
+    metaTitle: 'Paltoane Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Paltoane bărbați din lână — Jack & Jones, s.Oliver. Modele clasice cu dublă închidere.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'paltoane-barbati',
+  },
+  {
+    slug: 'sacouri-barbati',
+    label: 'Sacouri Bărbați',
+    title: 'Sacouri Bărbați',
+    description: 'Sacouri pentru bărbați — Slim fit, de costum și casual.',
+    metaTitle: 'Sacouri Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Sacouri bărbați — s.Oliver, Jack & Jones. Modele elegante și casual.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'sacouri-barbati',
+  },
+  {
+    slug: 'veste-barbati',
+    label: 'Veste Bărbați',
+    title: 'Veste Bărbați',
+    description: 'Veste pentru bărbați — matlasate, ușoare, fără glugă.',
+    metaTitle: 'Veste Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Veste bărbați matlasate — s.Oliver, Jack & Jones.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'veste-barbati',
+  },
+  {
+    slug: 'lenjerie-barbati',
+    label: 'Lenjerie Bărbați',
+    title: 'Lenjerie, Șosete și Pijamale Bărbați',
+    description: 'Lenjerie intimă, boxeri, șosete și pijamale pentru bărbați.',
+    metaTitle: 'Lenjerie, Șosete și Pijamale Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Lenjerie și șosete bărbați — Jack & Jones, s.Oliver. Pachete boxeri și șosete.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'lenjerie-barbati',
+  },
+  {
+    slug: 'costume-baie-barbati',
+    label: 'Costume de Baie Bărbați',
+    title: 'Costume de Baie Bărbați',
+    description: 'Pantaloni scurți de baie pentru bărbați — s.Oliver, Norway.',
+    metaTitle: 'Costume de Baie Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Costume de baie bărbați — s.Oliver, Norway. Pantaloni scurți pentru înot.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'costume-baie-barbati',
+  },
+  {
+    slug: 'accesorii-haine-barbati',
+    label: 'Căciuli & Fulare',
+    title: 'Căciuli, Șepci și Fulare Bărbați',
+    description: 'Căciuli, șepci, fulare și mănuși pentru bărbați.',
+    metaTitle: 'Căciuli, Șepci și Fulare Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Căciuli, șepci și fulare bărbați — Jack & Jones, s.Oliver.',
+    parentSlug: 'barbati',
+    rule: (p) => p.subcategory === 'accesorii-haine-barbati',
+  },
 
   // ===== BIJUTERII =====
   {
@@ -290,3 +452,11 @@ export const SUBCATEGORIES = [
     rule: (p) => /crossbody|cross body|shoulder/i.test(p.title),
   },
 ];
+
+// Produsele menzo.ro (haine) au subcategoria setată de sync-from-feed.cjs.
+// Pentru ele folosim DOAR p.subcategory — altfel reguli ca /sport/ (pantofi sport)
+// ar prinde și „Pantaloni sport” etc. Celelalte surse rămân pe regulile de titlu.
+export const SUBCATEGORIES = RAW_SUBCATEGORIES.map((s) => ({
+  ...s,
+  rule: (p) => p.source_site === 'menzo.ro' ? p.subcategory === s.slug : s.rule(p),
+}));

@@ -1,6 +1,6 @@
 // sync-from-feed.cjs
 // ============================================================
-// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili
+// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo
 // Ruleaza prin: sync-from-feed.bat
 //
 // Ce face:
@@ -14,6 +14,8 @@
 //   Benvenuti: feed_benvenuti.xml  sau  feed_72d6dd7c5.xml
 //   Gryxx:     feed_gryxx.xml      sau  feed_82d2c2bf6.xml
 //   Otter:     feed_otter.xml      sau  feed_7a8d24d4f.xml
+//   Picadili:  feed_picadili.xml   sau  feed_f741a4c2e.xml
+//   Menzo:     feed_menzo.xml      sau  feed_382702c75.xml   (haine bărbați)
 // ============================================================
 
 const fs   = require('fs');
@@ -43,6 +45,11 @@ const FEED_CONFIG = {
     files: ['feed_picadili.xml', 'feed_f741a4c2e.xml', 'feed_f741a4c2e_1.xml'],
     idPrefix: 'picadili-',
     stripPrefix: 'picadili-',
+  },
+  'menzo.ro': {
+    files: ['feed_menzo.xml', 'feed_382702c75.xml', 'feed_382702c75_1.xml'],
+    idPrefix: 'menzo-',
+    stripPrefix: 'menzo-',
   },
 };
 
@@ -152,6 +159,89 @@ function getPicadiliCategory(catRaw) {
   return [...new Set(result)];
 }
 
+// ── Menzo (haine bărbați) ─────────────────────────────────────
+// Feed-ul are câte un rând pentru fiecare mărime ("... (SELECTATI MARIMEA: XL)").
+// Le grupăm după URL-ul produsului → un singur produs pe site.
+// ID stabil = numărul de la finalul URL-ului (/cumpara/<slug>-1225?v=...) → menzo-1225
+function menzoNorm(s) {
+  return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function menzoCleanTitle(t) {
+  return (t || '').replace(/\s*\(SELECTATI[\s\S]*$/i, '').trim();
+}
+
+function menzoGroupKey(url) {
+  const base = (url || '').split('?')[0];
+  const m = base.match(/-(\d+)$/);
+  return m ? m[1] : base;
+}
+
+function getMenzoCategory(title) {
+  const t = menzoNorm(title);
+  if (/\bbaieti\b/.test(t)) return ['copii'];
+  return ['barbati'];
+}
+
+// Ordinea contează — primul match câștigă. Testăm pe titlu (fără diacritice).
+const MENZO_SUBCAT_RULES = [
+  // Încălțăminte + accesorii → subcategorii existente
+  { slug: 'sneakers-barbati',         rx: /sneakers?|tenisi/ },
+  { slug: 'mocasini-barbati',         rx: /mocasin|loafer/ },
+  { slug: 'pantofi-barbati',          rx: /\bpantofi\b|\bslapi\b|flip-flop/ },
+  { slug: 'curea-barbati',            rx: /\bcure(a|le)\b/ },
+  { slug: 'portmoneu-barbati',        rx: /portofel|portmoneu/ },
+  // Haine — subcategorii noi
+  { slug: 'accesorii-haine-barbati',  rx: /\bsapc|\bcaciul|\bfular|esarf|\bmanusi/ },
+  { slug: 'costume-baie-barbati',     rx: /de baie|pentru inot|\bswim/ },
+  { slug: 'lenjerie-barbati',         rx: /boxeri|chilot|\bsosete|\bpijama|lenjerie|\bslip/ },
+  { slug: 'paltoane-barbati',         rx: /\bpalton|trench/ },
+  { slug: 'sacouri-barbati',          rx: /\bsacou|blazer/ },
+  { slug: 'veste-barbati',            rx: /\bvest[ae]\b/ },
+  { slug: 'geci-barbati',             rx: /\bgeac|\bgeci\b|\bjachet|parka|bomber/ },
+  { slug: 'hanorace-barbati',         rx: /hanorac/ },
+  { slug: 'pulovere-barbati',         rx: /pulover|cardigan/ },
+  { slug: 'bluze-barbati',            rx: /\bbluz/ },
+  { slug: 'camasi-barbati',           rx: /\bcamas/ },
+  { slug: 'tricouri-polo-barbati',    rx: /\bpolo\b/ },
+  { slug: 'tricouri-barbati',         rx: /\btricou|\bmaiou/ },
+  { slug: 'pantaloni-scurti-barbati', rx: /pantaloni scurti|bermud|\bshorts?\b/ },
+  { slug: 'blugi-barbati',            rx: /\bblugi\b|\bjeans?\b/ },
+  { slug: 'pantaloni-barbati',        rx: /pantalon/ },
+];
+
+// Fallback după categoria din feed, dacă titlul nu spune nimic
+const MENZO_CAT_FALLBACK = [
+  [/sneakers|pantofi sport|tenisi/, 'sneakers-barbati'],
+  [/^pantofi/, 'pantofi-barbati'],
+  [/curele/, 'curea-barbati'],
+  [/sepci|caciuli|fulare|esarfe/, 'accesorii-haine-barbati'],
+  [/costume de baie/, 'costume-baie-barbati'],
+  [/lenjerie|sosete|pijamale/, 'lenjerie-barbati'],
+  [/paltoane/, 'paltoane-barbati'],
+  [/sacouri/, 'sacouri-barbati'],
+  [/veste/, 'veste-barbati'],
+  [/geci|jachete/, 'geci-barbati'],
+  [/hanorace/, 'hanorace-barbati'],
+  [/pulovere|cardigane/, 'pulovere-barbati'],
+  [/bluze/, 'bluze-barbati'],
+  [/camasi/, 'camasi-barbati'],
+  [/polo/, 'tricouri-polo-barbati'],
+  [/tricouri/, 'tricouri-barbati'],
+  [/pantaloni scurti/, 'pantaloni-scurti-barbati'],
+  [/blugi/, 'blugi-barbati'],
+  [/pantaloni/, 'pantaloni-barbati'],
+];
+
+function getMenzoSubcat(title, catRaw, cats) {
+  if (!cats.includes('barbati')) return null;   // băieți → doar Copii
+  const t = menzoNorm(title);
+  for (const r of MENZO_SUBCAT_RULES) if (r.rx.test(t)) return r.slug;
+  const c = menzoNorm(catRaw);
+  for (const [rx, slug] of MENZO_CAT_FALLBACK) if (rx.test(c)) return slug;
+  return null;
+}
+
 // ── Utilitare ─────────────────────────────────────────────────
 function slugify(s) {
   return (s || '')
@@ -203,7 +293,7 @@ function makeSlug(title, pid, existingSlugs) {
 
 // ── Main ──────────────────────────────────────────────────────
 console.log('\n╔══════════════════════════════════════════════════╗');
-console.log('║  SYNC STYLE — Benvenuti + Gryxx → products.json  ║');
+console.log('║  SYNC STYLE — 5 feed-uri → products.json         ║');
 console.log('╚══════════════════════════════════════════════════╝\n');
 
 if (!fs.existsSync(PRODUCTS_PATH)) {
@@ -568,6 +658,112 @@ if (!picadiliFeedPath) {
 
   console.log(`  ✅ actualizate: ${pUpd} | ➕ adăugate: ${pAdded} | 🗑️  dezactivate: ${pDeact}`);
   report.sources['picadili.ro'] = { updated: pUpd, added: pAdded, deactivated: pDeact };
+}
+
+// ── PROCESARE MENZO ───────────────────────────────────────────
+const menzoFeedPath = findFeed(FEED_CONFIG['menzo.ro'].files);
+if (!menzoFeedPath) {
+  console.log('\n⚠️  Feed Menzo negăsit — sar peste.');
+} else {
+  console.log(`\n=== MENZO ===`);
+  console.log(`  Feed: ${path.basename(menzoFeedPath)}`);
+
+  const menzoRaw = parseItems(fs.readFileSync(menzoFeedPath, 'utf8'));
+
+  // Grupare variante (mărimi) → un produs. Păstrăm varianta activă cu prețul cel mai mic.
+  const groups = {};
+  for (const item of menzoRaw) {
+    if (getField(item, 'product_active') === 'false') continue;
+    const key = menzoGroupKey(getField(item, 'url'));
+    const price = parsePrice(getField(item, 'price')) || 0;
+    if (!groups[key] || price < groups[key].price) groups[key] = { item, price };
+  }
+  const menzoKeys = Object.keys(groups);
+  console.log(`  Feed: ${menzoRaw.length} rânduri (cu mărimi) → ${menzoKeys.length} produse unice active`);
+
+  const buildMenzo = (item) => {
+    const fp = parsePrice(getField(item, 'price')) || 0;
+    const fo = parsePrice(getField(item, 'old_price'));
+    const imgs = (getField(item, 'image_urls') || '').split(',');
+    const title = menzoCleanTitle(getField(item, 'title'));
+    const catRaw = getField(item, 'category') || '';
+    const cats = getMenzoCategory(title);
+    const specs = {};
+    const culoare = getField(item, 'custom_field4');
+    const material = getField(item, 'custom_field2');
+    if (culoare) specs.culoare = culoare;
+    if (material) specs.material = material;
+    return {
+      title, cats, specs,
+      subcat: getMenzoSubcat(title, catRaw, cats),
+      price: fp,
+      old_price: (fo && fo > fp) ? fo : null,
+      image_url: imgs[0] && imgs[0].trim() ? imgs[0].trim() : null,
+      official_url: (getField(item, 'url') || '').split('?')[0] || null,
+      affiliate_url: getField(item, 'aff_code'),
+      brand: getField(item, 'brand') || 'Menzo',
+    };
+  };
+
+  const menzoJsonKeys = new Set(
+    products.filter(p => p.source_site === 'menzo.ro').map(p => String(p.id).replace('menzo-', ''))
+  );
+
+  let mUpd = 0, mAdded = 0, mDeact = 0;
+
+  // Actualizează existente (prețuri, imagine, link, subcategorie)
+  for (const p of products) {
+    if (p.source_site !== 'menzo.ro') continue;
+    const key = String(p.id).replace('menzo-', '');
+    if (groups[key]) {
+      const d = buildMenzo(groups[key].item);
+      p.price = d.price;
+      p.old_price = d.old_price;
+      p.availability = true;
+      p.draft = false;
+      if (d.image_url) p.image_url = d.image_url;
+      if (d.affiliate_url) p.affiliate_url = d.affiliate_url;
+      if (d.official_url) p.official_url = d.official_url;
+      p.category = d.cats;
+      p.subcategory = d.subcat;
+      mUpd++;
+    } else if (!p.draft) {
+      p.availability = false;
+      p.draft = true;
+      mDeact++;
+    }
+  }
+
+  // Adaugă produse noi
+  for (const key of menzoKeys) {
+    if (menzoJsonKeys.has(key)) continue;
+    const d = buildMenzo(groups[key].item);
+    products.push({
+      id: `menzo-${key}`,
+      source_site: 'menzo.ro',
+      brand: d.brand,
+      title: d.title,
+      category: d.cats,
+      subcategory: d.subcat,
+      price: d.price,
+      old_price: d.old_price,
+      offer_end: null,
+      currency: 'RON',
+      availability: true,
+      draft: false,
+      recomandat: false,
+      featured: false,
+      image_url: d.image_url,
+      official_url: d.official_url,
+      affiliate_url: d.affiliate_url,
+      specs: d.specs,
+      slug: makeSlug(d.title, key, existingSlugs),
+    });
+    mAdded++;
+  }
+
+  console.log(`  ✅ actualizate: ${mUpd} | ➕ adăugate: ${mAdded} | 🗑️  dezactivate: ${mDeact}`);
+  report.sources['menzo.ro'] = { updated: mUpd, added: mAdded, deactivated: mDeact };
 }
 
 // ── SUMAR + SALVARE ───────────────────────────────────────────

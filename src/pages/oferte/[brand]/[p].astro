@@ -1,6 +1,6 @@
 ---
 // src/pages/oferte/[brand]/[p].astro
-// Pagini oferte per brand: /oferte/benvenuti/1, /oferte/gryxx/1 etc.
+// Pagini oferte per brand: /oferte/benvenuti/1, /oferte/gryxx/1, /oferte/otter/1, /oferte/picadili/1, /oferte/menzo/1
 import Layout from '../../../layouts/Layout.astro';
 import ProductCard from '../../../components/ProductCard.astro';
 import products from '../../../data/products.json';
@@ -24,15 +24,43 @@ const BRANDS = {
     metaTitle: 'Oferte Gryxx | style.gherasimmarius.com',
     metaDescription: 'Încălțăminte Gryxx cu reducere — cele mai mari discounturi zilnice.',
   },
+  otter: {
+    source: 'otter.ro',
+    label: 'Otter',
+    title: 'Oferte Otter — Încălțăminte și genți cu reducere',
+    description: 'Toate produsele Otter cu reducere activă, sortate după cel mai mare discount.',
+    metaTitle: 'Oferte Otter | style.gherasimmarius.com',
+    metaDescription: 'Încălțăminte, genți și accesorii Otter cu reducere — cele mai mari discounturi zilnice.',
+  },
+  picadili: {
+    source: 'picadili.ro',
+    label: 'Picadili',
+    title: 'Oferte Picadili — Bijuterii și accesorii cu reducere',
+    description: 'Toate produsele Picadili cu reducere activă, sortate după cel mai mare discount.',
+    metaTitle: 'Oferte Picadili | style.gherasimmarius.com',
+    metaDescription: 'Bijuterii din argint și accesorii Picadili cu reducere — cele mai mari discounturi zilnice.',
+  },
+  menzo: {
+    source: 'menzo.ro',
+    label: 'Menzo',
+    title: 'Oferte Menzo — Haine bărbați cu reducere',
+    description: 'Haine pentru bărbați Jack & Jones și s.Oliver cu reducere activă, sortate după cel mai mare discount.',
+    metaTitle: 'Oferte Menzo — Haine Bărbați | style.gherasimmarius.com',
+    metaDescription: 'Tricouri, blugi, geci și pulovere Jack & Jones, s.Oliver cu reducere — cele mai mari discounturi zilnice.',
+  },
 };
 
 export async function getStaticPaths() {
   const PER_PAGE = 24;
   const paths = [];
 
+  // Ține lista sincronizată cu BRANDS de mai sus și cu oferte/[brand]/index.astro
   const BRANDS_STATIC = {
     benvenuti: 'benvenuti.com',
     gryxx: 'gryxx.ro',
+    otter: 'otter.ro',
+    picadili: 'picadili.ro',
+    menzo: 'menzo.ro',
   };
 
   for (const [brandSlug, sourceSlug] of Object.entries(BRANDS_STATIC)) {
@@ -92,12 +120,11 @@ const canonical = currentPage === 1 ? canonicalBase : `${canonicalBase}${p}`;
     <p>{brandInfo.description}</p>
 
     <div class="brand-switcher">
-      <a href="/oferte/benvenuti/1" class={`brand-tab ${brandSlug === 'benvenuti' ? 'active' : ''}`}>
-        Benvenuti
-      </a>
-      <a href="/oferte/gryxx/1" class={`brand-tab ${brandSlug === 'gryxx' ? 'active' : ''}`}>
-        Gryxx
-      </a>
+      {Object.entries(BRANDS).map(([slug, b]) => (
+        <a href={`/oferte/${slug}/1`} class={`brand-tab ${brandSlug === slug ? 'active' : ''}`}>
+          {b.label}
+        </a>
+      ))}
       <a href="/oferte/1" class="brand-tab">Toate ofertele</a>
     </div>
   </div>
