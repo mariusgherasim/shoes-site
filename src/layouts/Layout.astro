@@ -1,400 +1,94 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Newsletter from '../components/Newsletter.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Stickere from '../components/Stickere.astro';
+import { SITE, GA_ID, TRUSTPILOT } from '../data/site.js';
+import '../styles/global.css';
+
 const {
-  title = 'style.gherasimmarius.com — Pantofi & Încălțăminte Premium',
-  description = 'Descoperă colecții de pantofi și încălțăminte premium pentru femei, bărbați și copii — Steve Madden, Guess, Tommy Hilfiger, Calvin Klein și multe altele.',
-  canonical = Astro.url.href,
+  title = `${SITE.nume} — ceasuri, ochelari, bijuterii, încălțăminte și genți cu reduceri`,
+  description = SITE.descriere,
+  canonical,
+  ogImage = '/og-image.png',
+  newsletter = true,
 } = Astro.props;
 
-const pathname = Astro.url.pathname;
-
-const subcatFemeiSlugs = ['sneakers-femei','stiletto-femei','pantofi-cu-toc-femei','pantofi-sport-femei','sandale-femei','ghete-femei','botine-femei','cizme-femei','balerini-femei','saboti-femei-crocs','saboti-femei','poseta','portmoneu-femei','pantofi-femei'];
-const subcatBijuteriiSlugs = ['cercei-argint','bratari-argint','lantisoare-argint','inele-argint'];
-  const subcatBarbatiSlugs = ['sneakers-barbati','pantofi-sport-barbati','ghete-barbati','pantofi-derby-barbati','pantofi-oxford-barbati','mocasini-barbati','portmoneu-barbati','curea-barbati','pantofi-barbati','geanta-crossbody','tricouri-barbati','tricouri-polo-barbati','camasi-barbati','blugi-barbati','pantaloni-barbati','pantaloni-scurti-barbati','pulovere-barbati','hanorace-barbati','bluze-barbati','geci-barbati','paltoane-barbati','sacouri-barbati','veste-barbati','lenjerie-barbati','costume-baie-barbati','accesorii-haine-barbati'];
-
-const isFemei = pathname.startsWith('/femei') || subcatFemeiSlugs.some(s => pathname.startsWith(`/${s}`));
-const isBijuterii = pathname.startsWith('/bijuterii') || subcatBijuteriiSlugs.some(s => pathname.startsWith(`/${s}`));
-  const isBarbati = pathname.startsWith('/barbati') || subcatBarbatiSlugs.some(s => pathname.startsWith(`/${s}`));
-
-const subcatFemei = [
-  { slug: 'sneakers-femei', label: 'Sneakers femei' },
-  { slug: 'stiletto-femei', label: 'Pantofi stiletto' },
-  { slug: 'pantofi-cu-toc-femei', label: 'Pantofi cu toc' },
-  { slug: 'pantofi-sport-femei', label: 'Pantofi sport femei' },
-  { slug: 'sandale-femei', label: 'Sandale femei' },
-  { slug: 'ghete-femei', label: 'Ghete femei' },
-  { slug: 'botine-femei', label: 'Botine femei' },
-  { slug: 'cizme-femei', label: 'Cizme femei' },
-  { slug: 'balerini-femei', label: 'Balerini femei' },
-  { slug: 'saboti-femei-crocs', label: 'Saboți femei CROCS' },
-  { slug: 'saboti-femei', label: 'Saboți femei' },
-  { slug: 'poseta', label: 'Poșetă' },
-  { slug: 'portmoneu-femei', label: 'Portmoneu femei' },
-  { slug: 'pantofi-femei', label: 'Pantofi femei' },
-];
-
-const subcatBijuterii = [
-    { slug: 'cercei-argint', label: 'Cercei argint' },
-    { slug: 'bratari-argint', label: 'Brățări argint' },
-    { slug: 'lantisoare-argint', label: 'Lănțișoare argint' },
-    { slug: 'inele-argint', label: 'Inele argint' },
-  ];
-  const subcatBarbati = [
-  { slug: 'sneakers-barbati', label: 'Sneakers bărbați' },
-  { slug: 'pantofi-derby-barbati', label: 'Pantofi derby' },
-  { slug: 'pantofi-oxford-barbati', label: 'Pantofi oxford' },
-  { slug: 'mocasini-barbati', label: 'Mocasini bărbați' },
-  { slug: 'pantofi-sport-barbati', label: 'Pantofi sport bărbați' },
-  { slug: 'ghete-barbati', label: 'Ghete bărbați' },
-  { slug: 'curea-barbati', label: 'Curea' },
-  { slug: 'portmoneu-barbati', label: 'Portmoneu bărbați' },
-  { slug: 'pantofi-barbati', label: 'Pantofi bărbați' },
-  { slug: 'geanta-crossbody', label: 'Geantă crossbody' },
-  // Haine (Menzo)
-  { slug: 'tricouri-barbati', label: 'Tricouri' },
-  { slug: 'tricouri-polo-barbati', label: 'Tricouri polo' },
-  { slug: 'camasi-barbati', label: 'Cămăși' },
-  { slug: 'blugi-barbati', label: 'Blugi' },
-  { slug: 'pantaloni-barbati', label: 'Pantaloni' },
-  { slug: 'pantaloni-scurti-barbati', label: 'Pantaloni scurți' },
-  { slug: 'pulovere-barbati', label: 'Pulovere' },
-  { slug: 'hanorace-barbati', label: 'Hanorace' },
-  { slug: 'bluze-barbati', label: 'Bluze' },
-  { slug: 'geci-barbati', label: 'Geci & jachete' },
-  { slug: 'paltoane-barbati', label: 'Paltoane' },
-  { slug: 'sacouri-barbati', label: 'Sacouri' },
-  { slug: 'veste-barbati', label: 'Veste' },
-  { slug: 'lenjerie-barbati', label: 'Lenjerie & șosete' },
-  { slug: 'costume-baie-barbati', label: 'Costume de baie' },
-  { slug: 'accesorii-haine-barbati', label: 'Căciuli & fulare' },
-];
-
-const activeSubcats = isFemei ? subcatFemei : isBijuterii ? subcatBijuterii : isBarbati ? subcatBarbati : null;
+const canonicalURL = canonical || new URL(Astro.url.pathname, SITE.domeniu).href;
+const ogImageURL = new URL(ogImage, SITE.domeniu).href;
 ---
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ro_RO" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="style.accessories" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HS59YL4Y3D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HS59YL4Y3D', { 'page_location': window.location.href });
-  </script>
-
-  <link rel="stylesheet" href="/styles/global.css" />
-</head>
-<body>
-
-  <!-- Cookie Consent Banner -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consimțământ cookie-uri">
-    <p>
-      Acest site folosește cookie-uri pentru analiză (Google Analytics).
-      <a href="/confidentialitate">Politica de confidențialitate</a>
-    </p>
-    <button id="cookieAccept" class="cookie-btn">Am înțeles</button>
-  </div>
-
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="/" class="site-logo">
-        <span class="logo-word">style</span><span class="logo-dot">.</span>
-      </a>
-
-      <nav class="main-nav" id="mainNav" aria-label="Navigare principală">
-        <a href="/femei" class={isFemei ? 'active' : ''}>Femei</a>
-        <a href="/barbati" class={isBarbati ? 'active' : ''}>Bărbați</a>
-        <a href="/copii">Copii</a>
-        <a href="/oferte">Oferte</a>
-        <a href="/noutati">Noutăți</a>
-        <a href="/bijuterii" class={isBijuterii ? 'active' : ''}>Bijuterii</a>
-      </nav>
-
-      <div class="header-actions">
-        <button class="search-toggle" id="searchToggle" aria-label="Caută produse">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-        </button>
-        <button class="burger-toggle" id="burgerToggle" aria-label="Meniu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Bara subcategorii cu sageti -->
-    {activeSubcats && (
-      <div class="subcat-bar" aria-label="Subcategorii">
-        <button class="subcat-arrow subcat-arrow--left" id="subcatLeft" aria-label="Scroll stânga">‹</button>
-        <div class="subcat-inner" id="subcatInner">
-          {activeSubcats.map(s => (
-            <a
-              href={`/${s.slug}/1`}
-              class={`subcat-link ${pathname.startsWith(`/${s.slug}`) ? 'active' : ''}`}
-            >{s.label}</a>
-          ))}
-        </div>
-        <button class="subcat-arrow subcat-arrow--right" id="subcatRight" aria-label="Scroll dreapta">›</button>
-      </div>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script is:inline define:vars={{ GA_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', GA_ID);
+    </script>
+    {TRUSTPILOT.businessUnitId && (
+      <script is:inline type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
     )}
-
-    <!-- Nav mobil -->
-    <div class="mobile-nav" id="mobileNav" hidden>
-      <a href="/femei">Femei</a>
-      <a href="/barbati">Bărbați</a>
-      <a href="/copii">Copii</a>
-      <a href="/oferte">Oferte</a>
-      <a href="/noutati">Noutăți</a>
-      <a href="/bijuterii">Bijuterii</a>
-    </div>
-
-    <!-- Search overlay -->
-    <div class="search-overlay" id="searchOverlay" hidden>
-      <div class="search-inner">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Caută brand, model, culoare..."
-          autocomplete="off"
-          aria-label="Caută produse"
-        />
-        <button class="search-close" id="searchClose" aria-label="Închide căutarea">✕</button>
-      </div>
-      <div class="search-results" id="searchResults"></div>
-    </div>
-  </header>
-
-  <main>
+    <slot name="head" />
+  </head>
+  <body>
+    <Header />
     <slot />
-  </main>
+    {newsletter && <Newsletter />}
+    <Footer />
+    <CookieBanner />
+    <Stickere />
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="/" class="site-logo">
-          <img src="/logo-style.svg" alt="style. — Pantofi & Accesorii" height="32" />
-        </a>
-        <p class="footer-tagline">Pantofi & accesorii premium</p>
-      </div>
-
-      <nav class="footer-nav" aria-label="Navigare footer">
-        <a href="/femei">Femei</a>
-        <a href="/barbati">Bărbați</a>
-        <a href="/copii">Copii</a>
-        <a href="/oferte">Oferte</a>
-        <a href="/bijuterii">Bijuterii</a>
-        <a href="/sub-300-lei">Sub 300 Lei</a>
-      </nav>
-
-      <div class="footer-legal">
-        <a href="/confidentialitate">Politică de confidențialitate</a>
-        <a href="/termeni">Termeni și condiții</a>
-      </div>
-
-      <p class="footer-disclaimer">
-        Site afiliat — când cumperi prin linkurile de pe acest site, primim un comision mic,
-        fără niciun cost suplimentar pentru tine.
-        Prețurile și disponibilitatea pot varia față de site-ul partenerului.
-      </p>
-    </div>
-  </footer>
-
-  <!-- Live Search Script -->
-  <script>
-    let allProducts = null;
-
-    const searchToggle = document.getElementById('searchToggle');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const searchClose = document.getElementById('searchClose');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-
-    function openSearch() {
-      searchOverlay.hidden = false;
-      searchInput.focus();
-      if (!allProducts) loadProducts();
-    }
-
-    function closeSearch() {
-      searchOverlay.hidden = true;
-      searchInput.value = '';
-      searchResults.innerHTML = '';
-    }
-
-    async function loadProducts() {
-      try {
-        const res = await fetch('/search-index.json');
-        allProducts = await res.json();
-      } catch(e) {
-        console.error('Nu s-a putut încărca indexul de căutare', e);
-      }
-    }
-
-    function normalize(str) {
-      return str.toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[șş]/g, 's').replace(/[țţ]/g, 't')
-        .replace(/[ăâ]/g, 'a').replace(/î/g, 'i');
-    }
-
-    let debounceTimer;
-    searchInput.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        const q = normalize(searchInput.value.trim());
-        if (q.length < 2) { searchResults.innerHTML = ''; return; }
-        if (!allProducts) { searchResults.innerHTML = '<p class="sr-msg">Se încarcă...</p>'; return; }
-
-        const hits = allProducts
-          .filter(p => normalize(p.title).includes(q) || normalize(p.brand).includes(q))
-          .slice(0, 200);
-
-        if (!hits.length) {
-          searchResults.innerHTML = '<p class="sr-msg">Niciun rezultat găsit.</p>';
-          return;
-        }
-
-        searchResults.innerHTML = hits.map(p => `
-          <a href="${p.affiliate_url}" target="_blank" rel="nofollow noopener" class="sr-item" onclick="gtag('event','style_search_click',{product_id:'${p.id}',product_title:'${p.title.replace(/'/g,"\\'")}',brand:'${p.brand}'})">
-            <img src="${p.image_url}" alt="${p.title}" loading="lazy" width="56" height="56" />
-            <div class="sr-info">
-              <span class="sr-brand">${p.brand}</span>
-              <span class="sr-title">${p.title}</span>
-              <span class="sr-price">${p.price.toFixed(2)} RON${p.old_price ? ` <s>${p.old_price.toFixed(2)} RON</s>` : ''}</span>
-            </div>
-          </a>
-        `).join('');
-      }, 250);
-    });
-
-    searchToggle.addEventListener('click', openSearch);
-    searchClose.addEventListener('click', closeSearch);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
-  </script>
-
-
-  <style>
-    .subcat-bar {
-      display: flex;
-      align-items: center;
-      position: relative;
-      background: var(--color-bg, #faf9f7);
-      border-bottom: 1px solid var(--color-border, #e8e0d5);
-      padding: 0;
-    }
-    .subcat-inner {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 10px 8px;
-      flex: 1;
-      min-width: 0;
-    }
-    .subcat-inner::-webkit-scrollbar { display: none; }
-    .subcat-arrow {
-      flex-shrink: 0;
-      width: 32px;
-      height: 100%;
-      min-height: 42px;
-      background: var(--color-bg, #faf9f7);
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: #555;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      transition: color 0.15s, background 0.15s;
-      padding: 0;
-    }
-    .subcat-arrow:hover { color: #1a1a1a; background: #f0ede8; }
-    .subcat-arrow--left { border-right: 1px solid var(--color-border, #e8e0d5); }
-    .subcat-arrow--right { border-left: 1px solid var(--color-border, #e8e0d5); }
-    .subcat-link {
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-  </style>
-  <!-- Burger Script -->
-  <script>
-    const burger = document.getElementById('burgerToggle');
-    const mobileNav = document.getElementById('mobileNav');
-    if (burger && mobileNav) {
-      burger.addEventListener('click', () => {
-        const isOpen = !mobileNav.hidden;
-        mobileNav.hidden = isOpen;
-        burger.setAttribute('aria-expanded', String(!isOpen));
-        burger.classList.toggle('open', !isOpen);
+    <script is:inline>
+      // affiliate_click — același eveniment ca pe celelalte site-uri (diferențiat după hostname)
+      document.addEventListener('click', function (e) {
+        var card = e.target.closest('.product-card, .sp-card, .affiliate-cta');
+        if (!card || typeof window.gtag !== 'function') return;
+        window.gtag('event', 'affiliate_click', {
+          item_id: card.dataset.productId,
+          item_name: card.dataset.title,
+          item_brand: card.dataset.brand,
+          value: parseFloat(card.dataset.price) || undefined,
+          currency: 'RON',
+        });
       });
-    }
-  </script>
-
-  <!-- Cookie Script -->
-  <script>
-    const banner = document.getElementById('cookieBanner');
-    const btn = document.getElementById('cookieAccept');
-    if (localStorage.getItem('cookie_ok')) {
-      banner.hidden = true;
-    }
-    btn.addEventListener('click', () => {
-      localStorage.setItem('cookie_ok', '1');
-      banner.hidden = true;
-    });
-  </script>
-
-
-  <!-- Subcat scroll arrows -->
-  <script>
-    (function() {
-      const inner = document.getElementById('subcatInner');
-      const btnL  = document.getElementById('subcatLeft');
-      const btnR  = document.getElementById('subcatRight');
-      if (!inner || !btnL || !btnR) return;
-
-      const STEP = 200;
-
-      function updateArrows() {
-        btnL.style.opacity = inner.scrollLeft > 4 ? '1' : '0.3';
-        btnR.style.opacity = inner.scrollLeft < inner.scrollWidth - inner.clientWidth - 4 ? '1' : '0.3';
-      }
-
-      btnL.addEventListener('click', () => { inner.scrollBy({ left: -STEP, behavior: 'smooth' }); });
-      btnR.addEventListener('click', () => { inner.scrollBy({ left:  STEP, behavior: 'smooth' }); });
-      inner.addEventListener('scroll', updateArrows, { passive: true });
-
-      // Scroll activ la link-ul activ
-      const active = inner.querySelector('.subcat-link.active');
-      if (active) {
-        setTimeout(() => {
-          active.scrollIntoView({ inline: 'nearest', block: 'nearest' });
-        }, 50);
-      }
-
-      updateArrows();
-    })();
-  </script>
-</body>
+      // Puls de atenție pe butoanele de categorie (ca la shop)
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var chips = document.querySelectorAll('.filter-chip');
+        if (!chips.length) return;
+        var last = -1;
+        setTimeout(function loop() {
+          var i; do { i = Math.floor(Math.random() * chips.length); } while (chips.length > 1 && i === last);
+          last = i; chips[i].classList.add('chip-pulse');
+          setTimeout(function () { chips[i].classList.remove('chip-pulse'); }, 1600);
+          setTimeout(loop, 4000 + Math.random() * 2000);
+        }, 2000);
+      })();
+    </script>
+  </body>
 </html>

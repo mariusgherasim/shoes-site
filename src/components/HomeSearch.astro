@@ -1,0 +1,96 @@
+---
+// Căutarea din prima pagină, în tot catalogul (ca la beauty).
+// Rezultatele apar grupate pe categorii în #hs-results.
+import '../styles/search-panel.css';
+import SearchPanel from './SearchPanel.astro';
+---
+<div class="cs-wrap hs-wrap">
+  <div class="category-search hs-box">
+    <input type="search" class="search-input" placeholder="Caută: Casio, sneakers, poșetă, Pandora…"
+      autocomplete="off" enterkeyhint="search" aria-haspopup="dialog" aria-expanded="false" />
+    <button type="button" class="search-icon" aria-label="Caută">🔍</button>
+    <p class="search-status"></p>
+  </div>
+  <SearchPanel titluStanga="Categorii" />
+</div>
+
+<script>
+  import { decode, norm } from '../scripts/compact.js';
+  import { renderCard, esc } from '../scripts/card.js';
+  import { initPanel } from '../scripts/panel.js';
+
+  const wrap = document.querySelector('.hs-wrap');
+  if (wrap) {
+    const input = wrap.querySelector('.search-input');
+    const status = wrap.querySelector('.search-status');
+    const resultsEl = document.getElementById('hs-results');
+    const panel = initPanel(wrap, input, '/search-panel/home.json', 'homepage');
+
+    let idx = null, loading = null;
+    const load = () => {
+      if (idx) return Promise.resolve(idx);
+      if (!loading) {
+        status.textContent = 'Se încarcă produsele…';
+        loading = fetch('/search-index.json').then((r) => r.json()).then((d) => { idx = { cats: d.c, lista: decode(d) }; status.textContent = ''; return idx; })
+          .catch(() => { status.textContent = 'Căutarea nu a putut fi încărcată.'; loading = null; return null; });
+      }
+      return loading;
+    };
+
+    async function cauta(query, scroll) {
+      const q = query.trim();
+      if (q.length < 2) { resultsEl.hidden = true; resultsEl.innerHTML = ''; status.textContent = q.length === 1 ? 'Scrie cel puțin 2 caractere.' : ''; return; }
+      const d = await load();
+      if (!d || input.value.trim() !== q) return;
+      const nq = norm(q), cuv = nq.split(' ').filter(Boolean);
+      const gasite = [];
+      for (const p of d.lista) {
+        if (!cuv.every((w) => p.n.includes(w))) continue;
+        let s = 0;
+        if (p.nt.includes(nq)) s += 3;
+        if (p.nb === nq || p.nb.startsWith(nq + ' ')) s += 2;
+        if (p.nt.startsWith(nq)) s += 1;
+        gasite.push([s, p]);
+      }
+      gasite.sort((a, b) => b[0] - a[0]);
+      const grup = d.cats.map(([slug, name]) => ({ slug, name, count: 0, afisate: [] }));
+      for (const [, p] of gasite) { const g = grup[p.c]; if (!g) continue; g.count++; if (g.afisate.length < 4) g.afisate.push(p); }
+      const cu = grup.filter((g) => g.count).sort((a, b) => b.count - a.count);
+      const link = (g) => `/${g.slug}/?q=${encodeURIComponent(q)}`;
+      resultsEl.hidden = false;
+      resultsEl.innerHTML = !gasite.length
+        ? `<div class="hs-res container"><p class="hs-sum">Niciun produs găsit pentru „${esc(q)}". Încearcă alt termen.</p></div>`
+        : `<div class="hs-res container">
+            <p class="hs-sum"><strong>${gasite.length.toLocaleString('ro-RO')}</strong> produse găsite pentru „${esc(q)}"</p>
+            <div class="hs-chips">${cu.map((g) => `<a class="pill" href="${link(g)}">${esc(g.name)} <small>${g.count}</small></a>`).join('')}</div>
+            ${cu.slice(0, 6).map((g) => `<div class="hs-group"><div class="section-head"><h2>${esc(g.name)} <small>(${g.count})</small></h2><a class="eyebrow" href="${link(g)}">Vezi toate →</a></div>
+              <div class="product-grid">${g.afisate.map(renderCard).join('')}</div></div>`).join('')}
+          </div>`;
+      if (scroll) resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (typeof gtag === 'function') gtag('event', 'search', { search_term: q });
+    }
+
+    let t;
+    input.addEventListener('input', () => {
+      const v = input.value;
+      clearTimeout(t);
+      if (v.trim() === '') { cauta(''); panel.deschide(); return; }
+      panel.inchide(); load();
+      t = setTimeout(() => cauta(v), 250);
+    });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); clearTimeout(t); cauta(input.value, true); input.blur(); } });
+    wrap.querySelector('.search-icon').addEventListener('click', () => { if (input.value.trim()) cauta(input.value, true); else { input.focus(); panel.deschide(); } });
+    const qInit = new URLSearchParams(location.search).get('q');
+    if (qInit) { input.value = qInit; cauta(qInit, true); }
+  }
+</script>
+
+<style is:global>
+  #hs-results { background: #fff; border-bottom: 1px solid var(--color-steel-light); }
+  #hs-results[hidden] { display: none; }
+  .hs-res { padding-top: 1.5rem; padding-bottom: 2rem; }
+  .hs-sum { margin: 0 0 0.75rem; color: #3b4150; }
+  .hs-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .hs-group { margin-top: 1.5rem; }
+  .hs-group h2 small { font-family: var(--font-mono); font-size: .8rem; color: var(--color-steel); font-weight: 400; }
+</style>

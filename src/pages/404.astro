@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { categorii } from '../data/categorii.js';
+---
+<Layout title="Pagina nu există | style.accessories">
+  <main class="container page" style="min-height: 40vh;">
+    <h1>Pagina nu mai există</h1>
+    <p class="intro">Produsul sau pagina căutată a fost mutată sau nu mai e disponibilă. Încearcă una dintre categorii sau <a href="/oferte/" style="text-decoration:underline;">ofertele zilei</a>.</p>
+    <div class="pills">{categorii.map((c) => <a class="pill" href={`/${c.slug}/`}>{c.name}</a>)}</div>
+  </main>
+</Layout>

@@ -1,0 +1,97 @@
+---
+// Corpul comun al paginilor de listă: categorie, tip, brand, colecție.
+import ProductCard from './ProductCard.astro';
+import CategorySearch from './CategorySearch.astro';
+import Banner from './Banner.astro';
+import { categorii, colectii } from '../data/categorii.js';
+import { tipuriCategorie, brandsCategorie } from '../data/catalog.mjs';
+
+const {
+  page,              // obiectul de paginare Astro
+  titlu,             // H1
+  intro = '',        // text de prezentare (doar pe pagina 1)
+  firimituri = [],   // [[eticheta, link], ...] după „Acasă"
+  categorie = null,  // slug-ul categoriei (pentru tipuri, branduri, căutare)
+  tipActiv = null,
+  brandActiv = null,
+  colectie = null,   // slug-ul colecției (pentru rândul de colecții)
+} = Astro.props;
+
+const cat = categorie ? categorii.find((c) => c.slug === categorie) : null;
+const tipuri = categorie ? tipuriCategorie(categorie) : [];
+const branduri = categorie ? brandsCategorie(categorie) : [];
+
+// Numerele de pagină afișate: prima, ultima și câteva în jurul paginii curente
+const cur = page.currentPage, last = page.lastPage;
+const nums = [...new Set([1, cur - 2, cur - 1, cur, cur + 1, cur + 2, last])].filter((n) => n >= 1 && n <= last).sort((a, b) => a - b);
+const base = page.url.current.replace(/\/\d+\/?$/, '/').replace(/\/?$/, '/');
+const href = (n) => (n === 1 ? base : `${base}${n}/`);
+---
+<main class="container page">
+  <nav class="breadcrumbs" aria-label="breadcrumb">
+    <a href="/">Acasă</a>
+    {firimituri.map(([l, h]) => <> / {h ? <a href={h}>{l}</a> : <span>{l}</span>}</>)}
+  </nav>
+
+  <h1>{titlu}</h1>
+  {cur === 1 && intro && <p class="intro">{intro}</p>}
+
+  {categorie ? (
+    <>
+      <div class="nav-row">
+        <span class="nav-label">Categorii</span>
+        <div class="pills">
+          {categorii.map((c) => <a href={`/${c.slug}/`} class={`pill ${c.slug === categorie ? 'active' : ''}`}>{c.name}</a>)}
+        </div>
+      </div>
+      {tipuri.length > 0 && (
+        <div class="nav-row">
+          <span class="nav-label">Tipuri</span>
+          <div class="pills">
+            {tipuri.map((t) => <a href={`/${categorie}/tip/${t.slug}/`} class={`pill tip ${t.slug === tipActiv ? 'active' : ''}`}>{t.name} <small>{t.count}</small></a>)}
+          </div>
+        </div>
+      )}
+      {branduri.length > 0 && (
+        <div class="nav-row">
+          <span class="nav-label">Branduri</span>
+          <div class="pills">
+            {branduri.map((b) => <a href={`/${categorie}/brand/${b.slug}/`} class={`pill brand ${b.slug === brandActiv ? 'active' : ''}`}>{b.name}</a>)}
+          </div>
+        </div>
+      )}
+      <CategorySearch categorySlug={categorie} categoryName={cat.name} />
+    </>
+  ) : (
+    <div class="nav-row">
+      <span class="nav-label">Colecții</span>
+      <div class="pills">
+        <a href="/oferte/" class="pill">Toate ofertele</a>
+        {colectii.map((c) => <a href={`/${c.slug}/`} class={`pill ${c.slug === colectie ? 'active' : ''}`}>{c.name}</a>)}
+      </div>
+    </div>
+  )}
+
+  <Banner variant="hero" categorie={categorie || colectie || 'homepage'} />
+
+  <p class="results-count">{page.total.toLocaleString('ro-RO')} produse — pagina {cur} din {last}</p>
+
+  <div class="product-grid paginated">
+    {page.data.map((p) => <ProductCard product={p} />)}
+  </div>
+
+  {last > 1 && (
+    <nav class="pagination" aria-label="paginare">
+      {page.url.prev ? <a class="pagination-link" href={page.url.prev}>← Înapoi</a> : <span class="pagination-link pagination-disabled">← Înapoi</span>}
+      {nums.map((n, i) => (
+        <>
+          {i > 0 && n - nums[i - 1] > 1 && <span class="pagination-current">…</span>}
+          {n === cur ? <span class="pagination-current" aria-current="page"><b>{n}</b></span> : <a class="pagination-link" href={href(n)}>{n}</a>}
+        </>
+      ))}
+      {page.url.next ? <a class="pagination-link" href={page.url.next}>Înainte →</a> : <span class="pagination-link pagination-disabled">Înainte →</span>}
+    </nav>
+  )}
+
+  <Banner variant="rectangle" categorie={categorie || colectie || 'homepage'} />
+</main>

@@ -1,0 +1,25 @@
+---
+// Fereastra de sugestii (6 tipuri/categorii + 6 branduri, 8 produse la hover/atingere).
+// Folosită de CategorySearch și HomeSearch.
+const { titluStanga = 'Tipuri populare', eticheta = 'Sugestii de căutare' } = Astro.props;
+---
+<div class="sp-panel" hidden role="dialog" aria-label={eticheta}>
+  <div class="sp-side">
+    <div class="sp-block">
+      <p class="sp-heading">{titluStanga}</p>
+      <div class="sp-tipuri"></div>
+    </div>
+    <div class="sp-block">
+      <p class="sp-heading">Branduri populare</p>
+      <div class="sp-branduri"></div>
+    </div>
+  </div>
+  <div class="sp-main">
+    <div class="sp-main-head">
+      <p class="sp-heading sp-titlu">Produse populare</p>
+      <a class="sp-vezi" href="#">Vezi toate →</a>
+      <button type="button" class="sp-close" aria-label="Închide">✕</button>
+    </div>
+    <div class="sp-produse"></div>
+  </div>
+</div>

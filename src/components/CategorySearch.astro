@@ -1,0 +1,77 @@
+---
+// Căutarea din pagina de categorie + fereastra de sugestii (ca la beauty).
+import '../styles/search-panel.css';
+import SearchPanel from './SearchPanel.astro';
+const { categorySlug, categoryName } = Astro.props;
+---
+<div class="cs-wrap" data-category={categorySlug}>
+  <div class="category-search">
+    <input type="text" class="search-input" placeholder={`Caută în ${categoryName} (brand sau model)…`}
+      autocomplete="off" aria-haspopup="dialog" aria-expanded="false" />
+    <button type="button" class="search-icon" aria-label="Deschide sugestiile de căutare">🔍</button>
+    <p class="search-status"></p>
+  </div>
+  <SearchPanel eticheta={`Sugestii în ${categoryName}`} />
+</div>
+<div class="search-results product-grid" hidden></div>
+
+<script>
+  import { decode, norm } from '../scripts/compact.js';
+  import { renderCard, esc } from '../scripts/card.js';
+  import { initPanel } from '../scripts/panel.js';
+
+  document.querySelectorAll('.cs-wrap').forEach((wrap) => {
+    const slug = wrap.dataset.category;
+    const input = wrap.querySelector('.search-input');
+    const lupa = wrap.querySelector('.search-icon');
+    const status = wrap.querySelector('.search-status');
+    const resultsEl = wrap.parentElement.querySelector('.search-results');
+    const normalView = document.querySelectorAll('.results-count, .product-grid.paginated, .pagination');
+    const panel = initPanel(wrap, input, `/search-panel/${slug}.json`, slug);
+    lupa.addEventListener('click', () => { input.focus(); panel.deschide(); });
+
+    let all = null, loading = null;
+    const load = () => {
+      if (all) return Promise.resolve(all);
+      if (!loading) {
+        status.textContent = 'Se încarcă produsele…';
+        loading = fetch(`/cauta/${slug}.json`).then((r) => r.json()).then((d) => { all = decode(d); status.textContent = ''; return all; })
+          .catch(() => { status.textContent = 'Căutarea nu a putut fi încărcată.'; loading = null; return []; });
+      }
+      return loading;
+    };
+
+    let t;
+    async function cauta(q) {
+      q = q.trim();
+      if (!q) {
+        resultsEl.hidden = true;
+        normalView.forEach((el) => (el.style.display = ''));
+        status.textContent = '';
+        return;
+      }
+      const lista = await load();
+      if (input.value.trim() !== q) return;
+      const cuv = norm(q).split(' ').filter(Boolean);
+      const gasite = lista.filter((p) => cuv.every((w) => p.n.includes(w)));
+      normalView.forEach((el) => (el.style.display = 'none'));
+      resultsEl.hidden = false;
+      status.textContent = `${gasite.length.toLocaleString('ro-RO')} produse găsite pentru „${q}"` + (gasite.length > 200 ? ' (primele 200)' : '');
+      resultsEl.innerHTML = gasite.length
+        ? gasite.slice(0, 200).map(renderCard).join('')
+        : `<div class="search-empty">Niciun produs găsit pentru „${esc(q)}". Încearcă alt termen.</div>`;
+    }
+
+    input.addEventListener('input', () => {
+      const v = input.value;
+      clearTimeout(t);
+      if (v.trim() === '') { cauta(''); panel.deschide(); return; }
+      panel.inchide();
+      load();
+      t = setTimeout(() => cauta(v), 250);
+    });
+
+    const qInit = new URLSearchParams(location.search).get('q');
+    if (qInit) { input.value = qInit; cauta(qInit); }
+  });
+</script>

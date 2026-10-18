@@ -1,0 +1,25 @@
+---
+// Pagini de brand în categorie: /ceasuri/brand/casio/
+import Layout from '../../../../layouts/Layout.astro';
+import Listing from '../../../../components/Listing.astro';
+import { categorii } from '../../../../data/categorii.js';
+import { produseBrand, brandsCategorie, cuNumar } from '../../../../data/catalog.mjs';
+import { SITE, PE_PAGINA } from '../../../../data/site.js';
+
+export function getStaticPaths({ paginate }) {
+  return categorii.flatMap((c) =>
+    brandsCategorie(c.slug).flatMap((b) =>
+      paginate(produseBrand(c.slug, b.slug), { params: { slug: c.slug, brand: b.slug }, props: { cat: c, b }, pageSize: PE_PAGINA })
+    )
+  );
+}
+
+const { page, cat, b } = Astro.props;
+const n = page.total;
+const pag = page.currentPage > 1 ? ` — pagina ${page.currentPage}` : '';
+const canonical = `${SITE.domeniu}/${cat.slug}/brand/${b.slug}/${page.currentPage > 1 ? page.currentPage + '/' : ''}`;
+const intro = cuNumar(`${b.name} în ${cat.name}: {N} de produse, cu prețul actual și reducerea fiecăruia. Compari dintr-o privire, apoi cumperi direct de pe site-ul magazinului.`, n);
+---
+<Layout title={`${b.name} — ${cat.name}${pag} | style.accessories`} description={`${n} produse ${b.name} din ${cat.name}, cu prețuri și reduceri actualizate.`} canonical={canonical}>
+  <Listing page={page} titlu={`${b.name} — ${cat.name}`} intro={intro} firimituri={[[cat.name, `/${cat.slug}/`], [b.name, null]]} categorie={cat.slug} brandActiv={b.slug} />
+</Layout>

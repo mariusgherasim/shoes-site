@@ -1,0 +1,30 @@
+---
+// Pagini de categorie (/ceasuri/, /ceasuri/2/ …) și de colecție (/cadouri-pentru-ea/ …)
+import Layout from '../../layouts/Layout.astro';
+import Listing from '../../components/Listing.astro';
+import { categorii, colectii } from '../../data/categorii.js';
+import { produseCategorie, produseColectie, cuNumar } from '../../data/catalog.mjs';
+import { SITE, PE_PAGINA } from '../../data/site.js';
+
+export function getStaticPaths({ paginate }) {
+  return [
+    ...categorii.flatMap((c) => paginate(produseCategorie(c.slug), { params: { slug: c.slug }, props: { info: c, tip: 'categorie' }, pageSize: PE_PAGINA })),
+    ...colectii.flatMap((c) => paginate(produseColectie(c.slug), { params: { slug: c.slug }, props: { info: c, tip: 'colectie' }, pageSize: PE_PAGINA })),
+  ];
+}
+
+const { page, info, tip } = Astro.props;
+const n = page.total;
+const pag = page.currentPage > 1 ? ` — pagina ${page.currentPage}` : '';
+const canonical = `${SITE.domeniu}/${info.slug}/${page.currentPage > 1 ? page.currentPage + '/' : ''}`;
+---
+<Layout title={`${info.seoTitle}${pag} | style.accessories`} description={cuNumar(info.metaDescription, n)} canonical={canonical}>
+  <Listing
+    page={page}
+    titlu={info.name}
+    intro={cuNumar(info.intro, n)}
+    firimituri={[[info.name, null]]}
+    categorie={tip === 'categorie' ? info.slug : null}
+    colectie={tip === 'colectie' ? info.slug : null}
+  />
+</Layout>

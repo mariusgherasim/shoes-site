@@ -1,0 +1,135 @@
+---
+// /oferte/ — toate produsele cu reducere, cu filtre live (ca la shop):
+// căutare, categorie, brand, reducere minimă, interval de preț.
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Banner from '../../components/Banner.astro';
+import { categoriiCuOferte, oferte } from '../../data/catalog.mjs';
+import { colectii } from '../../data/categorii.js';
+
+const PRICE_RANGES = [
+  ['Orice preț', 0, 1e9], ['0 - 150 lei', 0, 150], ['151 - 300 lei', 150.01, 300], ['301 - 500 lei', 300.01, 500],
+  ['501 - 1000 lei', 500.01, 1000], ['1001 - 2000 lei', 1000.01, 2000], ['Peste 2000 lei', 2000.01, 1e9],
+];
+const cats = categoriiCuOferte();
+const fmt = (n) => n.toLocaleString('ro-RO');
+---
+<Layout title={`Oferte și reduceri — ${fmt(oferte.length)} produse | style.accessories`}
+  description={`${fmt(oferte.length)} de produse cu reducere: ceasuri, ochelari, bijuterii, încălțăminte, haine și genți. Filtrezi după categorie, brand, reducere și preț.`}>
+  <main class="container page">
+    <nav class="breadcrumbs"><a href="/">Acasă</a> / <span>Oferte</span></nav>
+    <h1>🔥 Oferte active</h1>
+    <p class="intro">Câte dintre „reducerile" pe care le vezi zilnic sunt reale? Aici sunt doar produsele cu preț vechi mai mare decât cel actual — {fmt(oferte.length)} de oferte, sortate după cea mai mare reducere. Alege categoria, brandul sau bugetul.</p>
+
+    <div class="nav-row">
+      <span class="nav-label">Colecții</span>
+      <div class="pills">{colectii.map((c) => <a href={`/${c.slug}/`} class="pill">{c.name}</a>)}</div>
+    </div>
+
+    <div class="offers-filters">
+      <div class="filter-search"><input type="search" id="f-search" placeholder="Caută după model sau brand…" autocomplete="off" /></div>
+      <div class="filter-chips" id="f-cat">
+        <button class="filter-chip active" data-c="all">Toate</button>
+        {cats.map((c) => <button class="filter-chip" data-c={c.slug}>{c.name}</button>)}
+      </div>
+      <div class="filter-row">
+        <select id="f-brand" aria-label="Brand"><option value="all">Toate brandurile</option></select>
+        <select id="f-disc" aria-label="Reducere minimă">
+          <option value="0">Orice reducere</option><option value="10">10%+ reducere</option>
+          <option value="30">30%+ (Hot Deals)</option><option value="50">50%+ reducere</option>
+        </select>
+        <select id="f-price" aria-label="Preț">{PRICE_RANGES.map((r, i) => <option value={i}>{r[0]}</option>)}</select>
+        <select id="f-sort" aria-label="Sortare">
+          <option value="scor">Recomandate</option><option value="pct">Cea mai mare reducere (%)</option><option value="sum">Cea mai mare economie (lei)</option>
+          <option value="asc">Preț crescător</option><option value="desc">Preț descrescător</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="offers-count" id="f-count">{fmt(oferte.length)} rezultate</div>
+    <div class="product-grid" id="f-grid">{oferte.slice(0, 48).map((p) => <ProductCard product={p} />)}</div>
+    <p class="offers-empty" id="f-empty" hidden>Niciun produs nu corespunde filtrelor — încearcă să lărgești selecția.</p>
+    <div style="text-align:center;margin-top:1.5rem;"><button type="button" class="pagination-link" id="f-more" hidden>Arată mai multe oferte</button></div>
+
+    <Banner variant="hero" categorie="oferte" />
+  </main>
+</Layout>
+
+<style>
+  .offers-filters { background: var(--color-surface); border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1rem; margin: 1.25rem 0; }
+  .filter-search input { width: 100%; padding: 0.65rem 0.8rem; border: 1px solid var(--color-steel-light); border-radius: var(--radius); font: inherit; margin-bottom: 0.75rem; }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.75rem; }
+  .filter-chips .filter-chip { cursor: pointer; font-family: var(--font-mono); }
+  .filter-chips .filter-chip.active { background: var(--color-navy); border-color: var(--color-navy); color: #fff; }
+  .filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.6rem; }
+  .filter-row select { padding: 0.55rem; border: 1px solid var(--color-steel-light); border-radius: var(--radius); font: inherit; font-size: 0.85rem; background: #fff; }
+  .offers-count { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--color-steel); margin-bottom: 0.75rem; }
+  .offers-empty { color: var(--color-steel); padding: 2rem 0; text-align: center; }
+  #f-more { cursor: pointer; }
+</style>
+
+<script define:vars={{ PRICE_RANGES }}>
+  window.__PRICE_RANGES = PRICE_RANGES;
+</script>
+<script>
+  import { decode, norm } from '../../scripts/compact.js';
+  import { renderCard } from '../../scripts/card.js';
+
+  const PAS = 48;
+  const $ = (id) => document.getElementById(id);
+  const st = { q: '', c: 'all', b: 'all', d: 0, pr: 0, sort: 'scor' };
+  const scor = (p) => (p.pct > 85 ? 0.001 : 0.6 * (p.pct / 100) + 0.4 * Math.min(p.op - p.pr, 1500) / 1500);
+  let toate = [], rez = [], aratate = 0;
+
+  function aplica() {
+    const [, min, max] = window.__PRICE_RANGES[st.pr];
+    const cuv = norm(st.q).split(' ').filter(Boolean);
+    rez = toate.filter((p) =>
+      (st.c === 'all' || p.cat === st.c) &&
+      (st.b === 'all' || p.b === st.b) &&
+      (p.pct || 0) >= st.d &&
+      p.pr >= min && p.pr <= max &&
+      cuv.every((w) => p.n.includes(w)));
+    const s = { scor: (a, b) => scor(b) - scor(a), pct: (a, b) => b.pct - a.pct, sum: (a, b) => (b.op - b.pr) - (a.op - a.pr), asc: (a, b) => a.pr - b.pr, desc: (a, b) => b.pr - a.pr }[st.sort];
+    rez.sort(s);
+    aratate = 0;
+    $('f-grid').innerHTML = '';
+    $('f-count').textContent = `${rez.length.toLocaleString('ro-RO')} rezultate`;
+    $('f-empty').hidden = rez.length > 0;
+    maiMulte();
+  }
+  function maiMulte() {
+    const bucata = rez.slice(aratate, aratate + PAS);
+    $('f-grid').insertAdjacentHTML('beforeend', bucata.map(renderCard).join(''));
+    aratate += bucata.length;
+    $('f-more').hidden = aratate >= rez.length;
+  }
+  function branduri() {
+    const nr = new Map();
+    toate.filter((p) => st.c === 'all' || p.cat === st.c).forEach((p) => p.b && nr.set(p.b, (nr.get(p.b) || 0) + 1));
+    const sel = $('f-brand');
+    const lista = [...nr.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ro'));
+    sel.innerHTML = '<option value="all">Toate brandurile</option>' + lista.map(([b, n]) => `<option value="${b.replace(/"/g, '&quot;')}">${b} (${n})</option>`).join('');
+    if (!nr.has(st.b)) st.b = 'all';
+    sel.value = st.b;
+  }
+
+  fetch('/offers-index.json').then((r) => r.json()).then((d) => {
+    toate = decode(d);
+    branduri();
+    let t;
+    $('f-search').addEventListener('input', (e) => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value; aplica(); }, 200); });
+    document.querySelectorAll('#f-cat .filter-chip').forEach((ch) => ch.addEventListener('click', () => {
+      document.querySelectorAll('#f-cat .filter-chip').forEach((c) => c.classList.remove('active'));
+      ch.classList.add('active'); st.c = ch.dataset.c; branduri(); aplica();
+    }));
+    $('f-brand').addEventListener('change', (e) => { st.b = e.target.value; aplica(); });
+    $('f-disc').addEventListener('change', (e) => { st.d = Number(e.target.value); aplica(); });
+    $('f-price').addEventListener('change', (e) => { st.pr = Number(e.target.value); aplica(); });
+    $('f-sort').addEventListener('change', (e) => { st.sort = e.target.value; aplica(); });
+    $('f-more').addEventListener('click', maiMulte);
+    const c = new URLSearchParams(location.search).get('categorie');
+    const chip = c && document.querySelector(`#f-cat [data-c="${c}"]`);
+    if (chip) chip.click(); else aplica();
+  });
+</script>

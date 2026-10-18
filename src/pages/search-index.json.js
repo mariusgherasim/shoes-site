@@ -1,19 +1,4 @@
-import products from '../data/products.json';
-
-export async function GET() {
-  const index = products
-    .filter(p => !p.draft && p.availability)
-    .map(p => ({
-      id: p.id,
-      title: p.title,
-      brand: p.brand,
-      price: p.price,
-      old_price: p.old_price,
-      image_url: p.image_url,
-      affiliate_url: p.affiliate_url,
-    }));
-
-  return new Response(JSON.stringify(index), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
+// Indexul compact pentru căutarea din prima pagină (tot catalogul).
+import { produse } from '../data/catalog.mjs';
+import { encode, jsonResponse } from '../data/compact.mjs';
+export const GET = () => jsonResponse(encode(produse));

@@ -1,0 +1,55 @@
+---
+// „Nu rata ofertele" — formularul MailerLite al grupului STYLE, cu aspectul shop.
+// Apare pe fiecare pagină (inclus din Layout.astro).
+// Dacă schimbi formularul în MailerLite, actualizezi formId/embedId în src/data/site.js.
+import { MAILERLITE } from '../data/site.js';
+const { cont, formId, embedId } = MAILERLITE;
+const action = `https://assets.mailerlite.com/jsonp/${cont}/forms/${formId}/subscribe`;
+---
+<div class="container newsletter-wrap">
+  <section class="newsletter" id="nu-rata-ofertele">
+    <div>
+      <p class="eyebrow" style="color: var(--color-brass);">Newsletter</p>
+      <h2>Nu rata ofertele</h2>
+      <p>Reducerile zilei la ceasuri, bijuterii, încălțăminte și genți — direct în inbox. Fără spam, te dezabonezi cu un click.</p>
+    </div>
+    <div id={`mlb2-${embedId}`} class={`ml-form-embedContainer ml-subscribe-form ml-subscribe-form-${embedId}`}>
+      <div class="ml-form-embedBody row-form">
+        <form class="ml-block-form" action={action} data-code="" method="post" target="_blank">
+          <div class="ml-form-formContent">
+            <div class="ml-form-fieldRow ml-last-item">
+              <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                <input aria-label="Adresa de email" aria-required="true" type="email" name="fields[email]" placeholder="Adresa ta de email" autocomplete="email" />
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="ml-submit" value="1" />
+          <div class="ml-form-embedSubmit">
+            <button type="submit" class="primary">Abonează-mă</button>
+            <button disabled="disabled" style="display: none;" type="button" class="loading">Se trimite…</button>
+          </div>
+          <input type="hidden" name="anticsrf" value="true" />
+        </form>
+      </div>
+      <div class="ml-form-successBody row-success" style="display: none">
+        <p class="newsletter-success">Mulțumim! Verifică-ți inboxul și confirmă abonarea.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script is:inline define:vars={{ embedId, cont, formId }}>
+  window['ml_webform_success_' + embedId] = function () {
+    var $ = window.ml_jQuery || window.jQuery;
+    if ($) {
+      $('.ml-subscribe-form-' + embedId + ' .row-success').show();
+      $('.ml-subscribe-form-' + embedId + ' .row-form').hide();
+    }
+  };
+  var f = document.querySelector('#mlb2-' + embedId + ' form');
+  if (f) f.addEventListener('submit', function () {
+    if (typeof gtag === 'function') gtag('event', 'newsletter_signup', { method: 'mailerlite_style' });
+  });
+  fetch('https://assets.mailerlite.com/jsonp/' + cont + '/forms/' + formId + '/takel').catch(function () {});
+</script>
+<script is:inline src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519"></script>

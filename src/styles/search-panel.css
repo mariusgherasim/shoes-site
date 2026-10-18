@@ -1,0 +1,167 @@
+/* Fereastra de sugestii pentru cautare — folosita pe paginile de categorie
+   (CategorySearch.astro) si pe prima pagina (HomeSearch.astro). */
+
+  .cs-wrap { position: relative; }
+  .category-search .search-icon {
+    pointer-events: auto;
+    background: none;
+    border: 0;
+    padding: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .sp-panel {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    z-index: 10001; /* deasupra stickerelor plutitoare (Trustpilot, promotii) */
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    background: #fff;
+    border: 1px solid #e6e1d8;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(11, 31, 74, 0.16);
+    overflow: hidden;
+  }
+  .sp-panel[hidden] { display: none; }
+
+  .sp-side {
+    min-width: 0;
+    background: var(--navy, #0b1f4a);
+    color: #fff;
+    padding: 16px 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sp-heading {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold, #c89b3c);
+  }
+  .sp-block[hidden] { display: none; }
+  .sp-tipuri { display: flex; flex-direction: column; gap: 2px; }
+  .sp-tip {
+    text-align: left;
+    background: none;
+    border: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .sp-tip:hover, .sp-tip.active { background: rgba(255, 255, 255, 0.12); color: var(--gold, #c89b3c); }
+
+  .sp-branduri { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .sp-brand {
+    height: 46px;
+    background: #fff;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 4px 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .sp-brand img { max-width: 100%; max-height: 34px; object-fit: contain; }
+  .sp-brand span {
+    color: var(--navy, #0b1f4a);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .sp-brand:hover, .sp-brand.active { border-color: var(--gold, #c89b3c); }
+
+  .sp-main { padding: 16px 18px 18px; min-width: 0; }
+  .sp-main-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .sp-main-head .sp-heading { margin: 0; color: var(--navy, #0b1f4a); font-size: 0.8rem; }
+  .sp-vezi { margin-left: auto; font-size: 0.82rem; font-weight: 700; color: var(--gold, #c89b3c); text-decoration: none; white-space: nowrap; }
+  .sp-vezi:hover { text-decoration: underline; }
+  .sp-close {
+    background: none; border: 0; cursor: pointer; font-size: 1rem; color: #888; padding: 2px 4px; line-height: 1;
+  }
+  .sp-close:hover { color: var(--navy, #0b1f4a); }
+
+  .sp-produse { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .sp-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    padding: 6px;
+    transition: background 0.15s;
+    min-width: 0;
+  }
+  .sp-card:hover { background: #faf7f2; }
+  .sp-img { display: block; background: #f4f2ee; border-radius: 6px; aspect-ratio: 1 / 1; overflow: hidden; }
+  .sp-img img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+  .sp-name {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6em;
+  }
+  .sp-price { font-size: 0.85rem; font-weight: 700; color: var(--navy, #0b1f4a); }
+  .sp-price s { font-weight: 400; color: #aaa; font-size: 0.75rem; }
+
+  /* Tableta */
+  @media (max-width: 900px) {
+    .sp-panel { grid-template-columns: 200px 1fr; }
+    .sp-produse { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sp-produse .sp-card:nth-child(n + 7) { display: none; }
+  }
+
+  /* Mobil: o singura coloana — tipuri si branduri pe randuri derulabile, apoi produse 2×4 */
+  @media (max-width: 640px) {
+    .sp-panel {
+      grid-template-columns: minmax(0, 1fr);
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .sp-side { padding: 12px 12px 10px; gap: 10px; }
+    .sp-heading { margin-bottom: 6px; }
+    .sp-tipuri, .sp-branduri {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .sp-tipuri::-webkit-scrollbar, .sp-branduri::-webkit-scrollbar { display: none; }
+    .sp-tip {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.82rem;
+    }
+    .sp-brand { flex: 0 0 auto; width: 96px; height: 40px; }
+    .sp-main { padding: 12px; }
+    .sp-produse { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .sp-produse .sp-card:nth-child(n + 7) { display: flex; }
+  }

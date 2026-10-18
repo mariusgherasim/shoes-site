@@ -1,0 +1,15 @@
+---
+// /cautare/ — păstrată pentru linkurile vechi de la shop; căutarea completă e în prima pagină.
+import Layout from '../layouts/Layout.astro';
+import HomeSearch from '../components/HomeSearch.astro';
+---
+<Layout title="Caută produse | style.accessories" description="Caută în tot catalogul: ceasuri, ochelari, bijuterii, încălțăminte, haine și genți.">
+  <section class="hero" style="padding: 2.5rem 0 3rem;">
+    <div class="container">
+      <p class="eyebrow">Căutare</p>
+      <h1>Ce cauți azi?</h1>
+      <HomeSearch />
+    </div>
+  </section>
+  <section id="hs-results" hidden aria-live="polite"></section>
+</Layout>

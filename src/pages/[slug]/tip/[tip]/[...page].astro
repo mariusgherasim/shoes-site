@@ -1,0 +1,25 @@
+---
+// Pagini de tip: /ceasuri/tip/smartwatch/
+import Layout from '../../../../layouts/Layout.astro';
+import Listing from '../../../../components/Listing.astro';
+import { categorii } from '../../../../data/categorii.js';
+import { produseTip, tipuriCategorie, cuNumar } from '../../../../data/catalog.mjs';
+import { SITE, PE_PAGINA } from '../../../../data/site.js';
+
+export function getStaticPaths({ paginate }) {
+  return categorii.flatMap((c) =>
+    tipuriCategorie(c.slug).flatMap((t) =>
+      paginate(produseTip(c.slug, t.slug), { params: { slug: c.slug, tip: t.slug }, props: { cat: c, t }, pageSize: PE_PAGINA })
+    )
+  );
+}
+
+const { page, cat, t } = Astro.props;
+const n = page.total;
+const pag = page.currentPage > 1 ? ` — pagina ${page.currentPage}` : '';
+const canonical = `${SITE.domeniu}/${cat.slug}/tip/${t.slug}/${page.currentPage > 1 ? page.currentPage + '/' : ''}`;
+const intro = cuNumar(`Câte magazine ai deschis ultima dată ca să compari prețul? Aici ai {N} de produse din „${t.name}" (${cat.name}), de la mai multe magazine online, cu reducerile la vedere.`, n);
+---
+<Layout title={`${t.name} — ${cat.name}${pag} | style.accessories`} description={`${t.name}: ${n} produse din ${cat.name}, cu prețuri și reduceri actualizate.`} canonical={canonical}>
+  <Listing page={page} titlu={`${t.name}`} intro={intro} firimituri={[[cat.name, `/${cat.slug}/`], [t.name, null]]} categorie={cat.slug} tipActiv={t.slug} />
+</Layout>

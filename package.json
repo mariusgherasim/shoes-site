@@ -1,20 +1,24 @@
 {
-  "name": "shoes-site",
+  "name": "styleaccessories",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "update-prices": "node update-prices.cjs"
+    "sync": "node sync-from-feed.cjs && node actualizare-json.cjs",
+    "raport": "node raport-clasificare.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.0",
+    "@astrojs/sitemap": "^3.2.1",
     "astro": "^4.16.0"
   },
   "devDependencies": {
     "@xmldom/xmldom": "^0.9.12",
     "axios": "^1.7.0",
-    "cheerio": "^1.0.0"
+    "camoufox-js": "^0.13.0",
+    "cheerio": "^1.0.0",
+    "fast-xml-parser": "^5.11.2",
+    "playwright-core": "^1.62.1"
   }
 }

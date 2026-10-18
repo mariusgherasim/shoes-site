@@ -1,0 +1,137 @@
+---
+// Banner 2Performant din public/banners.json. Folosire:
+//   <Banner variant="hero" categorie="ceasuri" />
+// categorie = slug-ul paginii (sau "homepage"); un banner apare doar dacă are
+// categoria în lista lui "categorii" (sau dacă nu are listă deloc).
+export interface Props {
+  variant: "hero" | "rectangle" | "square";
+  categorie?: string;
+}
+
+const { variant, categorie = "homepage" } = Astro.props;
+
+const LABELS: Record<string, string> = {
+  hero: "Ofertă parteneră",
+  rectangle: "Ofertă parteneră",
+  square: "Ofertă parteneră",
+};
+---
+
+<div class="banner-slot" data-variant={variant} data-categorie={categorie}>
+  <div class="banner-label">{LABELS[variant]}</div>
+  <a class="banner-link" href="#" target="_blank" rel="nofollow noopener" style="display:none;">
+    <img class="banner-img" src="" alt="watchshop.ro" />
+  </a>
+  <p class="banner-caption">Vezi oferta completă →</p>
+</div>
+
+<style>
+  .banner-slot {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--color-steel-light);
+    max-width: 100%;
+  }
+  .banner-slot[data-variant="rectangle"] {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .banner-slot[data-variant="square"] {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .banner-slot[data-variant="hero"] {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .banner-label {
+    padding: 8px 10px;
+    background: var(--color-navy);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+  .banner-link {
+    display: block;
+  }
+  .banner-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .banner-caption {
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 11px;
+    color: #8a7f66;
+  }
+  .banner-slot { margin: 1.5rem auto; }
+  .banner-slot[data-empty="true"] {
+    display: none;
+  }
+</style>
+
+<script>
+  function hashSeed(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash * 31 + str.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash);
+  }
+
+  function isActive(b: any): boolean {
+    const today = new Date().toISOString().slice(0, 10);
+    if (b.valid_from && today < b.valid_from) return false;
+    if (b.valid_until && today > b.valid_until) return false;
+    return true;
+  }
+
+  function matchesVariant(b: any, variant: string, categorie: string): boolean {
+    if (!isActive(b)) return false;
+    if (Array.isArray(b.categorii) && !b.categorii.includes(categorie)) return false;
+    if (!b.channels || !b.channels.includes("site")) return false;
+    if (variant === "hero") return b.width >= 380 && b.width / b.height >= 1.8;
+    if (variant === "rectangle") return b.width === 300 && b.height === 250;
+    if (variant === "square") return b.width === b.height && b.width >= 400;
+    return false;
+  }
+
+  async function initBanners() {
+    const today = new Date().toISOString().slice(0, 10);
+    let banners: any[] = [];
+    try {
+      const res = await fetch("/banners.json");
+      banners = await res.json();
+    } catch (e) {
+      console.warn("Nu am putut încărca banners.json", e);
+      return;
+    }
+
+    document.querySelectorAll<HTMLElement>(".banner-slot").forEach((slot) => {
+      const variant = slot.dataset.variant || "";
+      const pool = banners.filter((b) => matchesVariant(b, variant, slot.dataset.categorie || "homepage"));
+
+      if (pool.length === 0) {
+        slot.setAttribute("data-empty", "true");
+        return;
+      }
+
+      const seed = `${today}-${variant}-${slot.dataset.categorie || ""}`;
+      const index = hashSeed(seed) % pool.length;
+      const chosen = pool[index];
+
+      const link = slot.querySelector<HTMLAnchorElement>(".banner-link");
+      const img = slot.querySelector<HTMLImageElement>(".banner-img");
+      if (link && img) {
+        link.href = chosen.click_url;
+        img.src = chosen.image_url;
+        link.style.display = "block";
+      }
+    });
+  }
+
+  initBanners();
+</script>

@@ -3,3 +3,13 @@ dist/
 .astro/
 .env
 *.log
+
+# feed-urile 2Performant se descarcă local, nu se urcă pe GitHub
+feed_*.xml
+# generate local
+redirect-shop/
+redirect-style/
+raport-clasificare.html
+raport-clasificare.json
+sync-report.json
+*-output.html

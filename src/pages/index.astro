@@ -1,164 +1,112 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
-import products from '../data/products.json';
-import banners from '../data/banners.json';
+import Banner from '../components/Banner.astro';
+import HomeSearch from '../components/HomeSearch.astro';
+import { categorii } from '../data/categorii.js';
+import { produse, oferte, produseCategorie, produseColectie, recomandate, amestecaPeCategorii, maxReducere, hotDealsPrimaPagina } from '../data/catalog.mjs';
+import { niceCount } from '../data/text.mjs';
 
-const active = products.filter(p => !p.draft && p.availability);
-
-const countFemei = active.filter(p => p.category.includes('femei')).length;
-const countBarbati = active.filter(p => p.category.includes('barbati')).length;
-const countCopii = active.filter(p => p.category.includes('copii')).length;
-const countOferte = active.filter(p => p.old_price && p.old_price > p.price).length;
-
-const recommended = active.filter(p => p.recomandat).slice(0, 4);
-const featured = active.filter(p => p.featured);
-
-// Bannere active azi
-const today = new Date().toISOString().split('T')[0];
-const activeBanners = banners.filter(b =>
-  b.active &&
-  (!b.startDate || b.startDate <= today) &&
-  (!b.endDate || b.endDate >= today)
-);
+const total = produse.length;
+const hot = produseColectie('ofertele-saptamanii');
+const hotHome = hotDealsPrimaPagina(12);
+const picks = recomandate(12);
+const maxPct = maxReducere();
+const fmt = (n) => n.toLocaleString('ro-RO');
+const tiles = categorii.map((c) => {
+  const l = produseCategorie(c.slug);
+  return { ...c, count: l.length, deals: l.filter((p) => p.discount_percent).length, imgs: l.filter((p) => p.image_url).slice(0, 3) };
+});
+const totalRotunjit = niceCount(total).replace('peste ', '');
 ---
-
 <Layout
-  title="style.gherasimmarius.com — Pantofi & Încălțăminte Premium"
-  description="Descoperă colecții de pantofi și încălțăminte premium pentru femei, bărbați și copii. Steve Madden, Guess, Tommy Hilfiger, Calvin Klein și multe altele."
+  title="style.accessories — ceasuri, ochelari, bijuterii, încălțăminte și genți cu reduceri"
+  description={`Peste ${totalRotunjit} de produse de la 7 magazine online: ceasuri, ochelari, bijuterii, încălțăminte, haine și genți. ${fmt(oferte.length)} au reducere acum.`}
 >
-
-  <!-- Hero -->
-  <section class="hero container">
-    <div class="hero-text">
-      <h1>Pantofi care<br/><em>spun ceva</em><br/>despre tine.</h1>
-      <p>Colecții curate din piele naturală și materiale premium — de la Benvenuti la Steve Madden, de la Premiata la Tommy Hilfiger.</p>
-      <div class="hero-ctas">
-        <a href="/femei" class="btn-primary">Femei</a>
-        <a href="/barbati" class="btn-secondary">Bărbați</a>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-card">
-        <div class="stat-number">{(countFemei + countBarbati + countCopii).toLocaleString('ro-RO')}</div>
-        <div class="stat-label">Modele disponibile</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">{countOferte.toLocaleString('ro-RO')}</div>
-        <div class="stat-label">Produse cu reducere</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">28+</div>
-        <div class="stat-label">Branduri premium</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">3</div>
-        <div class="stat-label">Categorii</div>
+  <section class="hero">
+    <div class="hero-dial" aria-hidden="true"><span class="hero-sweep"></span></div>
+    <div class="container">
+      <p class="eyebrow">Ediția curentă · 7 magazine</p>
+      <h1>Peste {totalRotunjit} de produse. De ce să plătești prețul întreg?</h1>
+      <p class="lede">
+        Ceasuri, ochelari, bijuterii, încălțăminte, haine și genți — {fmt(oferte.length)} au reducere chiar acum,
+        unele de până la {maxPct}%. Cauți un model sau un brand? Începe aici.
+      </p>
+      <HomeSearch />
+      <div class="hero-stats">
+        <span><b>{fmt(total)}</b> produse</span>
+        <span><b>{fmt(oferte.length)}</b> cu reducere</span>
+        <span><b>{fmt(hot.length)}</b> Hot Deals peste 30%</span>
       </div>
     </div>
   </section>
 
-  <!-- Banner activ -->
-  {activeBanners.map(b => (
-    <div class="promo-banner">
-      <div class="banner-text">
-        <h2>{b.title}</h2>
-        <p>{b.subtitle}</p>
+  <section id="hs-results" hidden aria-live="polite"></section>
+
+  <div class="container">
+    <section class="section" style="padding-bottom: 0;">
+      <div class="filters">
+        {categorii.map((c) => <a class="filter-chip" href={`/${c.slug}/`}>{c.name}</a>)}
+        <a class="filter-chip" href="/cadouri-pentru-ea/">Cadouri pentru ea</a>
+        <a class="filter-chip" href="/cadouri-pentru-el/">Cadouri pentru el</a>
+        <a class="filter-chip" href="/sub-150-lei/">Sub 150 lei</a>
+        <a class="filter-chip" href="/sub-300-lei/">Sub 300 lei</a>
+        <a class="filter-chip" href="/oferte/">Oferte</a>
       </div>
-      <a href={b.url} class="banner-cta">{b.cta}</a>
-    </div>
-  ))}
+    </section>
 
-  <!-- Categorii -->
-  <div class="section-title">Colecții</div>
-  <div class="cat-grid">
-    <a href="/femei" class="cat-card">
-      <span class="cat-label">Femei</span>
-      <span class="cat-count">{countFemei} modele</span>
-      <span class="cat-arrow">→</span>
-    </a>
-    <a href="/barbati" class="cat-card">
-      <span class="cat-label">Bărbați</span>
-      <span class="cat-count">{countBarbati} modele</span>
-      <span class="cat-arrow">→</span>
-    </a>
-    <a href="/copii" class="cat-card">
-      <span class="cat-label">Copii</span>
-      <span class="cat-count">{countCopii} modele</span>
-      <span class="cat-arrow">→</span>
-    </a>
-  </div>
-
-  <!-- Recomandate -->
-  {recommended.length > 0 && (
-    <>
-      <div class="section-title">Recomandate</div>
-      <div class="product-grid">
-        {recommended.map(p => <ProductCard product={p} />)}
-      </div>
-    </>
-  )}
-
-  <!-- Oferta saptamanii -->
-  {featured.length > 0 && (
-    <>
-      <div class="section-title">Oferta săptămânii</div>
-      <div class="product-grid">
-        {featured.map(p => <ProductCard product={p} />)}
-      </div>
-    </>
-  )}
-
-  <!-- Newsletter -->
-  <section class="newsletter-section">
-    <h2>Oferte direct în inbox</h2>
-    <p>Abonează-te și fii primul care află despre reduceri și colecții noi.</p>
-    <!-- Înlocuiește <div data-mailerlite-form-id="STYLE_FORM_ID"></div> cu blocul de mai jos -->
-
-    <div id="mlb2-44253038" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-44253038">
-      <div class="ml-form-align-center">
-        <div class="ml-form-embedWrapper embedForm">
-          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1999265/forms/194310241415857526/subscribe" data-code="" method="post" target="_blank">
-              <div class="ml-form-formContent">
-                <div class="ml-form-fieldRow ml-last-item">
-                  <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                    <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Adresa ta de email" autocomplete="email">
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" name="ml-submit" value="1">
-              <div class="ml-form-embedSubmit">
-                <button type="submit" class="primary">Abonează-te</button>
-                <button disabled="disabled" style="display:none;" type="button" class="loading">
-                  <div class="ml-form-embedSubmitLoad"></div>
-                  <span class="sr-only">Loading...</span>
-                </button>
-              </div>
-              <input type="hidden" name="anticsrf" value="true">
-            </form>
-          </div>
-          <div class="ml-form-successBody row-success" style="display:none">
-            <div class="ml-form-successContent">
-              <h4>Mulțumim!</h4>
-              <p>Te-ai abonat cu succes.</p>
-            </div>
-          </div>
+    {hotHome.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>🔥 Oferta săptămânii</h2>
+          <a href="/ofertele-saptamanii/" class="eyebrow">Toate cele {fmt(hot.length)} Hot Deals →</a>
         </div>
+        <div class="product-grid">
+          {hotHome.map((p) => <ProductCard product={p} />)}
+        </div>
+      </section>
+    )}
+
+    <Banner variant="hero" categorie="homepage" />
+
+    {picks.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>Recomandările curente</h2>
+          <span class="eyebrow">Se schimbă zilnic</span>
+        </div>
+        <div class="product-grid">
+          {picks.map((p) => <ProductCard product={p} />)}
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Categorii</h2>
+        <a href="/oferte/" class="eyebrow">Toate ofertele →</a>
       </div>
-    </div>
+      <div class="cat-grid">
+        {tiles.map((c) => (
+          <a class="cat-card" href={`/${c.slug}/`}>
+            <h3>{c.name}</h3>
+            <span class="count">{fmt(c.count)} produse</span>
+            {c.deals > 0 && <span class="deal">{fmt(c.deals)} cu reducere</span>}
+            <span class="imgs">{c.imgs.map((p) => <span><img src={p.image_url} alt="" loading="lazy" referrerpolicy="no-referrer" /></span>)}</span>
+          </a>
+        ))}
+      </div>
+    </section>
 
-    <script>
-      function ml_webform_success_44253038() {
-        var $ = ml_jQuery || jQuery;
-        $('.ml-subscribe-form-44253038 .row-success').show();
-        $('.ml-subscribe-form-44253038 .row-form').hide();
-      }
-    </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
-    <script>
-      fetch("https://assets.mailerlite.com/jsonp/1999265/forms/194310241415857526/takel")
-    </script>
-  </section>
+    <a href="/gravura-personalizata/" class="gravura-banner">
+      <div>
+        <span class="eyebrow">Serviciu WatchShop.ro</span>
+        <h3 style="margin: 0.2rem 0;">Gravură personalizată — de la 100 lei</h3>
+        <p style="margin: 0; color: var(--color-steel);">Numele lui, data voastră, un mesaj de iubire — gravat pe capacul ceasului.</p>
+      </div>
+      <span class="price-btn">Vezi detalii →</span>
+    </a>
 
+    <Banner variant="rectangle" categorie="homepage" />
+  </div>
 </Layout>

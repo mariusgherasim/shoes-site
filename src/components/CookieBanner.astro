@@ -1,0 +1,17 @@
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>
+    Folosim cookie-uri pentru analiză și pentru linkurile de afiliere. Continuând navigarea,
+    ești de acord cu <a href="/politica-de-confidentialitate/">Politica de confidențialitate</a>.
+  </p>
+  <button type="button" id="cookie-ok">Am înțeles</button>
+</div>
+<script is:inline>
+  (function () {
+    var KEY = 'sa_cookie_consent', b = document.getElementById('cookie-banner');
+    try { if (!localStorage.getItem(KEY)) b.hidden = false; } catch (e) { b.hidden = false; }
+    document.getElementById('cookie-ok').addEventListener('click', function () {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      b.hidden = true;
+    });
+  })();
+</script>

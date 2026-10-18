@@ -1,0 +1,51 @@
+---
+import { categorii, colectii } from '../data/categorii.js';
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-wordmark"><img src="/brand/logo-alb.svg" alt="style.accessories" width="194" height="24" /></div>
+        <p style="max-width: 44ch; font-size: 0.88rem;">
+          Ceasuri, ochelari, bijuterii, încălțăminte, haine și genți de la 7 magazine
+          online, cu prețurile și reducerile actualizate. Un proiect Gherasim Marius, alături de
+          <a href="https://beauty-healths.com/">beauty-healths.com</a> și
+          <a href="https://carti.gherasimmarius.com/">carti.gherasimmarius.com</a>.
+        </p>
+      </div>
+      <div>
+        <h4>Categorii</h4>
+        <ul>{categorii.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>Colecții</h4>
+        <ul>
+          <li><a href="/oferte/">Toate ofertele</a></li>
+          {colectii.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}
+          <li><a href="/gravura-personalizata/">Gravură personalizată</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/politica-de-confidentialitate/">Politica de confidențialitate</a></li>
+          <li><a href="/termeni-si-conditii/">Termeni și condiții</a></li>
+          <li><a href="mailto:office@gherasimmarius.com">office@gherasimmarius.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+      <a href="https://reclamatiisal.anpc.ro/" target="_blank" rel="nofollow noopener" title="Soluționarea Alternativă a Litigiilor - ANPC">
+        <img src="/anpc-sal.png" alt="Soluționarea Alternativă a Litigiilor" width="250" height="50" style="width: 250px; height: 50px; display: block;" />
+      </a>
+    </div>
+    <p class="footer-legal">
+      <strong>Divulgare afiliere:</strong> styleaccessories.eu conține linkuri de afiliere.
+      Dacă cumperi un produs printr-un astfel de link, este posibil să primim un comision,
+      fără costuri suplimentare pentru tine. Prețurile, reducerile și disponibilitatea afișate
+      sunt preluate de la comercianți terți și pot varia — prețul și stocul finale sunt cele
+      afișate pe site-ul comerciantului la momentul comenzii. Nu vindem produse direct și nu
+      procesăm plăți sau livrări. © {new Date().getFullYear()} Gherasim Gheorghiță Marius PFA. Toate drepturile rezervate.
+    </p>
+  </div>
+</footer>
