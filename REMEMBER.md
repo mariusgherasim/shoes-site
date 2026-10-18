@@ -1,96 +1,285 @@
 # REMEMBER.md — styleaccessories.eu (repo shoes-site)
 
-*Octombrie 2026 — v3. Înlocuiește ghidurile vechi style (REMEMBER v2) și shop (PRODUCTS-GHID.md) pentru partea de site.*
-
-Site unic care a înlocuit **shop.gherasimmarius.com** (ceasuri, ochelari) și **style.gherasimmarius.com** (încălțăminte, genți, haine).
-Astro static pe GitHub Pages, repo `mariusgherasim/shoes-site`, domeniul `styleaccessories.eu` (Squarespace).
+*Actualizat: 18 octombrie 2026 — v4 (după lansare). Înlocuiește REMEMBER v2 (style) și PRODUCTS-GHID.md (shop) pentru partea de site.*
 
 ---
 
-## 1. Actualizarea produselor (de fiecare dată)
+## 0. Pe scurt
 
-1. Descarci din 2Performant cele 7 feed-uri XML și le pui în folderul proiectului (nume neschimbate):
-
-| Magazin | Fișier |
+| | |
 |---|---|
-| watchshop.ro | `feed_094c6e277.xml` |
-| ceasuri-shop.ro | `feed_79ce7e369.xml` |
-| benvenuti.com | `feed_72d6dd7c5.xml` |
-| otter.ro | `feed_7a8d24d4f.xml` |
-| gryxx.ro | `feed_82d2c2bf6.xml` |
-| picadili.ro | `feed_f741a4c2e.xml` |
-| menzo.ro | `feed_382702c75.xml` |
+| Site | **https://styleaccessories.eu** — live din 18.10.2026 |
+| Ce a înlocuit | shop.gherasimmarius.com (ceasuri, ochelari) + style.gherasimmarius.com (încălțăminte, genți, haine) |
+| Tehnologie | Astro 4, site static, GitHub Pages |
+| Repo | `mariusgherasim/shoes-site` — branch `main` |
+| Folder local | `C:\FOLDER DE LUCRU\PAUL MELINTE\shoes-site` |
+| Publicare | **doar manual**, prin `git push` de pe laptop (nimic nu mai rulează automat pe GitHub) |
+| Produse | ~29.400 active din 7 magazine (2Performant), 9 categorii |
+| Domeniu | cumpărat prin Squarespace, reînnoire automată 2 oct 2028 (18 €) |
 
-2. Dublu-click pe **`actualizare-produse.bat`**. Rulează, pe rând:
-   - `sync-from-feed.cjs` — Benvenuti, Gryxx, Otter, Picadili, Menzo (preț, preț vechi, produse noi, dezactivează ce a dispărut)
-   - `actualizare-json.cjs` — WatchShop și Ceasuri-Shop (nu atinge prețul vechi WatchShop)
-   - `raport-clasificare.mjs` — scrie `raport-clasificare.html` (deschide-l, verifici categoriile)
-3. Pentru reducerile WatchShop (o dată pe săptămână): `node scrape-promotii.cjs` (Camoufox, ~10-15 min, doar local).
-4. Verifici local: `npm run dev` → http://localhost:4321
-5. Publici:
+---
+
+## 1. Feed-urile (2Performant)
+
+Le descarci din 2Performant → Produse → Feed-uri XML și le pui **direct în folderul `shoes-site`**, cu numele exacte de mai jos (suprascrii fișierele vechi):
+
+| Magazin | Fișier | Ce actualizează | Preț vechi (reducerea) |
+|---|---|---|---|
+| watchshop.ro | `feed_094c6e277.xml` | `actualizare-json.cjs` | **NU din feed** (feed-ul nu are) → doar din `scrape-promotii.cjs` |
+| ceasuri-shop.ro | `feed_79ce7e369.xml` | `actualizare-json.cjs` | din feed |
+| benvenuti.com | `feed_72d6dd7c5.xml` | `sync-from-feed.cjs` | din feed |
+| otter.ro | `feed_7a8d24d4f.xml` | `sync-from-feed.cjs` | din feed |
+| gryxx.ro | `feed_82d2c2bf6.xml` | `sync-from-feed.cjs` | din feed |
+| picadili.ro | `feed_f741a4c2e.xml` | `sync-from-feed.cjs` | din feed |
+| menzo.ro | `feed_382702c75.xml` | `sync-from-feed.cjs` | din feed |
+
+- Feed-urile **nu se urcă pe GitHub** (sunt în `.gitignore`). Rămân doar pe laptop.
+- Dacă lipsește un feed, scriptul sare peste magazinul acela și continuă cu restul.
+- Feed-ul Picadili se pune și în folderul **beauty** — acolo intră doar produsele de manichiură; aici ele sunt excluse automat.
+- Menzo are câte un rând pentru fiecare mărime → scriptul le grupează (3.823 rânduri → ~1.040 produse).
+
+**Ce fac scripturile cu produsele:**
+- `sync-from-feed.cjs` (5 magazine): actualizează prețul și prețul vechi, adaugă produsele noi, iar produsele dispărute din feed le marchează `draft: true` (nu le șterge).
+- `actualizare-json.cjs` (WatchShop + Ceasuri-Shop): adaugă produsele noi, **șterge** produsele dispărute, actualizează prețul; la WatchShop nu atinge prețul vechi.
+- `scrape-promotii.cjs` (doar WatchShop): citește `watchshop.ro/promotii` cu Camoufox și scrie prețul vechi real. ~10–15 minute, **doar local**.
+
+---
+
+## 2. Rutina de actualizare (pas cu pas)
+
+Deschizi terminalul (cmd) în folder:
+```
+cd "C:\FOLDER DE LUCRU\PAUL MELINTE\shoes-site"
+```
+
+**Pasul 1 — aduci ultima versiune de pe GitHub (OBLIGATORIU, de fiecare dată):**
+```
+git pull
+```
+
+**Pasul 2 — pui cele 7 feed-uri noi în folder** (tabelul de la secțiunea 1).
+
+**Pasul 3 — actualizezi produsele:** dublu-click pe **`actualizare-produse.bat`**
+(sau în terminal: `npm run sync` și apoi `npm run raport`)
+
+Rulează, pe rând: `sync-from-feed.cjs` → `actualizare-json.cjs` → `raport-clasificare.mjs`.
+La final deschizi **`raport-clasificare.html`** (dublu-click) și verifici că numerele pe categorii arată normal.
+
+**Pasul 4 — reducerile WatchShop (o dată pe săptămână, de preferat înainte de emailul de joi):**
+```
+node scrape-promotii.cjs
+```
+Dacă se blochează (Cloudflare), rulezi cu browser vizibil:
+```
+set HEADLESS=0 && node scrape-promotii.cjs
+```
+
+**Pasul 5 — verifici local (opțional, dar recomandat):**
+```
+npm run dev
+```
+Deschizi http://localhost:4321 · oprești cu **Ctrl+C**.
+
+**Pasul 6 — publici:**
 ```
 git add -A
 git commit -m "chore: actualizare produse"
 git push
 ```
-Bulina verde în tab-ul **Actions** = site-ul e live (build ~1-2 minute).
+Pe GitHub → tab **Actions** → aștepți bulina verde (~1–2 minute) → site-ul e actualizat.
 
-Feed-urile XML **nu se urcă** pe GitHub (sunt în `.gitignore`).
+### Comenzi pentru alte modificări (texte, stickere, bannere)
+Același tipar, doar cu alt mesaj:
+```
+git pull
+git add -A
+git commit -m "update: sticker Black Friday"
+git push
+```
 
 ---
 
-## 2. Unde se schimbă ce
+## 3. Probleme frecvente la push
+
+| Mesaj / situație | Ce faci |
+|---|---|
+| `rejected … fetch first` sau `Updates were rejected` | Ai uitat `git pull`. Rulezi `git pull`, apoi din nou `git push`. |
+| `git pull` deschide un editor (merge message) | Scrii `:wq` și Enter (sau închizi fereastra Notepad, dacă se deschide Notepad). |
+| `warning: LF will be replaced by CRLF` | Normal pe Windows, ignori. |
+| Bulina roșie ✗ în Actions | Intri pe rulare → job **build** → pasul cu ✗ → citești eroarea (sau îmi trimiți captura). |
+| `npm ci` pică în Actions | `package-lock.json` nu e sincronizat: rulezi `npm install` local, apoi `git add -A`, commit, push. |
+| În `git status` apar `feed_*.xml` | Nu le urca. Verifici că `.gitignore` conține `feed_*.xml`. |
+| Site-ul arată vechi după push | Ctrl+F5 în browser; dacă tot vechi, verifici bulina din Actions. |
+
+**Nu urca niciodată:** `node_modules/`, `dist/`, `.astro/`, feed-urile XML (toate sunt deja în `.gitignore`).
+
+---
+
+## 4. Comenzi utile
+
+| Comandă | Ce face |
+|---|---|
+| `npm install` | instalează dependențele (prima dată pe un calculator nou sau după ce se schimbă `package.json`) |
+| `npx camoufox-js fetch` | descarcă browserul Camoufox (~300 MB), o singură dată pe calculator, pentru `scrape-promotii.cjs` |
+| `npm run dev` | site-ul local, cu reîncărcare automată |
+| `npm run build` | construiește site-ul complet în `dist/` (test final, ca pe GitHub) |
+| `npm run preview` | servește `dist/` local, după build |
+| `npm run sync` | `sync-from-feed.cjs` + `actualizare-json.cjs` |
+| `npm run raport` | regenerează `raport-clasificare.html` |
+| `node find-products.cjs --brand Casio` | caută produse în `products.json` |
+| `node scrape-promotii.cjs` | prețurile vechi WatchShop |
+| `git status` | vezi ce fișiere s-au schimbat înainte de commit |
+
+---
+
+## 5. Unde se schimbă ce
 
 | Vreau să schimb… | Fișier |
 |---|---|
-| În ce categorie / tip intră produsele | `src/data/clasificare.mjs` (apoi `npm run raport`) |
-| Textele categoriilor și colecțiilor (titlu SEO, intro cu {N}) | `src/data/categorii.js` |
-| Stickerele cu reclame (colțul de jos) | `src/data/stickere.js` |
-| Trustpilot, MailerLite, GA4 | `src/data/site.js` |
-| Bannerele 2Performant | `public/banners.json` (câmpul `categorii` = pe ce pagini apar) |
-| Logo-uri de brand în fereastra de căutare | `public/logos/{slug-brand}.svg` sau `.png` (ex: `casio.png`) |
+| În ce categorie / tip intră produsele | `src/data/clasificare.mjs` → apoi `npm run raport` și verifici |
+| Textele categoriilor și colecțiilor (titlu SEO, descriere, intro cu {N}) | `src/data/categorii.js` |
+| Stickerele cu reclame (colțul de jos) | `src/data/stickere.js` (are un exemplu gata completat, comentat) |
+| Trustpilot, MailerLite, GA4, numele site-ului | `src/data/site.js` |
+| Bannerele 2Performant | `public/banners.json` — câmpul `categorii` = pe ce pagini apar; `valid_from` / `valid_until` = perioada |
+| Logo-uri de brand în fereastra de căutare | `public/logos/{slug-brand}.png` sau `.svg` (ex: `casio.png`, `michael-kors.png`) |
 | Meniul de sus | `src/components/Header.astro` |
-| Cardul de produs | `src/components/ProductCard.astro` **și** `src/scripts/card.js` (identice) |
+| Footer-ul | `src/components/Footer.astro` |
+| Cardul de produs | `src/components/ProductCard.astro` **și** `src/scripts/card.js` (trebuie să rămână identice) |
+| Prima pagină | `src/pages/index.astro` |
+| Paginile legale | `src/pages/termeni-si-conditii.astro`, `src/pages/politica-de-confidentialitate.astro` |
+| Gravura personalizată | `src/pages/gravura-personalizata.astro` (pozele în `public/gravura/`) |
 
-**Regula clasificării** (o singură sursă, la build): products.json rămâne cum îl scriu scripturile; categoria, tipul și genul se calculează în `clasificare.mjs`. Ordinea semnalelor: link-ul oficial (WatchShop are categoria în URL) → subcategoria brută Picadili → subcategoria style → cuvinte din titlu.
-
-**Excluse automat:** manichiura Picadili (merge pe beauty-healths.com) și serviciile WatchShop.
-
----
-
-## 3. Structura site-ului
-
-- Categorii: `/ceasuri/`, `/ochelari-de-soare/`, `/rame-ochelari/`, `/bijuterii/`, `/incaltaminte-femei/`, `/incaltaminte-barbati/`, `/incaltaminte-copii/`, `/imbracaminte/`, `/genti-accesorii/`
-- Tipuri: `/{categorie}/tip/{tip}/` — doar tipurile cu minimum 5 produse; tipurile `alte-*` nu apar în meniu
-- Branduri: `/{categorie}/brand/{brand}/` — top 24 branduri cu minimum 5 produse, calculate automat
-- Colecții: `/ofertele-saptamanii/` (featured + reducere > 30%), `/cadouri-pentru-ea/`, `/cadouri-pentru-el/`, `/noutati/`, `/sub-150-lei/`, `/sub-300-lei/`
-- `/oferte/` — filtre live (căutare, categorie, brand, reducere, preț, sortare), 48 de produse + „Arată mai multe"
-- `/gravura-personalizata/`, `/cautare/`, paginile legale
-- 24 produse pe pagină; listele încep cu produsele cu cea mai mare reducere
-- Prima pagină: Hot Deals (scor 60% procent + 40% lei economisiți, fără reduceri suspecte > 85%), Recomandări (se schimbă la fiecare build), categorii, gravură
-- „Nu rata ofertele" (MailerLite, grup STYLE) apare pe **fiecare pagină**, din `Layout.astro`
-- Stickerele și bara Trustpilot: ✕ le ascunde doar pe pagina curentă; reapar la pagina următoare
-
-**Căutarea (ca la beauty):** click în căsuța goală → fereastră cu 6 tipuri/categorii + 6 branduri, 8 produse la hover. La scriere → rezultate. Fișiere generate la build: `search-index.json`, `cauta/{categorie}.json`, `search-panel/*.json`, `offers-index.json` (format compact, decodat de `src/scripts/compact.js`).
+### Cum adaugi un sticker de reclamă
+În `src/data/stickere.js` copiezi blocul de exemplu (fără `//`), completezi `id`, `de_la`, `pana_la`, `pozitie` (`'stanga'` sau `'dreapta'`), `mare`, `eticheta`, `brand`, `text`, `cta`, `link`, `culoare`. Stickerul apare singur între cele două date și dispare singur după `pana_la`. Butonul ✕ îl ascunde doar pe pagina curentă. Stickerul automat **Hot Deals** (dreapta) ia singur cea mai mare reducere și numără până duminică seara.
 
 ---
 
-## 4. Redirecționări de la vechile adrese
+## 6. Clasificarea produselor
 
-`node genereaza-redirecturi.mjs <products.json shop vechi> <products.json style vechi>` (după `npm run build`) creează folderele `redirect-shop/` și `redirect-style/`. Fiecare e publicat într-un repo separat (GitHub Pages permite un singur domeniu pe repo):
+- `products.json` rămâne cum îl scriu scripturile. Categoria, tipul și genul se calculează **la build**, în `src/data/clasificare.mjs` — regulile se pot schimba oricând, fără să rulezi din nou sincronizarea.
+- Ordinea semnalelor: link-ul oficial (WatchShop are categoria în URL) → subcategoria brută Picadili → subcategoria din sincronizarea style → cuvinte din titlu.
+- **Excluse automat:** manichiura Picadili (merge pe beauty-healths.com, ~380 produse) și serviciile WatchShop.
+- Tipurile `alte-*` (ex. „Alte modele" la ceasuri — ceasurile WatchShop fără gen în titlu) nu apar ca tip separat în meniu și căutare, dar produsele apar normal în categorie și la branduri.
+- **Pandora** are tip separat la Bijuterii (titlurile conțin doar codul, fără tipul de bijuterie).
+- **Îmbrăcăminte** = haine bărbați Menzo + lenjerie/pijamale/șosete Picadili (inclusiv damă).
 
-| Repo | Domeniu | Pages |
+**Ordinea în liste:** întâi produsele cu reducere, după scor (60% procentul + 40% lei economisiți), apoi restul. Reducerile peste 85% (de obicei preț vechi umflat în feed, ex. Picadili) trec la final și nu apar în titluri („până la -X%") sau pe prima pagină.
+
+---
+
+## 7. Structura site-ului
+
+| Pagini | Adrese |
+|---|---|
+| Categorii | `/ceasuri/`, `/ochelari-de-soare/`, `/rame-ochelari/`, `/bijuterii/`, `/incaltaminte-femei/`, `/incaltaminte-barbati/`, `/incaltaminte-copii/`, `/imbracaminte/`, `/genti-accesorii/` |
+| Tipuri | `/{categorie}/tip/{tip}/` — doar tipurile cu minimum 5 produse |
+| Branduri | `/{categorie}/brand/{brand}/` — top 24 branduri cu minimum 5 produse, calculate automat |
+| Colecții | `/ofertele-saptamanii/` (featured + reducere > 30%), `/cadouri-pentru-ea/`, `/cadouri-pentru-el/`, `/noutati/`, `/sub-150-lei/`, `/sub-300-lei/` |
+| Oferte cu filtre | `/oferte/` — căutare, categorie, brand, reducere minimă, preț, sortare (implicit „Recomandate"); 48 produse + „Arată mai multe" |
+| Altele | `/gravura-personalizata/`, `/cautare/`, `/termeni-si-conditii/`, `/politica-de-confidentialitate/` |
+
+- 24 produse pe pagină; ~5.000 de pagini, ~280 MB, build ~30 secunde.
+- **Prima pagină:** căutare + statistici → butoane categorii → Oferta săptămânii (12 Hot Deals amestecate pe categorii) → banner → Recomandări (se schimbă la fiecare build) → carduri categorii → gravură.
+- **„Nu rata ofertele"** (MailerLite, grup STYLE) apare pe **fiecare pagină**, din `Layout.astro`.
+- **Căutarea (ca la beauty):** click în căsuța goală → fereastră cu 6 tipuri/categorii + 6 branduri, 8 produse la hover/atingere; la scriere → rezultate. Fișierele generate la build: `search-index.json`, `cauta/{categorie}.json`, `search-panel/*.json`, `offers-index.json` (format compact, decodat de `src/scripts/compact.js`).
+- **Design:** paleta shop (navy `#14213D`, auriu-alamă `#B8863A`, fundal `#F3EEE3`), fonturi Fraunces / Inter / IBM Plex Mono, wordmark `style.accessories` (punctul auriu). Logo-urile: `public/brand/`.
+
+---
+
+## 8. Integrări și ID-uri
+
+| Serviciu | Detalii |
+|---|---|
+| **GA4** | `G-HS59YL4Y3D` (fluxul „gherasimmarius.com", proprietatea IncaUnCapitol). Cross-domain: beauty-healths.com, gherasimmarius.com (Contains), styleaccessories.eu. Traficul site-ului se vede filtrând după **Hostname**. Eveniment clic produs: `affiliate_click`. |
+| **Search Console** | Proprietate de tip Domain `styleaccessories.eu`, verificată prin TXT. Sitemap: `https://styleaccessories.eu/sitemap-index.xml`. Proprietățile vechi shop și style rămân pentru urmărirea mutării traficului. |
+| **Trustpilot** | businessUnitId `6ad4bbc3dea7b17b7f05cfb1`, template Review Collector, profil `trustpilot.com/review/styleaccessories.eu`. Link invitație recenzii: `https://trstp.lt/ZytFwyTNmk`. Bara apare în stânga (desktop) / jos (mobil). |
+| **MailerLite** | Cont 1999265, grupul **STYLE** (singurul pentru acest site), formular ID `194310241415857526` (embed `44253038`). Abonații SHOP se mută în STYLE. |
+| **2Performant** | aff_code `676a7e7d9`; `styleaccessories.eu` trebuie declarat ca site de promovare. |
+
+---
+
+## 9. Domenii, DNS și repo-uri
+
+**DNS styleaccessories.eu (Squarespace → Custom records):**
+
+| Tip | Host | Valoare |
 |---|---|---|
-| `shop-redirect` | shop.gherasimmarius.com | Deploy from a branch → main / root |
-| `style-redirect` | style.gherasimmarius.com | Deploy from a branch → main / root |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | mariusgherasim.github.io |
+| TXT | @ | google-site-verification=… (Search Console — **nu se șterge**) |
+| TXT | @ | trustpilot-one-time-verification-id=… (**nu se șterge**) |
 
-Fiecare adresă veche → pagina nouă echivalentă (meta refresh 0 + canonical + JS). Adresele necunoscute → `404.html` → prima pagină.
+Blocul „Squarespace Defaults" a fost șters (intra în conflict cu GitHub).
+
+**Repo-uri GitHub:**
+
+| Repo | Domeniu | Settings → Pages |
+|---|---|---|
+| `shoes-site` | styleaccessories.eu | Source: **GitHub Actions** · Enforce HTTPS ✓ |
+| `style-redirect` | style.gherasimmarius.com | Deploy from a branch → main / (root) |
+| `shop-redirect` | shop.gherasimmarius.com | Deploy from a branch → main / (root) |
+| `shop` (vechi) | — (domeniu scos) | păstrat doar ca istoric |
+
+⚠️ La `shoes-site`, Source trebuie să rămână **GitHub Actions**. Dacă e pus pe „Deploy from a branch", GitHub publică fișierele sursă, nu site-ul construit.
+
+**Redirecționările:** fiecare adresă veche (796 shop + 1.493 style) duce la pagina nouă echivalentă (ex. `style…/femei/3` → `/incaltaminte-femei/3/`, `shop…/ceasuri` → `/ceasuri/`). Adresele necunoscute → prima pagină. Se regenerează doar dacă se schimbă structura adreselor noi:
+```
+npm run build
+node genereaza-redirecturi.mjs <products.json vechi shop> <products.json vechi style>
+```
+apoi conținutul folderelor `redirect-shop/` și `redirect-style/` se urcă în repo-urile respective.
 
 ---
 
-## 5. Capcane
+## 10. Capcane
 
-- Nu urca folderul `.astro`, `dist/` sau `node_modules/`.
-- După orice schimbare de dependențe: commit și pentru `package-lock.json` (altfel `npm ci` pică în Actions).
-- `update-prices.cjs` și workflow-ul programat sunt eliminate definitiv; nimic nu mai rulează automat pe GitHub.
-- Emailurile (generate-daily-email.cjs, generate-subcat-email.cjs) sunt încă versiunile vechi style — se refac în faza 2 (un singur script, zilnic + joi, „Pentru ea / Pentru el", grupul STYLE).
+- **`git pull` înainte de orice lucru** — GitHub mai face uneori commit-uri singur (ex. fișierul `CNAME`).
+- Nu urca `.astro/`, `dist/`, `node_modules/` sau feed-urile.
+- După orice schimbare de dependențe: commit și pentru `package-lock.json`.
+- `update-prices.cjs` și workflow-ul programat sunt eliminate definitiv. Singurul workflow (`.github/workflows/deploy.yml`) rulează doar la push.
+- `scrape-promotii.cjs` nu rulează pe GitHub (Cloudflare blochează IP-urile de server) — doar local.
+- Pe `localhost` widget-ul Trustpilot poate apărea ca link simplu — e normal, funcționează complet doar pe domeniu.
+
+---
+
+## 11. Emailurile (MailerLite, grupul STYLE)
+
+| Script | Când | Rezultat |
+|---|---|---|
+| `node genereaza-email.mjs` (sau dublu-click `email-zilnic.bat`) | zilnic, ~10:30 | `email-output.html` + `email-output-previzualizare.html` |
+| `node genereaza-email-categorie.mjs` | când vrei un email tematic | `email-categorie-output.html` + previzualizare |
+
+**Emailul zilnic** recunoaște singur ziua:
+- **🎁 Pentru ea (10) + 🎁 Pentru el (10)**, doar reduceri reale (10–85%, minimum 25 lei economisiți), cu poză, maximum 2 produse de la același brand, amestec pe categorii.
+- **Tema zilei** primește 4 din cele 10 locuri: luni ceasuri · marți încălțăminte · miercuri bijuterii · vineri genți & accesorii · sâmbătă îmbrăcăminte · duminică ochelari de soare.
+- **Joi = Top reduceri:** doar Hot Deals (minimum 30%), cele mai mari reduceri după scor, fără temă.
+- Zilnic selecția se rotește (alta în fiecare zi); joi e mereu topul.
+- Test pentru altă zi: `node genereaza-email.mjs --zi=joi` (luni, marti, miercuri, joi, vineri, sambata, duminica).
+
+**Emailul pe categorie:** `node genereaza-email-categorie.mjs` îți afișează lista (categorii + tipuri) și alegi numărul; sau direct `node genereaza-email-categorie.mjs ceasuri/dama`, `incaltaminte-femei/sneakers`, `bijuterii/pandora`. Top 20 reduceri, maximum 3 pe brand.
+
+**În fișierul generat:** 3 variante de subiect (A/B/C) și 3 de preheader (cifre concrete + întrebări retorice) — alegi câte una; apoi codul HTML. Scriptul afișează dimensiunea (limita Gmail: 102 KB; acum ~52 KB).
+
+**Fluxul în MailerLite:**
+1. Campaigns → Create → Regular campaign
+2. Subject + Preheader: copiezi varianta aleasă
+3. Sender: **Style Accessories** · office@gherasimmarius.com
+4. Recipients: grupul **STYLE**
+5. Drag & drop editor: bloc **Countdown** (nativ, până la 23:59) sus, apoi bloc **Custom HTML** cu codul din fișier
+6. **Send a test** (verifici pozele și linkurile), apoi **Send later**, ora 11:00
+
+Linkurile spre site au UTM: `utm_source=mailerlite&utm_medium=email&utm_campaign=zilnic-AAAA-LL-ZZ` (joi: `joi-top-…`, categorie: `categorie-…`). Logo-ul din antet: `public/brand/logo-email.png` (găzduit pe site). Footer: recenzie Trustpilot, abonare cross-brand, divulgare afiliere, `{$unsubscribe}`.
+
+Piesele comune (șablon HTML, culori, reguli de selecție) sunt în `email-comun.mjs`.
+
+---
+
+## 12. De făcut
+
+- [ ] Ștergerea scripturilor vechi `generate-daily-email.cjs` și `generate-subcat-email.cjs` după testul noului email.
+- [ ] Logo-uri de brand în `public/logos/` pentru brandurile principale (Casio, Guess, Michael Kors, Pandora, Benvenuti…).
+- [ ] Ștergerea grupului SHOP din MailerLite, după primul email trimis către STYLE.
+- [ ] Verificare Search Console peste 3 zile: sitemap „Success" și pagini indexate în creștere.

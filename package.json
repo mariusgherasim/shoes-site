@@ -7,7 +7,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "sync": "node sync-from-feed.cjs && node actualizare-json.cjs",
-    "raport": "node raport-clasificare.mjs"
+    "raport": "node raport-clasificare.mjs",
+    "email": "node genereaza-email.mjs",
+    "email-categorie": "node genereaza-email-categorie.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
