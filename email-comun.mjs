@@ -6,7 +6,8 @@ import { clasifica, CATEGORII, TIPURI } from './src/data/clasificare.mjs';
 
 export const SITE = 'https://styleaccessories.eu';
 export const LOGO = `${SITE}/brand/logo-email.png`;
-export const TRUSTPILOT = 'https://trstp.lt/ZytFwyTNmk';
+// pagina „Scrie o recenzie” (trstp.lt/ZytFwyTNmk duce la pagina de cod TrustBox, nu la recenzii)
+export const TRUSTPILOT = 'https://www.trustpilot.com/evaluate/styleaccessories.eu';
 export const CROSS_OPTIN = 'https://preview.mailerlite.io/forms/1999265/193604931012265713/share';
 export const LIMITA_KB = 102; // Gmail taie emailurile mai mari (inclusiv linkul de dezabonare)
 
@@ -94,7 +95,7 @@ function card(p) {
 <div style="font-family:${MONO};font-size:13px;border-top:1px dashed ${C.line};padding-top:8px;margin-top:8px;">
 <span style="color:${C.steel};text-decoration:line-through;font-size:12px;">${lei(p.old_price)}</span>&nbsp;
 <span style="background:${C.brass};color:#fff;font-weight:bold;padding:4px 8px;border-radius:3px;">${lei(p.price)}</span></div>
-<a href="${esc(p.affiliate_url)}" target="_blank" style="display:block;text-align:center;background:${C.navy};color:#fff;font-family:${SANS};font-size:12px;font-weight:bold;text-decoration:none;padding:9px;border-radius:3px;margin-top:10px;">Vezi oferta la ${esc(MAGAZINE[p.source_site] || p.source_site)} →</a>
+<a href="${esc(p.affiliate_url)}" target="_blank" style="display:block;text-align:center;background:${C.navy};color:#fff;font-family:${SANS};font-size:12px;font-weight:bold;text-decoration:none;padding:9px;border-radius:3px;margin-top:10px;">Vezi oferta →</a>
 </td></tr></table></td>`;
 }
 

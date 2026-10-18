@@ -192,7 +192,7 @@ git push
 |---|---|
 | **GA4** | `G-HS59YL4Y3D` (fluxul „gherasimmarius.com", proprietatea IncaUnCapitol). Cross-domain: beauty-healths.com, gherasimmarius.com (Contains), styleaccessories.eu. Traficul site-ului se vede filtrând după **Hostname**. Eveniment clic produs: `affiliate_click`. |
 | **Search Console** | Proprietate de tip Domain `styleaccessories.eu`, verificată prin TXT. Sitemap: `https://styleaccessories.eu/sitemap-index.xml`. Proprietățile vechi shop și style rămân pentru urmărirea mutării traficului. |
-| **Trustpilot** | businessUnitId `6ad4bbc3dea7b17b7f05cfb1`, template Review Collector, profil `trustpilot.com/review/styleaccessories.eu`. Link invitație recenzii: `https://trstp.lt/ZytFwyTNmk`. Bara apare în stânga (desktop) / jos (mobil). |
+| **Trustpilot** | businessUnitId `6ad4bbc3dea7b17b7f05cfb1`, template Review Collector, profil `trustpilot.com/review/styleaccessories.eu`. Link „Scrie o recenzie” (folosit în emailuri): `https://www.trustpilot.com/evaluate/styleaccessories.eu`. **Nu** folosi `trstp.lt/ZytFwyTNmk`, care duce la pagina de cod TrustBox. Bara apare în stânga (desktop) / jos (mobil). |
 | **MailerLite** | Cont 1999265, grupul **STYLE** (singurul pentru acest site), formular ID `194310241415857526` (embed `44253038`). Abonații SHOP se mută în STYLE. |
 | **2Performant** | aff_code `676a7e7d9`; `styleaccessories.eu` trebuie declarat ca site de promovare. |
 
