@@ -8,7 +8,6 @@ export const SITE = 'https://styleaccessories.eu';
 export const LOGO = `${SITE}/brand/logo-email.png`;
 // pagina „Scrie o recenzie” (trstp.lt/ZytFwyTNmk duce la pagina de cod TrustBox, nu la recenzii)
 export const TRUSTPILOT = 'https://www.trustpilot.com/evaluate/styleaccessories.eu';
-export const CROSS_OPTIN = 'https://preview.mailerlite.io/forms/1999265/193604931012265713/share';
 export const LIMITA_KB = 102; // Gmail taie emailurile mai mari (inclusiv linkul de dezabonare)
 
 export const MAGAZINE = {
@@ -125,7 +124,6 @@ ${sectiuni.join('\n')}
 <tr><td colspan="2" style="padding:18px 8px 8px;text-align:center;"><a href="${utm(linkFinal, campanie)}" target="_blank" style="display:inline-block;background:${C.brass};color:#fff;font-family:${SANS};font-size:14px;font-weight:bold;text-decoration:none;padding:12px 26px;border-radius:3px;">Vezi toate ofertele pe styleaccessories.eu →</a></td></tr>
 <tr><td colspan="2" style="padding:18px 16px 20px;text-align:center;border-top:1px solid ${C.line};">
 <p style="font-family:${SANS};font-size:12px;color:#555;margin:0 0 6px;">Ți-a plăcut o ofertă? <a href="${TRUSTPILOT}" target="_blank" style="color:${C.navy};">Lasă-ne o recenzie pe Trustpilot ★</a></p>
-<p style="font-family:${SANS};font-size:11px;color:${C.steel};margin:0 0 10px;">Vrei și noutăți din alte proiecte Marius Gherasim (cărți, beauty, asigurări)? <a href="${CROSS_OPTIN}" target="_blank" style="color:${C.navy};">Abonează-te aici →</a></p>
 <p style="font-family:${SANS};font-size:10px;color:#999;margin:0;line-height:1.5;">Linkurile sunt de afiliere: putem primi un comision, fără cost în plus pentru tine. Prețurile și stocul pot varia — prețul final e cel de pe site-ul magazinului.<br>Nu mai vrei aceste emailuri? <a href="{$unsubscribe}" style="color:#999;text-decoration:underline;">Dezabonează-te</a>.</p>
 </td></tr></table>`;
 }

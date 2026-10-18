@@ -271,7 +271,7 @@ apoi conținutul folderelor `redirect-shop/` și `redirect-style/` se urcă în 
 5. Drag & drop editor: bloc **Countdown** (nativ, până la 23:59) sus, apoi bloc **Custom HTML** cu codul din fișier
 6. **Send a test** (verifici pozele și linkurile), apoi **Send later**, ora 11:00
 
-Linkurile spre site au UTM: `utm_source=mailerlite&utm_medium=email&utm_campaign=zilnic-AAAA-LL-ZZ` (joi: `joi-top-…`, categorie: `categorie-…`). Logo-ul din antet: `public/brand/logo-email.png` (găzduit pe site). Footer: recenzie Trustpilot, abonare cross-brand, divulgare afiliere, `{$unsubscribe}`.
+Linkurile spre site au UTM: `utm_source=mailerlite&utm_medium=email&utm_campaign=zilnic-AAAA-LL-ZZ` (joi: `joi-top-…`, categorie: `categorie-…`). Logo-ul din antet: `public/brand/logo-email.png` (găzduit pe site). Footer: recenzie Trustpilot, divulgare afiliere (fără rândul cross-brand „alte proiecte” — scos la cererea lui Marius), `{$unsubscribe}`.
 
 Piesele comune (șablon HTML, culori, reguli de selecție) sunt în `email-comun.mjs`.
 
