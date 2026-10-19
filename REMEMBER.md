@@ -1,6 +1,6 @@
 # REMEMBER.md — styleaccessories.eu (repo shoes-site)
 
-*Actualizat: 18 octombrie 2026 — v4 (după lansare). Înlocuiește REMEMBER v2 (style) și PRODUCTS-GHID.md (shop) pentru partea de site.*
+*Actualizat: 19 octombrie 2026 — v5 (după lansare + emailuri + logo-uri). Înlocuiește REMEMBER v2 (style) și PRODUCTS-GHID.md (shop) pentru partea de site.*
 
 ---
 
@@ -63,6 +63,7 @@ git pull
 (sau în terminal: `npm run sync` și apoi `npm run raport`)
 
 Rulează, pe rând: `sync-from-feed.cjs` → `actualizare-json.cjs` → `raport-clasificare.mjs`.
+Fereastra arată pentru **fiecare magazin** (inclusiv WatchShop și Ceasuri-Shop, la pasul 2/3 — derulezi în jos): feed-ul folosit, câte produse are, câte au fost actualizate / adăugate / scoase. Dacă scrie „Feed lipsă”, fișierul XML nu e în folder sau are alt nume.
 La final deschizi **`raport-clasificare.html`** (dublu-click) și verifici că numerele pe categorii arată normal.
 
 **Pasul 4 — reducerile WatchShop (o dată pe săptămână, de preferat înainte de emailul de joi):**
@@ -128,6 +129,8 @@ git push
 | `npm run raport` | regenerează `raport-clasificare.html` |
 | `node find-products.cjs --brand Casio` | caută produse în `products.json` |
 | `node scrape-promotii.cjs` | prețurile vechi WatchShop |
+| `node descarca-logo-uri.mjs` | descarcă logo-urile brandurilor în `public/logos/` (vezi §11b) |
+| `node genereaza-email.mjs` | emailul zilnic (vezi §11) |
 | `git status` | vezi ce fișiere s-au schimbat înainte de commit |
 
 ---
@@ -141,7 +144,7 @@ git push
 | Stickerele cu reclame (colțul de jos) | `src/data/stickere.js` (are un exemplu gata completat, comentat) |
 | Trustpilot, MailerLite, GA4, numele site-ului | `src/data/site.js` |
 | Bannerele 2Performant | `public/banners.json` — câmpul `categorii` = pe ce pagini apar; `valid_from` / `valid_until` = perioada |
-| Logo-uri de brand în fereastra de căutare | `public/logos/{slug-brand}.png` sau `.svg` (ex: `casio.png`, `michael-kors.png`) |
+| Logo-uri de brand în fereastra de căutare | `public/logos/{slug-brand}.png` sau `.svg` (ex: `casio.png`, `michael-kors.png`) — descărcare automată cu `descarca-logo-uri.bat` (vezi §11b) |
 | Meniul de sus | `src/components/Header.astro` |
 | Footer-ul | `src/components/Footer.astro` |
 | Cardul de produs | `src/components/ProductCard.astro` **și** `src/scripts/card.js` (trebuie să rămână identice) |
@@ -277,9 +280,23 @@ Piesele comune (șablon HTML, culori, reguli de selecție) sunt în `email-comun
 
 ---
 
+## 11b. Logo-urile brandurilor
+
+Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty. Fără fișier, se afișează numele brandului scris.
+
+- Fișierele stau în `public/logos/{slug}.svg|png|jpg|webp` (ex. `public/logos/casio.svg`). Slug-ul e cel din adresa paginii brandului: `/ceasuri/brand/casio/`.
+- **Descărcare automată:** dublu-click pe `descarca-logo-uri.bat` (sau `node descarca-logo-uri.mjs`). Scriptul calculează singur lista brandurilor din `products.json` (aceeași regulă ca site-ul: minimum 5 produse, primele 24 pe categorie), caută logo-ul pe Wikidata/Wikimedia și pe site-ul oficial, apoi deschide raportul `logo-uri-raport-style.html`.
+- Brandurile care au deja logo sunt sărite. Pentru un brand greșit: ștergi fișierul din `public\logos\` și rulezi din nou (sau doar pentru el: `node descarca-logo-uri.mjs casio`).
+- Mărcile proprii / brandurile mici (OEM, Delis, Haifeng, Zhuhai, Amanda, Flavia Passini etc.) n-au sursă: rămân cu numele scris sau pui logo-ul de mână.
+- Sub-branduri care copiază logo-ul principal: Jack & Jones Plus, s.Oliver Big Sizes/Black Label, Epica Premium, BOSS (de la Hugo Boss). Lista e în `ACELASI_LOGO` din script; domeniile sunt în `SURSE`.
+- Preluate de la beauty: versace, guess, hugo-boss, armani, valentino.
+- Publicare: `git add public/logos descarca-logo-uri.mjs descarca-logo-uri.bat` → `git commit -m "Logo-uri branduri"` → `git push`.
+
+---
+
 ## 12. De făcut
 
 - [ ] Ștergerea scripturilor vechi `generate-daily-email.cjs` și `generate-subcat-email.cjs` după testul noului email.
-- [ ] Logo-uri de brand în `public/logos/` pentru brandurile principale (Casio, Guess, Michael Kors, Pandora, Benvenuti…).
+- [ ] Logo-uri de brand: rularea `descarca-logo-uri.bat`, verificarea raportului, ștergerea celor greșite (vezi §11b).
 - [ ] Ștergerea grupului SHOP din MailerLite, după primul email trimis către STYLE.
 - [ ] Verificare Search Console peste 3 zile: sitemap „Success" și pagini indexate în creștere.
