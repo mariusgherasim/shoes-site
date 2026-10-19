@@ -1,0 +1,236 @@
+---
+// Ghid educativ: îngrijirea pantofilor din piele peste iarnă.
+// Produsele (kitul de îngrijire și ghetele cu reducere) se aleg la fiecare build
+// din catalog, deci linkurile și prețurile sunt mereu cele curente.
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { produseTip } from '../../data/catalog.mjs';
+import { norm } from '../../data/text.mjs';
+
+const URL_PAGINA = '/ghiduri/ingrijire-pantofi-piele-iarna/';
+
+// ── Kitul de iarnă: câte un produs din fiecare rol ─────────────────────
+const ingrijire = produseTip('genti-accesorii', 'ingrijire-incaltaminte').filter((p) => p.image_url);
+const KIT = [
+  { rol: 'Curăță', rx: /lotiune curatare piele neteda|solutie pentru curatare/ },
+  { rol: 'Hrănește', rx: /crema de intretinere.*negru/ },
+  { rol: 'Lustruiește', rx: /perie pentru lustruit/ },
+  { rol: 'Protejează', rx: /spray impotriva umezelii/ },
+  { rol: 'Piele întoarsă', rx: /spray intretinere velour nabuc incolor/ },
+  { rol: 'Picioare calde', rx: /brant lambskin fleece/ },
+];
+const vazute = new Set();
+const kit = [];
+for (const k of KIT) {
+  const p = ingrijire.find((x) => k.rx.test(norm(x.title)) && !vazute.has(norm(x.title)));
+  if (p) { vazute.add(norm(p.title)); kit.push(p); }
+}
+
+// ── Ghete din piele cu reducere reală (10–85%) ─────────────────────────
+// (6 = două rânduri pline; același model vândut de Gryxx și Otter apare o singură dată)
+function cuReducere(list, n = 6) {
+  const out = [], titluri = new Set();
+  for (const p of list) {
+    if (!p.image_url || !/piele/i.test(p.title) || !(p.discount_percent >= 10 && p.discount_percent <= 85)) continue;
+    const k = norm(p.title);
+    if (titluri.has(k)) continue;
+    titluri.add(k); out.push(p);
+    if (out.length === n) break;
+  }
+  return out;
+}
+const geteEa = cuReducere(produseTip('incaltaminte-femei', 'ghete-botine'));
+const geteEl = cuReducere(produseTip('incaltaminte-barbati', 'ghete-bocanci'));
+
+const titlu = 'Cum îngrijești pantofii de piele peste iarnă — ghid complet';
+const descriere = 'Sare, zăpadă, calorifer: ce distruge pantofii din piele iarna și cum îi protejezi. Oțet 1:2 pentru petele de sare, 20 de ore de uscare, cremă cât o alună — pas cu pas.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: titlu,
+  description: descriere,
+  inLanguage: 'ro-RO',
+  author: { '@type': 'Organization', name: 'style.accessories' },
+  publisher: { '@type': 'Organization', name: 'style.accessories', logo: { '@type': 'ImageObject', url: 'https://styleaccessories.eu/brand/logo-patrat.png' } },
+  datePublished: '2026-10-19',
+  mainEntityOfPage: `https://styleaccessories.eu${URL_PAGINA}`,
+};
+---
+<Layout title={`${titlu} | style.accessories`} description={descriere}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <article class="container section ghid">
+    <nav class="breadcrumbs"><a href="/">Acasă</a> / <a href="/incaltaminte-femei/">Încălțăminte</a> / <span>Ghid: pantofii de piele iarna</span></nav>
+    <p class="eyebrow">Ghid educativ · Încălțăminte · ~7 minute de citit</p>
+    <h1>Cum îngrijești pantofii de piele peste iarnă</h1>
+
+    <p class="lead">
+      <strong>136 de tone de sare într-o singură zi.</strong> Atât au împrăștiat 14 sărărițe pe străzile Brăilei,
+      pe 15 decembrie 2018 — un singur oraș, o singură zi de ninsoare. Unde crezi că ajunge sarea aceea?
+      Pe ghetele din piele pe care le-ai cumpărat special pentru iarnă? Pe bocancii pe care i-ai pus aseară
+      la uscat pe calorifer? Și câte ierni mai rezistă ei, dacă dimineața îi găsești cu dungi albe și piele crăpată?
+    </p>
+    <p>
+      Vestea bună: o pereche bună de pantofi din piele poate trece prin multe ierni. Nu-ți trebuie un atelier,
+      ci <strong>5 minute seara</strong>, câteva produse ieftine și trei reguli pe care aproape nimeni nu le respectă.
+      Mai jos le ai pe toate, pas cu pas.
+    </p>
+
+    <div class="box cifre">
+      <div><b>1 : 2</b><span>oțet alb : apă, pentru petele albe de sare</span></div>
+      <div><b>20 h</b><span>până se usucă bine un pantof de piele ud</span></div>
+      <div><b>0</b><span>minute pe calorifer — pielea devine casantă și crapă</span></div>
+      <div><b>1 alună</b><span>atâta cremă îți trebuie pentru un pantof</span></div>
+    </div>
+
+    <h2 id="de-ce">De ce iarna e cel mai greu sezon pentru piele</h2>
+    <p>
+      Pielea e un material natural: are pori, „respiră” și are nevoie de grăsimi ca să rămână elastică.
+      Iarna o atacă trei lucruri deodată:
+    </p>
+    <ul>
+      <li><strong>Sarea de pe trotuare.</strong> Ea coboară punctul de îngheț sub 0 °C, dar pe pantof face exact ce face pe gheață: atrage și scoate apa. Pielea se usucă, apar inelele albe, iar în timp pielea <em>crapă</em> exact în zonele care se îndoaie.</li>
+      <li><strong>Apa din zăpada topită.</strong> Pielea udă se deformează, se întinde și pierde din grăsimile naturale.</li>
+      <li><strong>Căldura din casă.</strong> Caloriferul, aeroterma sau uscătorul de păr usucă pielea prea repede. Claudia Schulz, de la Asociația industriei germane de încălțăminte și marochinărie, avertizează: pantofii uscați așa <em>„devin casanți și crăpați”</em>.</li>
+    </ul>
+    <p>Mai e un factor la care nu ne gândim: piciorul. Un pantof poate aduna, într-o singură zi, cam <strong>un păhărel de umezeală</strong> din transpirație. Iarna, în ghete închise, umezeala asta nu are pe unde să iasă.</p>
+
+    <h2 id="inainte">1. Înainte de primul ger: pregătește pantofii</h2>
+    <p>Cel mai bun moment e acum, în octombrie–noiembrie, înainte să apară sarea pe trotuare.</p>
+    <ol class="pasi">
+      <li><strong>Curăță-i bine.</strong> Perie de praf, apoi o lavetă ușor umedă sau o loțiune de curățare pentru piele netedă. Lași să se usuce.</li>
+      <li><strong>Hrănește pielea cu cremă.</strong> O cantitate cât o alună, bine întinsă pe tot pantoful, ajunge. Mai multă cremă nu protejează mai bine — doar încarcă porii.</li>
+      <li><strong>Pune un strat de ceară sau cremă cu ceară</strong> pe vârf, pe călcâi și mai ales pe <strong>cusătura dintre talpă și față</strong> (rantul). Pe acolo intră cel mai ușor apa.</li>
+      <li><strong>Lustruiește</strong> cu o perie moale sau o cârpă de bumbac. Luciul nu e doar estetic: e stratul care respinge apa.</li>
+      <li><strong>Piele întoarsă sau nabuc?</strong> Fără cremă. Folosești un spray impermeabil special, aplicat la 20–30 cm, în aer liber, în 2 straturi subțiri.</li>
+    </ol>
+    <p class="nota">Ritm: cremă + ceară cam o dată la 6 săptămâni de purtare, mai des dacă pantofii prind des zăpadă.</p>
+
+    <h2 id="seara">2. Rutina de seară: 5 minute care salvează pantofii</h2>
+    <p>Când intri în casă din zăpadă sau de pe trotuare cu sare:</p>
+    <ol class="pasi">
+      <li><strong>Perie imediat sarea și noroiul</strong>, cât sunt încă umede. Uscată, sarea se „lipește” de piele și intră în pori.</li>
+      <li><strong>Șterge pantoful cu o cârpă ușor umedă</strong> (apă călduță, nu fierbinte).</li>
+      <li><strong>Scoate șireturile și branțurile</strong>, ca aerul să intre în pantof.</li>
+      <li><strong>Pune calapoade din lemn de cedru</strong>, nevopsit și nelăcuit, pe mărimea ta. Absorb umezeala și mirosul, iar pantoful nu se deformează. Nu ai? Hârtie de ziar mototolită sau prosoape de bucătărie.</li>
+      <li><strong>Lasă-i la temperatura camerei</strong>, departe de calorifer, șemineu și soare direct.</li>
+    </ol>
+
+    <h2 id="sare">3. Petele albe de sare: rețeta cu oțet</h2>
+    <p>
+      Pentru pete ușoare ajunge apă cu puțin detergent delicat. Pentru inelele albe încăpățânate,
+      Arno Carius, de la Asociația centrală a meșteșugului cizmăriei din Germania, recomandă
+      <strong>o parte oțet alb blând la două părți apă</strong> — o soluție care merge și pe piele.
+    </p>
+    <ol class="pasi">
+      <li>Amesteci 1 lingură de oțet alb cu 2 linguri de apă călduță.</li>
+      <li>Înmoi o cârpă moale și <strong>tamponezi</strong> pata — nu freci. Oțetul dizolvă sarea și o aduce la suprafață.</li>
+      <li>Ștergi apoi cu o cârpă curată, umezită doar cu apă, ca să scoți oțetul.</li>
+      <li>Lași pantoful să se usuce complet, cu calapod sau ziar.</li>
+      <li><strong>Abia după ce e uscat</strong>, pui cremă: oțetul și sarea au scos din grăsimile pielii și trebuie înlocuite.</li>
+    </ol>
+    <p class="nota">Încearcă întâi într-un loc ascuns (lângă călcâi, pe interior), mai ales la pielea deschisă la culoare.</p>
+
+    <h2 id="uzi">4. Pantofi uzi leoarcă: cum îi usuci corect</h2>
+    <ul>
+      <li><strong>Ai răbdare:</strong> un pantof din piele poate avea nevoie de până la <strong>20 de ore</strong> ca să se usuce bine.</li>
+      <li><strong>Schimbă ziarul</strong> din interior de fiecare dată când se umezește — prima dată după o oră, apoi la câteva ore.</li>
+      <li><strong>Fără calorifer, uscător de păr, aerotermă sau mașina de uscat rufe.</strong> Uscarea forțată face pielea casantă.</li>
+      <li><strong>Lasă o zi–două de pauză</strong> între purtări. De aceea, iarna merită să ai cel puțin două perechi și să le alternezi.</li>
+      <li>După uscare, <strong>cremă</strong>. Pielea care a fost udă e mereu „însetată”.</li>
+    </ul>
+
+    <h2 id="intoarsa">5. Piele întoarsă și nabuc: reguli speciale</h2>
+    <ul>
+      <li>Nu folosi cremă sau ceară — pătează și lipește firul.</li>
+      <li>Perie doar când pantoful e <strong>complet uscat</strong>, cu o perie sau un burete special pentru piele întoarsă, mereu în aceeași direcție.</li>
+      <li>Pentru sare: tamponezi ușor cu soluția de oțet 1:2, lași să se usuce, apoi perii ca să ridici firul.</li>
+      <li>Reîmprospătezi spray-ul impermeabil la câteva săptămâni și după fiecare curățare.</li>
+      <li>În zilele cu lapoviță și multă sare, lasă pielea întoarsă acasă — e cea mai sensibilă.</li>
+    </ul>
+
+    <h2 id="greseli">Cele mai frecvente 7 greșeli</h2>
+    <div class="greseli">
+      <p>❌ Pantofii uzi pe calorifer „ca să fie gata dimineață”.</p>
+      <p>❌ Aceeași pereche purtată zi de zi, toată iarna.</p>
+      <p>❌ Sarea lăsată pe pantof peste noapte.</p>
+      <p>❌ Cremă pusă pe pantoful încă ud sau cu sare pe el.</p>
+      <p>❌ Prea multă cremă — strat gros, lipicios, care adună praf.</p>
+      <p>❌ Cremă pe piele întoarsă sau nabuc.</p>
+      <p>❌ Pantofii depozitați în pungi de plastic — fac mucegai. Folosește săculeți din bumbac sau in.</p>
+    </div>
+
+    <div class="box checklist">
+      <h3>Pe scurt — salvează lista</h3>
+      <p>✔ Noiembrie: curățare + cremă + ceară pe rant (spray la piele întoarsă).<br />
+      ✔ Seara: perie sarea → cârpă umedă → șireturi scoase → calapod sau ziar.<br />
+      ✔ Pete albe: oțet alb + apă 1:2, tamponat, apoi cremă.<br />
+      ✔ Uzi: până la 20 de ore la aer, fără calorifer.<br />
+      ✔ Alternează două perechi; cremă + ceară la ~6 săptămâni.</p>
+    </div>
+
+    {kit.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>Kitul de iarnă pentru pantofi</h2>
+          <a href="/genti-accesorii/tip/ingrijire-incaltaminte/" class="eyebrow">Toate produsele de îngrijire →</a>
+        </div>
+        <div class="product-grid">{kit.map((p) => <ProductCard product={p} />)}</div>
+      </section>
+    )}
+
+    {geteEa.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>Ghete și botine din piele, cu reducere — pentru ea</h2>
+          <a href="/incaltaminte-femei/tip/ghete-botine/" class="eyebrow">Toate →</a>
+        </div>
+        <div class="product-grid">{geteEa.map((p) => <ProductCard product={p} />)}</div>
+      </section>
+    )}
+
+    {geteEl.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>Ghete și bocanci din piele, cu reducere — pentru el</h2>
+          <a href="/incaltaminte-barbati/tip/ghete-bocanci/" class="eyebrow">Toate →</a>
+        </div>
+        <div class="product-grid">{geteEl.map((p) => <ProductCard product={p} />)}</div>
+      </section>
+    )}
+
+    <h2 id="surse">Surse</h2>
+    <ul class="surse">
+      <li>Agerpres, 15.12.2018 — <a href="https://agerpres.ro/administratie/2018/12/15/braila-peste-130-tone-de-sare-folosite-intr-o-zi-pentru-deszapezirea-drumurilor-din-municipiu--228531" target="_blank" rel="noopener">Brăila: peste 130 de tone de sare folosite într-o zi</a></li>
+      <li>The Weather Network / dpa — <a href="https://www.theweathernetwork.com/en/news/lifestyle/community/radiator-or-newspaper-how-to-take-better-care-of-wet-winter-boots" target="_blank" rel="noopener">Radiator or newspaper? How to take better care of wet winter boots</a> (Arno Carius, Claudia Schulz)</li>
+      <li>Gear Patrol — <a href="https://www.gearpatrol.com/?p=154333" target="_blank" rel="noopener">How to Get Salt Stains Off Your Boots</a></li>
+      <li>The Shoe Care Shop — <a href="https://theshoecareshop.com/blogs/articles/salt-stains-on-leather-shoes-prevention-and-removal-guide" target="_blank" rel="noopener">Salt stains on leather shoes</a></li>
+      <li>Herring Shoes — <a href="https://journal.herringshoes.co.uk/2022/can-i-put-my-leather-boots-on-the-radiator-to-dry/" target="_blank" rel="noopener">Can I put my leather boots on the radiator to dry?</a></li>
+      <li>Melvin &amp; Hamilton — <a href="https://www.melvin-hamilton.com/magazine/tips/winter-shoe-care-leather" target="_blank" rel="noopener">Winter shoe care for leather</a></li>
+    </ul>
+    <p class="nota">Linkurile către produse sunt de afiliere: putem primi un comision, fără cost în plus pentru tine. Prețurile și stocul pot varia.</p>
+  </article>
+</Layout>
+
+<style>
+  .ghid { max-width: 820px; margin: 0 auto; }
+  .ghid > h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--color-navy); line-height: 1.15; margin-top: .3rem; }
+  .ghid > h2 { font-size: 1.45rem; color: var(--color-navy); margin-top: 2.4rem; padding-left: .75rem; border-left: 4px solid var(--color-brass); }
+  .ghid p, .ghid li { font-size: 1.03rem; line-height: 1.7; color: var(--color-ink); }
+  .ghid .lead { font-size: 1.15rem; }
+  .ghid li { margin-bottom: .45rem; }
+  .pasi { padding-left: 1.3rem; }
+  .pasi li::marker { font-family: var(--font-mono); font-weight: 700; color: var(--color-brass-dark); }
+  .nota { font-size: .92rem !important; color: var(--color-steel) !important; font-style: italic; }
+  .box { background: var(--color-surface); border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin: 1.6rem 0; }
+  .cifre { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; text-align: center; border-top: 3px solid var(--color-brass); }
+  .cifre b { display: block; font-family: var(--font-display); font-size: 1.7rem; color: var(--color-navy); }
+  .cifre span { display: block; font-size: .82rem; color: var(--color-steel); line-height: 1.35; }
+  .greseli p { margin: .35rem 0; }
+  .checklist { border-left: 4px solid var(--color-navy); }
+  .checklist h3 { color: var(--color-navy); }
+  .ghid .section { padding: 2rem 0 0; }
+  .surse li { font-size: .9rem; }
+  .surse a, .ghid p a { color: var(--color-navy); text-decoration: underline; }
+  @media (max-width: 640px) { .cifre { grid-template-columns: repeat(2, 1fr); } }
+</style>

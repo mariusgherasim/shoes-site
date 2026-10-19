@@ -151,6 +151,7 @@ git push
 | Prima pagină | `src/pages/index.astro` |
 | Paginile legale | `src/pages/termeni-si-conditii.astro`, `src/pages/politica-de-confidentialitate.astro` |
 | Gravura personalizată | `src/pages/gravura-personalizata.astro` (pozele în `public/gravura/`) |
+| Ghidurile educative | `src/pages/ghiduri/` (ex. `ingrijire-pantofi-piele-iarna.astro`; produsele din ghid se aleg singure la build) — link în footer, la Colecții |
 
 ### Cum adaugi un sticker de reclamă
 În `src/data/stickere.js` copiezi blocul de exemplu (fără `//`), completezi `id`, `de_la`, `pana_la`, `pozitie` (`'stanga'` sau `'dreapta'`), `mare`, `eticheta`, `brand`, `text`, `cta`, `link`, `culoare`. Stickerul apare singur între cele două date și dispare singur după `pana_la`. Butonul ✕ îl ascunde doar pe pagina curentă. Stickerul automat **Hot Deals** (dreapta) ia singur cea mai mare reducere și numără până duminică seara.
@@ -254,6 +255,7 @@ apoi conținutul folderelor `redirect-shop/` și `redirect-style/` se urcă în 
 |---|---|---|
 | `node genereaza-email.mjs` (sau dublu-click `email-zilnic.bat`) | zilnic, ~10:30 | `email-output.html` + `email-output-previzualizare.html` |
 | `node genereaza-email-categorie.mjs` | când vrei un email tematic | `email-categorie-output.html` + previzualizare |
+| `node genereaza-email-ghid.mjs` | email educativ „Ghid: pantofii de piele iarna” | `email-ghid-output.html` + previzualizare; butonul „Citește ghidul” duce la `/ghiduri/ingrijire-pantofi-piele-iarna/` |
 
 **Emailul zilnic** recunoaște singur ziua:
 - **🎁 Pentru ea (10) + 🎁 Pentru el (10)**, doar reduceri reale (10–85%, minimum 25 lei economisiți), cu poză, maximum 2 produse de la același brand, amestec pe categorii.
