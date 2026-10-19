@@ -109,7 +109,7 @@ const SURSE = {
   'festina': ['festina.com', 'Festina'], 'versace': ['versace.com', 'Versace'], 'michael-kors': ['michaelkors.com', 'Michael Kors'],
   'bulova': ['bulova.com', 'Bulova'], 'seiko': ['seikowatches.com', 'Seiko'], 'radiant': [''], 'daniel-klein': [''],
   'bering': ['bering.com'], 'philipp-plein': ['plein.com', 'Philipp Plein'], 'lorus': ['lorus.com', 'Lorus'],
-  'fossil': ['fossil.com', 'Fossil Group'], 'swiss-alpine-military': ['swissalpinemilitary.com'],
+  'fossil': ['fossil.com', 'Fossil Group'], 'swiss-alpine-military': [''],
   'zeppelin': ['zeppelin-watches.com'], 'maserati': ['maserati.com', 'Maserati'], 'jacques-lemans': ['jacques-lemans.com', 'Jacques Lemans'],
   'emporio-armani': ['armani.com', 'Emporio Armani'], 'orient': ['orient-watch.com', 'Orient Watch'],
   'laura-biagiotti': ['laurabiagiotti.it', 'Laura Biagiotti'], 'tommy-hilfiger': ['tommy.com', 'Tommy Hilfiger'],
@@ -150,6 +150,13 @@ const SURSE = {
   'new-balance': ['newbalance.com', 'New Balance'], 'john-richmond': ['johnrichmond.com'], 'hoka': ['hoka.com', 'Hoka'],
   'norway': [''], 'q-s-by-s-oliver': [''],
 };
+// Adresa directă a logo-ului, pentru brandurile la care căutarea automată nu merge
+// (site-ul blochează scriptul sau logo-ul nu e în pagină). Poți adăuga oricând:
+// click dreapta pe logo, pe site-ul brandului → „Copiază adresa imaginii" → o pui aici.
+const LOGO_DIRECT = {
+  'police': 'https://assets.policelifestyle.com/images/main-logo.svg',
+};
+
 // Sub-branduri care folosesc logo-ul brandului principal (se copiaza fisierul)
 const ACELASI_LOGO = {
   'jack-jones-plus': 'jack-jones', 's-oliver-big-sizes': 's-oliver', 's-oliver-black-label': 's-oliver',
@@ -315,6 +322,16 @@ async function proceseaza(b) {
   }
   const erori = [];
   let wd = null;
+
+  // 0. Adresa directă, dacă e trecută în LOGO_DIRECT
+  if (LOGO_DIRECT[b.slug]) {
+    try {
+      const r = await get(LOGO_DIRECT[b.slug], { tip: 'buf' });
+      const ext = extensie(r.ct, r.url, r.body);
+      if (ext) return { ...rez, status: 'ok', fisier: salveaza(b.slug, r.body, ext), sursa: LOGO_DIRECT[b.slug], verifica: true };
+      erori.push('adresa directa: nu e imagine');
+    } catch (e) { erori.push('adresa directa: ' + e.message); }
+  }
 
   // 1. Wikidata — doar cand avem un nume de cautare (brand cunoscut)
   if (numeWiki) {
