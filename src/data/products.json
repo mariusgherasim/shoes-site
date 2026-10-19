@@ -283823,8 +283823,7 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 120
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "151449",
@@ -286764,7 +286763,7 @@
       "cadouri-pentru-el"
     ],
     "price": 1529.99,
-    "old_price": 1804.99,
+    "old_price": 1799.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -287660,8 +287659,7 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard",
       "greutate_g": 46
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "89692",
@@ -288609,7 +288607,7 @@
       "cadouri-pentru-el"
     ],
     "price": 1444.99,
-    "old_price": 1799.99,
+    "old_price": 1699.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -289408,7 +289406,8 @@
       "latime_bratara_mm": 19,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 120
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "243775",
@@ -290117,7 +290116,8 @@
       "latime_bratara_mm": 22,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 140
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "244608",
@@ -290510,8 +290510,7 @@
       "latime_bratara_mm": 14,
       "inchidere": "Reglabil",
       "greutate_g": 40
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "244957",
@@ -295355,7 +295354,7 @@
       "cadouri-pentru-el"
     ],
     "price": 553.49,
-    "old_price": 629.99,
+    "old_price": 614.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -295447,7 +295446,8 @@
       "culoare_bratara": "Verde",
       "inchidere": "Catarama standard",
       "greutate_g": 51
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "197741",
@@ -297132,7 +297132,7 @@
       "cadouri-pentru-el"
     ],
     "price": 346.49,
-    "old_price": 404.99,
+    "old_price": 384.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -297434,7 +297434,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 229.49,
-    "old_price": 269.99,
+    "old_price": 254.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -298936,7 +298936,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 158.39,
-    "old_price": 174.99,
+    "old_price": 179.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -300944,8 +300944,7 @@
       "latime_bratara_mm": 28,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 60
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "249555",
@@ -302700,7 +302699,7 @@
       "ceasuri"
     ],
     "price": 202.49,
-    "old_price": 229.99,
+    "old_price": 224.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -302797,7 +302796,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 328.49,
-    "old_price": 369.99,
+    "old_price": 364.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -303061,7 +303060,8 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard",
       "greutate_g": 37
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "136413",
@@ -304921,7 +304921,7 @@
       "cadouri-pentru-el"
     ],
     "price": 616.24,
-    "old_price": 729.99,
+    "old_price": 724.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -304957,7 +304957,7 @@
       "cadouri-pentru-el"
     ],
     "price": 616.24,
-    "old_price": 729.99,
+    "old_price": 724.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -310076,8 +310076,7 @@
       "culoare_bratara": "Argintiu",
       "latime_bratara_mm": 22,
       "inchidere": "Catarama tip fluture"
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "265706",
@@ -310431,7 +310430,7 @@
       "cadouri-pentru-el"
     ],
     "price": 981.74,
-    "old_price": 1169.99,
+    "old_price": 1154.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -310669,7 +310668,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 743.74,
-    "old_price": 879.99,
+    "old_price": 874.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -310703,7 +310702,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 735.24,
-    "old_price": 869.99,
+    "old_price": 864.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -312364,7 +312363,7 @@
       "cadouri-pentru-el"
     ],
     "price": 794.74,
-    "old_price": 954.99,
+    "old_price": 934.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -319477,7 +319476,8 @@
       "latime_bratara_mm": 13,
       "inchidere": "Catarama tip fluture",
       "greutate_g": 43
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "84263",
@@ -320972,7 +320972,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 274.49,
-    "old_price": 299.99,
+    "old_price": 304.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -321263,7 +321263,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 158.39,
-    "old_price": 189.99,
+    "old_price": 179.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -321745,7 +321745,7 @@
       "ceasuri"
     ],
     "price": 197.99,
-    "old_price": 229.99,
+    "old_price": 219.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -326057,7 +326057,8 @@
       "latime_bratara_mm": 17,
       "inchidere": "Catarama tip bijuterie",
       "greutate_g": 90
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "91557",
@@ -328182,7 +328183,8 @@
       "latime_bratara_mm": 40,
       "inchidere": "Catarama standard",
       "greutate_g": 51.5
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "93994",
@@ -328806,7 +328808,8 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard",
       "greutate_g": 23.8
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "95491",
@@ -332895,7 +332898,8 @@
       "material_bratara": "Piele",
       "culoare_bratara": "Bej",
       "inchidere": "Catarama standard"
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "111549",
@@ -333615,8 +333619,7 @@
       "culoare_bratara": "Negru",
       "latime_bratara_mm": 16,
       "inchidere": "Catarama standard"
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "112334",
@@ -336811,7 +336814,7 @@
       "cadouri-pentru-el"
     ],
     "price": 167.19,
-    "old_price": 194.99,
+    "old_price": 189.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -338110,8 +338113,7 @@
       "culoare_bratara": "Mov",
       "latime_bratara_mm": 18,
       "inchidere": "Catarama standard"
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "129394",
@@ -339488,8 +339490,7 @@
       "latime_bratara_mm": 14,
       "inchidere": "Catarama tip fluture",
       "greutate_g": 55
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "129711",
@@ -340356,7 +340357,8 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard",
       "greutate_g": 23.8
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "130032",
@@ -344873,8 +344875,7 @@
       "latime_bratara_mm": 22,
       "inchidere": "Catarama standard",
       "greutate_g": 70
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "124014",
@@ -345466,7 +345467,7 @@
       "cadouri-pentru-el"
     ],
     "price": 256.49,
-    "old_price": 289.99,
+    "old_price": 284.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -348167,8 +348168,7 @@
       "culoare_bratara": "Albastru",
       "inchidere": "Catarama standard",
       "greutate_g": 100
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "119619",
@@ -348348,7 +348348,7 @@
       "cadouri-pentru-el"
     ],
     "price": 1306.8,
-    "old_price": 1452,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -349136,7 +349136,7 @@
       "ceasuri"
     ],
     "price": 533,
-    "old_price": 533,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -351880,7 +351880,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 215.99,
-    "old_price": 234.99,
+    "old_price": 239.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -356319,7 +356319,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/ws1/93743/full/ceas-festina-sport-f16759-3-cronograf-177454.jpeg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/festina/sport-f16759-3-cronograf/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=a57a2546b&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "117585",
@@ -361844,7 +361845,7 @@
       "cadouri-pentru-el"
     ],
     "price": 794.74,
-    "old_price": 939.99,
+    "old_price": 934.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -363162,7 +363163,7 @@
       "cadouri-pentru-el"
     ],
     "price": 283.49,
-    "old_price": 319.99,
+    "old_price": 314.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -363399,7 +363400,7 @@
       "cadouri-pentru-el"
     ],
     "price": 238.49,
-    "old_price": 274.99,
+    "old_price": 264.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -364031,7 +364032,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 467,
-    "old_price": 467,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -365227,7 +365228,8 @@
       "material_bratara": "Silicon",
       "culoare_bratara": "Alb",
       "inchidere": "Catarama standard"
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "275409",
@@ -367821,7 +367823,7 @@
       "ceasuri"
     ],
     "price": 472.49,
-    "old_price": 534.99,
+    "old_price": 524.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -370529,7 +370531,8 @@
       "latime_lentila_mm": 140,
       "lungime_brat_mm": 99,
       "punte_nazala_mm": 15
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "251800",
@@ -371618,7 +371621,7 @@
       "ceasuri"
     ],
     "price": 2282.24,
-    "old_price": 2744.99,
+    "old_price": 2684.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -373020,7 +373023,7 @@
       "ceasuri"
     ],
     "price": 1039.49,
-    "old_price": 1184.99,
+    "old_price": 1154.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -373894,7 +373897,7 @@
       "ceasuri"
     ],
     "price": 1338.74,
-    "old_price": 1489.99,
+    "old_price": 1574.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -373951,7 +373954,7 @@
       "ceasuri"
     ],
     "price": 1058.24,
-    "old_price": 1234.99,
+    "old_price": 1244.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -374065,7 +374068,7 @@
       "ceasuri"
     ],
     "price": 777.74,
-    "old_price": 619.99,
+    "old_price": 914.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -375490,7 +375493,7 @@
       "ceasuri"
     ],
     "price": 495,
-    "old_price": 550,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -376222,7 +376225,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 1151.74,
-    "old_price": 1354.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -376308,7 +376311,7 @@
       "ceasuri"
     ],
     "price": 1117.74,
-    "old_price": 1359.99,
+    "old_price": 1314.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -376932,7 +376935,7 @@
       "ceasuri"
     ],
     "price": 841.49,
-    "old_price": 954.99,
+    "old_price": 934.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -377369,7 +377372,7 @@
       "ceasuri"
     ],
     "price": 1070.99,
-    "old_price": 1234.99,
+    "old_price": 1259.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -377388,7 +377391,7 @@
       "ceasuri"
     ],
     "price": 1143.24,
-    "old_price": 1369.99,
+    "old_price": 1344.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -377711,7 +377714,8 @@
       "latime_bratara_mm": 24,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 150
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "247037",
@@ -380883,8 +380887,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/282897/full/ceas-festina-festina-the-originals-20330-a-694559.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/festina/festina-the-originals-20330-a/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=ootY3zEFp7Vb&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "277935",
@@ -382976,8 +382979,7 @@
       "latime_bratara_mm": 22,
       "inchidere": "Catarama standard",
       "greutate_g": 109
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "139826",
@@ -385309,7 +385311,7 @@
       "ceasuri"
     ],
     "price": 3408.49,
-    "old_price": 4029.99,
+    "old_price": 4009.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -387027,7 +387029,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/285604/full/ochelari-de-soare-polaroid-polaroid-pld-4160-g-s-x-j5g-wj-55-696634.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/polaroid/polaroid-pld-4160-g-s-x-j5g-wj-55/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=5Ja1rCvzpxYe&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "285625",
@@ -389258,8 +389261,7 @@
       "latime_bratara_mm": 22,
       "inchidere": "Catarama standard",
       "greutate_g": 100
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "283972",
@@ -390343,7 +390345,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/286610/full/ochelari-de-soare-ray-ban-ray-ban-rb3733-001-78-59-697640.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/ray-ban/ray-ban-rb3733-001-78-59/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=IUzgseEpESMi&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "286616",
@@ -390438,8 +390441,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/286643/full/ochelari-de-soare-ray-ban-ray-ban-rb3749-92723f-58-697673.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/ray-ban/ray-ban-rb3749-92723f-58/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=bwIcwWA01xpW&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "286664",
@@ -391576,7 +391578,7 @@
       "cadouri-pentru-ea"
     ],
     "price": 503.99,
-    "old_price": 574.99,
+    "old_price": 559.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -392891,7 +392893,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/286904/full/ceas-casio-casio-edifice-efr-575d-2adf-697940.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/casio/casio-edifice-efr-575d-2adf/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=Tkj4gLhZy-Pf&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "286916",
@@ -393315,7 +393318,7 @@
       "ceasuri"
     ],
     "price": 2694.49,
-    "old_price": 3179.99,
+    "old_price": 3169.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -399064,7 +399067,7 @@
       "ceasuri"
     ],
     "price": 2762.49,
-    "old_price": 3249.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -400706,7 +400709,7 @@
       "ceasuri"
     ],
     "price": 778.49,
-    "old_price": 899.99,
+    "old_price": 864.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -400725,7 +400728,7 @@
       "ceasuri"
     ],
     "price": 1061.99,
-    "old_price": 1199.99,
+    "old_price": 1179.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -402541,7 +402544,8 @@
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard",
       "greutate_g": 19.4
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "93230",
@@ -403426,7 +403430,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/281139/full/ochelari-de-soare-guess-guess-gu00088-08w-62-692151.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/guess/guess-gu00088-08w-62/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=DBDThaX5MlRC&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "81155",
@@ -405216,7 +405221,7 @@
       "ceasuri"
     ],
     "price": 1151.99,
-    "old_price": 1354.99,
+    "old_price": 1279.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -405571,7 +405576,7 @@
       "ceasuri"
     ],
     "price": 809.99,
-    "old_price": 909.99,
+    "old_price": 899.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -405666,7 +405671,7 @@
       "ceasuri"
     ],
     "price": 229.49,
-    "old_price": 269.99,
+    "old_price": 254.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -409778,8 +409783,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/294197/full/ceas-lorus-lorus-rg237hx9-706541.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/lorus/lorus-rg237hx9/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=gHc8dKylwdO4&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "294212",
@@ -410721,7 +410725,7 @@
       "ceasuri"
     ],
     "price": 871.24,
-    "old_price": 1029.99,
+    "old_price": 1024.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -412049,8 +412053,7 @@
       "latime_bratara_mm": 18,
       "inchidere": "Catarama tip fluture cu butoane laterale",
       "greutate_g": 90
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "251041",
@@ -414907,8 +414910,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/293372/full/ceas-daniel-klein-daniel-klein-dk-1-14196-2-708166.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/daniel-klein/dk-1-14196-2/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=DZzXL-kC_Qz8&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "293378",
@@ -416682,7 +416684,8 @@
       "culoare_bratara": "Negru",
       "latime_bratara_mm": 22,
       "inchidere": "Catarama tip fluture cu butoane laterale"
-    }
+    },
+    "recomandat": true
   },
   {
     "id": "134589",
@@ -418172,7 +418175,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/286310/full/ochelari-de-soare-ray-ban-ray-ban-rb3719-004-s3-54-polarized-697340.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/ray-ban/ray-ban-rb3719-004-s3-54-polarized/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=Dqvr-X5qD7HF&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "286319",
@@ -420795,8 +420799,7 @@
       "culoare_bratara": "Maro",
       "latime_bratara_mm": 20,
       "inchidere": "Catarama standard"
-    },
-    "recomandat": true
+    }
   },
   {
     "id": "237842",
@@ -421109,7 +421112,7 @@
       "ceasuri"
     ],
     "price": 449.99,
-    "old_price": 489.99,
+    "old_price": 499.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -423792,7 +423795,7 @@
       "ceasuri"
     ],
     "price": 441.99,
-    "old_price": 489.99,
+    "old_price": 519.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -427744,7 +427747,7 @@
       "bijuterii"
     ],
     "price": 280.79,
-    "old_price": null,
+    "old_price": 350.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -429464,7 +429467,7 @@
       "bijuterii"
     ],
     "price": 280.79,
-    "old_price": null,
+    "old_price": 350.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -430452,7 +430455,7 @@
       "bijuterii"
     ],
     "price": 353.59,
-    "old_price": null,
+    "old_price": 441.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -434442,7 +434445,7 @@
     "title": "Tommy Hilfiger 2790450",
     "category": [],
     "price": 243.99,
-    "old_price": null,
+    "old_price": 304.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -439638,7 +439641,7 @@
     "title": "Ceas Casio Casio Timeless MTD-140-3AVDF",
     "category": [],
     "price": 386.99,
-    "old_price": 429.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -440267,7 +440270,7 @@
     "title": "Ceas Casio Casio Timeless MTP-B125MR-8AVDF",
     "category": [],
     "price": 490.49,
-    "old_price": 529.99,
+    "old_price": 544.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -440369,7 +440372,7 @@
     "title": "Ceas Casio Casio Timeless MTP-E321RL-2AVDF",
     "category": [],
     "price": 508.49,
-    "old_price": 589.99,
+    "old_price": 564.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -444603,8 +444606,8 @@
     "brand": "Fossil",
     "title": "Ceas Fossil Fossil Townsman ME3259",
     "category": [],
-    "price": 1070.99,
-    "old_price": 1259.99,
+    "price": 1147.49,
+    "old_price": 1349.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -448259,7 +448262,7 @@
     "title": "Ceas Seiko Seiko 5 SNK063J5",
     "category": [],
     "price": 1045.49,
-    "old_price": 1229.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -448378,7 +448381,7 @@
     "title": "Ceas Seiko Seiko Automatic SSK019K1",
     "category": [],
     "price": 2498.99,
-    "old_price": 2939.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -458945,7 +458948,7 @@
     "title": "Ceas Bulova Bulova 97L185 Ladies Watch Classic 18mm 3ATM",
     "category": [],
     "price": 1784.99,
-    "old_price": 2099.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -460849,7 +460852,7 @@
     "title": "Ceas Edox Edox 53020-3D120M-BUCND Delfin Diamond Diver Ladies Watch 38mm 20ATM",
     "category": [],
     "price": 24428.99,
-    "old_price": 28744.99,
+    "old_price": 28739.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -475729,7 +475732,7 @@
     "title": "Ceas Police Police PEWGF0054403 Mens Watch Shield 45mm 5ATM",
     "category": [],
     "price": 1364.24,
-    "old_price": 1609.99,
+    "old_price": 1604.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -475967,7 +475970,7 @@
     "title": "Ceas Police Police PEWGF0054502 Mens Watch Electrical 46mm 5ATM",
     "category": [],
     "price": 1364.24,
-    "old_price": 1609.99,
+    "old_price": 1604.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -476052,7 +476055,7 @@
     "title": "Ceas Police Police PEWGF0054503 Mens Watch Electrical 46mm 5ATM",
     "category": [],
     "price": 1364.24,
-    "old_price": 1609.99,
+    "old_price": 1604.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -485871,8 +485874,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/184231/full/helly-hansen-hh5012-c02-51-415189.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/helly-hansen/hh5012-c02-51/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=e2aec6f12&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "253225",
@@ -486974,7 +486976,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/190090/full/italia-independent-0912-dha-022-426683.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/italia-independent/0912-dha-022/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=3ad314295&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "264795",
@@ -491614,7 +491617,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/273277/full/sting-sst027-516c8v-678357.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/sting/sst027-516c8v/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=9eeb93a02&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "177049",
@@ -493670,8 +493674,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/269577/full/ceas-adidas-aofh22514-672749.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/adidas/aofh22514/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=af1a79c36&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "189355",
@@ -497490,7 +497493,7 @@
       "ceasuri"
     ],
     "price": 1543.99,
-    "old_price": 1934.99,
+    "old_price": 1929.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -497593,7 +497596,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/289268/full/ceas-burberry-bu3005-700520.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/burberry/bu3005/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=RsnLrFO1ujWe&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "222763",
@@ -497631,7 +497635,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/193324/full/lozza-sl4182m50t65x-433774.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/lozza/sl4182m50t65x/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=20e9e7647&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "196964",
@@ -498315,8 +498320,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/264915/full/ceas-pertegaz-pds-014-s-666169.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/pertegaz/pds-014-s/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=2862a8de3&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "256658",
@@ -498449,8 +498453,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_201902052353/176251/full/converse-sco1955308fe-399019.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/converse/sco1955308fe/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=538f0975d&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "264910",
@@ -501766,7 +501769,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/243561/full/liujo-lj731s-525-610710.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/liujo/lj731s-525/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=d5a6470e3&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "190209",
@@ -502602,8 +502606,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/256895/full/ceas-olivia-burton-ob16vm37-653190.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/olivia-burton/ob16vm37/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=F8L-8j40xD7J&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "261690",
@@ -503213,7 +503216,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/258946/full/ceas-xtress-xaa1038-50-655761.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/xtress/xaa1038-50/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=16d6ae325&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "192085",
@@ -503587,7 +503591,7 @@
       "ochelari-de-soare"
     ],
     "price": 316.99,
-    "old_price": 396.25,
+    "old_price": 396.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -505227,7 +505231,7 @@
       "ochelari-de-soare"
     ],
     "price": 316.99,
-    "old_price": 396.25,
+    "old_price": 396.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -505942,8 +505946,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/259183/full/carolina-herrera-ny-shn051m5408fe-656225.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/carolina-herrera-ny/shn051m5408fe/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=b33f985cc&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "255868",
@@ -509378,7 +509381,7 @@
       "ceasuri"
     ],
     "price": 1034.99,
-    "old_price": 1219.99,
+    "old_price": 1149.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -511864,8 +511867,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/192351/full/lozza-sl1872w580nk1-432052.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/lozza/sl1872w580nk1/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=374370404&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "265034",
@@ -511884,7 +511886,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/265034/full/ceas-montres-de-luxe-09bk-2502-666331.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/montres-de-luxe/09bk-2502/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=5x4-3VDpH8Qp&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "257765",
@@ -515779,7 +515782,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/256275/full/ceas-laura-biagiotti-lb0004s-02z-652173.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/laura-biagiotti/lb0004s-02z/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=769a06e84&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "264824",
@@ -515866,7 +515870,7 @@
       "ceasuri"
     ],
     "price": 1543.99,
-    "old_price": 1934.99,
+    "old_price": 1929.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -516596,8 +516600,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/248774/full/ceas-just-cavalli-regolare-jc1g216m0075-630355.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/just-cavalli/regolare-jc1g216m0075/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=taMvoQsD9g8j&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "272205",
@@ -517243,7 +517246,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/251698/full/ceas-guess-gw0482l1-645070.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/guess/radiance-gw0482l1/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=c2cc50503&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "253112",
@@ -518727,7 +518731,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/253513/full/ceas-furla-r4251110501-648075.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/furla/r4251110501/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=375219266&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "189222",
@@ -521748,8 +521753,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202504020518/287177/full/ceas-calvin-klein-calvin-klein-25200339-698216.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/calvin-klein/calvin-klein-25200339/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=fRC8NWRPePdK&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "248883",
@@ -525329,8 +525333,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/253117/full/curea-bratara-ceas-bobroff-bfs011-647498.jpg",
     "official_url": "https://www.watchshop.ro/curele-si-bratari-ceasuri/bobroff/bfs011/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=cd76fb808&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "261500",
@@ -526122,7 +526125,7 @@
       "ochelari-de-soare"
     ],
     "price": 269.67,
-    "old_price": 337.1,
+    "old_price": 337.08,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -533457,8 +533460,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/182033/full/nina-ricci-snr0085503g9-410835.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/nina-ricci/snr0085503g9/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=ed99f88e9&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "183062",
@@ -536574,8 +536576,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/248802/full/ochelari-de-soare-barbati-adidas-aor027-053000-630441.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/adidas/aor027-053000/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=37dc4452b&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "255899",
@@ -537489,8 +537490,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/253075/full/ceas-bobroff-bf0002ibvbfs-647455.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/bobroff/bf0002ibvbfs/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=3ac66ab11&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "256897",
@@ -539187,7 +539187,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/255943/full/ceas-juicy-couture-jc1310rgwt-651631.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/juicy-couture/jc1310rgwt/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=f7c8226d5&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "222758",
@@ -539491,7 +539492,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202111121617/185526/full/italia-independent-0092-zef-022-418164.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/italia-independent/0092-zef-022/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=67dfda946&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "283663",
@@ -539521,7 +539523,7 @@
       "ochelari-de-soare"
     ],
     "price": 272.15,
-    "old_price": 340.2,
+    "old_price": 340.18,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -543640,7 +543642,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/265180/full/ceas-elixa-e119l483-666548.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/elixa/e119l483/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=E8HnQ2QLkApw&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "254900",
@@ -545732,8 +545735,7 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_201902052353/179240/full/more-amp-more-mm54305-54900-404395.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-dama/more-more/mm54305-54900/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=1c7bb8755&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "184343",
@@ -546143,7 +546145,7 @@
       "ochelari-de-soare"
     ],
     "price": 316.99,
-    "old_price": 396.25,
+    "old_price": 396.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -546493,7 +546495,8 @@
     "image_url": "https://img-proxy.gherasimmarius75.workers.dev/?url=https://www.watchshop.ro/images/products/img_202402020518/255850/full/ceas-jason-hyde-jh20011-651417.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/jason-hyde/jh20011/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=bbf115147&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "192519",
@@ -548237,7 +548240,7 @@
       "ochelari-de-soare"
     ],
     "price": 316.99,
-    "old_price": 396.25,
+    "old_price": 396.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -555203,7 +555206,7 @@
       "ochelari-de-soare"
     ],
     "price": 313.99,
-    "old_price": 392.5,
+    "old_price": 392.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -555317,7 +555320,7 @@
       "ochelari-de-soare"
     ],
     "price": 256.03,
-    "old_price": 320.05,
+    "old_price": 320.04,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -558266,7 +558269,7 @@
       "ceasuri"
     ],
     "price": 1543.99,
-    "old_price": 1934.99,
+    "old_price": 1929.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -561367,7 +561370,7 @@
       "ochelari-de-soare"
     ],
     "price": 316.99,
-    "old_price": 396.25,
+    "old_price": 396.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -562317,7 +562320,7 @@
       "ochelari-de-soare"
     ],
     "price": 243.84,
-    "old_price": 304.81,
+    "old_price": 304.8,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -563115,7 +563118,7 @@
       "ceasuri"
     ],
     "price": 3684.74,
-    "old_price": 4339.99,
+    "old_price": 4334.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -563419,7 +563422,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -563723,7 +563726,7 @@
       "rame-ochelari"
     ],
     "price": 316.67,
-    "old_price": 395.85,
+    "old_price": 395.83,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -563742,7 +563745,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -563837,7 +563840,7 @@
       "rame-ochelari"
     ],
     "price": 283.11,
-    "old_price": 353.9,
+    "old_price": 353.89,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -564027,7 +564030,7 @@
       "rame-ochelari"
     ],
     "price": 209.7,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -564787,7 +564790,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -565167,7 +565170,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -565186,7 +565189,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -565319,7 +565322,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -565452,7 +565455,7 @@
       "rame-ochelari"
     ],
     "price": 312.78,
-    "old_price": 390.99,
+    "old_price": 390.97,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -565965,7 +565968,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566136,7 +566139,7 @@
       "rame-ochelari"
     ],
     "price": 300.84,
-    "old_price": 376.06,
+    "old_price": 376.05,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566231,7 +566234,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566440,7 +566443,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566668,7 +566671,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": 404.02,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566725,7 +566728,7 @@
       "rame-ochelari"
     ],
     "price": 274.39,
-    "old_price": 343,
+    "old_price": 342.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -566877,7 +566880,7 @@
       "rame-ochelari"
     ],
     "price": 908.36,
-    "old_price": 1068.7,
+    "old_price": 1068.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567048,7 +567051,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567162,7 +567165,7 @@
       "rame-ochelari"
     ],
     "price": 305.86,
-    "old_price": 382.34,
+    "old_price": 382.33,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567276,7 +567279,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567390,7 +567393,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567580,7 +567583,7 @@
       "rame-ochelari"
     ],
     "price": 324.34,
-    "old_price": 405.44,
+    "old_price": 405.43,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567599,7 +567602,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567827,7 +567830,7 @@
       "rame-ochelari"
     ],
     "price": 305.86,
-    "old_price": 382.34,
+    "old_price": 382.33,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -567979,7 +567982,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568226,7 +568229,7 @@
       "rame-ochelari"
     ],
     "price": 324.34,
-    "old_price": 405.44,
+    "old_price": 405.43,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568302,7 +568305,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568321,7 +568324,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568454,7 +568457,7 @@
       "rame-ochelari"
     ],
     "price": 262.83,
-    "old_price": 328.55,
+    "old_price": 328.54,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568872,7 +568875,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -568891,7 +568894,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -569385,7 +569388,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -569670,7 +569673,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -569727,7 +569730,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -569765,7 +569768,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570050,7 +570053,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570392,7 +570395,7 @@
       "rame-ochelari"
     ],
     "price": 178.95,
-    "old_price": 223.69,
+    "old_price": 223.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570620,7 +570623,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570734,7 +570737,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570848,7 +570851,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570943,7 +570946,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -570962,7 +570965,7 @@
       "rame-ochelari"
     ],
     "price": 653.58,
-    "old_price": 768.94,
+    "old_price": 768.92,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571076,7 +571079,7 @@
       "rame-ochelari"
     ],
     "price": 178.95,
-    "old_price": 223.69,
+    "old_price": 223.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571399,7 +571402,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571513,7 +571516,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571551,7 +571554,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571779,7 +571782,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571912,7 +571915,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -571950,7 +571953,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -572254,7 +572257,7 @@
       "rame-ochelari"
     ],
     "price": 178.95,
-    "old_price": 223.69,
+    "old_price": 223.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -572330,7 +572333,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -572520,7 +572523,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573014,7 +573017,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573109,7 +573112,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573375,7 +573378,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573660,7 +573663,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573774,7 +573777,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -573869,7 +573872,7 @@
       "rame-ochelari"
     ],
     "price": 312.78,
-    "old_price": 390.99,
+    "old_price": 390.97,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -574306,7 +574309,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": 404.02,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -574420,7 +574423,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -574534,7 +574537,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -574610,7 +574613,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -574933,7 +574936,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -575294,7 +575297,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -575788,7 +575791,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -575997,7 +576000,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -576111,7 +576114,7 @@
       "rame-ochelari"
     ],
     "price": 653.58,
-    "old_price": 768.94,
+    "old_price": 768.92,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -576358,7 +576361,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -576985,7 +576988,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -577213,7 +577216,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -577783,7 +577786,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -578258,7 +578261,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -579531,7 +579534,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -579569,7 +579572,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -579740,7 +579743,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -580120,7 +580123,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -580348,7 +580351,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -580519,7 +580522,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -581108,7 +581111,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -581374,7 +581377,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -581488,7 +581491,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -581697,7 +581700,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -581754,7 +581757,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582039,7 +582042,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582134,7 +582137,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582210,7 +582213,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582514,7 +582517,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582590,7 +582593,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582666,7 +582669,7 @@
       "rame-ochelari"
     ],
     "price": 268.99,
-    "old_price": 336.25,
+    "old_price": 336.24,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582723,7 +582726,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582761,7 +582764,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -582875,7 +582878,7 @@
       "rame-ochelari"
     ],
     "price": 300.65,
-    "old_price": 375.82,
+    "old_price": 375.81,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583065,7 +583068,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583084,7 +583087,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583198,7 +583201,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583635,7 +583638,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583654,7 +583657,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583673,7 +583676,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583711,7 +583714,7 @@
       "rame-ochelari"
     ],
     "price": 197.71,
-    "old_price": 247.15,
+    "old_price": 247.14,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -583863,7 +583866,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -584262,7 +584265,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -584509,7 +584512,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -584870,7 +584873,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585079,7 +585082,7 @@
       "rame-ochelari"
     ],
     "price": 290.88,
-    "old_price": 363.62,
+    "old_price": 363.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585269,7 +585272,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585288,7 +585291,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585535,7 +585538,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585725,7 +585728,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585896,7 +585899,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -585980,8 +585983,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202402020518/257208/full/polaroid-pld6182skb7m9-653533.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare-barbati/polaroid/pld6182skb7m9/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=ffd0d96b5&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "264585",
@@ -586980,7 +586982,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -587018,7 +587020,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -587094,7 +587096,7 @@
       "rame-ochelari"
     ],
     "price": 178.95,
-    "old_price": 223.69,
+    "old_price": 223.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -587493,7 +587495,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -587778,7 +587780,7 @@
       "rame-ochelari"
     ],
     "price": 324.34,
-    "old_price": 405.44,
+    "old_price": 405.43,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -587892,7 +587894,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -588424,7 +588426,7 @@
       "rame-ochelari"
     ],
     "price": 246.15,
-    "old_price": 307.7,
+    "old_price": 307.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -589070,7 +589072,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -589431,7 +589433,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -590248,7 +590250,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -590438,7 +590440,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -590476,7 +590478,7 @@
       "rame-ochelari"
     ],
     "price": 288.7,
-    "old_price": 360.89,
+    "old_price": 360.88,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -590666,7 +590668,7 @@
       "rame-ochelari"
     ],
     "price": 209.7,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -591350,7 +591352,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -591673,7 +591675,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -592946,7 +592948,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -593155,7 +593157,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -593915,7 +593917,7 @@
       "rame-ochelari"
     ],
     "price": 270.89,
-    "old_price": 338.62,
+    "old_price": 338.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -593972,7 +593974,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -594162,7 +594164,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -594257,7 +594259,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -594485,7 +594487,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -594732,7 +594734,7 @@
       "bijuterii"
     ],
     "price": 353.59,
-    "old_price": null,
+    "old_price": 441.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -594998,7 +595000,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -595036,7 +595038,7 @@
       "rame-ochelari"
     ],
     "price": 178.95,
-    "old_price": 223.69,
+    "old_price": 223.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -595074,7 +595076,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -595815,7 +595817,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -596005,7 +596007,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -596024,7 +596026,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -596518,7 +596520,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -596632,7 +596634,7 @@
       "rame-ochelari"
     ],
     "price": 300.84,
-    "old_price": 376.06,
+    "old_price": 376.05,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -596955,7 +596957,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -597658,7 +597660,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -598114,7 +598116,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -598912,7 +598914,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -599083,7 +599085,7 @@
       "bijuterii"
     ],
     "price": 280.79,
-    "old_price": null,
+    "old_price": 350.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -599178,7 +599180,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -599197,7 +599199,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -599862,7 +599864,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -599919,7 +599921,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -600109,7 +600111,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -600166,7 +600168,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -600641,7 +600643,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -601021,7 +601023,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -601097,7 +601099,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -601135,7 +601137,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -601838,7 +601840,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -602351,7 +602353,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -602408,7 +602410,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -602541,7 +602543,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603225,7 +603227,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603605,7 +603607,7 @@
       "rame-ochelari"
     ],
     "price": 312.78,
-    "old_price": 390.99,
+    "old_price": 390.97,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603700,7 +603702,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603776,7 +603778,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603795,7 +603797,7 @@
       "rame-ochelari"
     ],
     "price": 324.34,
-    "old_price": 405.44,
+    "old_price": 405.43,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -603814,7 +603816,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604213,7 +604215,7 @@
       "rame-ochelari"
     ],
     "price": 300.84,
-    "old_price": 376.06,
+    "old_price": 376.05,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604232,7 +604234,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604251,7 +604253,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604308,7 +604310,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604593,7 +604595,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604897,7 +604899,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -604954,7 +604956,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -605182,7 +605184,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -605410,7 +605412,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -605695,7 +605697,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -605714,7 +605716,7 @@
       "rame-ochelari"
     ],
     "price": 178.25,
-    "old_price": 237.67,
+    "old_price": 237.66,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -606341,7 +606343,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -606854,7 +606856,7 @@
       "rame-ochelari"
     ],
     "price": 386.28,
-    "old_price": 495.25,
+    "old_price": 495.23,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -607025,7 +607027,7 @@
       "rame-ochelari"
     ],
     "price": 312.78,
-    "old_price": 390.99,
+    "old_price": 390.97,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -607367,7 +607369,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -607481,7 +607483,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": 404.02,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -607690,7 +607692,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -608222,7 +608224,7 @@
       "rame-ochelari"
     ],
     "price": 239.7,
-    "old_price": 299.64,
+    "old_price": 299.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609210,7 +609212,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609267,7 +609269,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609419,7 +609421,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609837,7 +609839,7 @@
       "rame-ochelari"
     ],
     "price": 697.89,
-    "old_price": 821.08,
+    "old_price": 821.05,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609932,7 +609934,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -609951,7 +609953,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610008,7 +610010,7 @@
       "rame-ochelari"
     ],
     "price": 312.78,
-    "old_price": 390.99,
+    "old_price": 390.97,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610350,7 +610352,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610426,7 +610428,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610521,7 +610523,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610597,7 +610599,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -610844,7 +610846,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -611376,7 +611378,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -612022,7 +612024,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -612611,7 +612613,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613352,7 +613354,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613599,7 +613601,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613637,7 +613639,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613732,7 +613734,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613827,7 +613829,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -613960,7 +613962,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -614131,7 +614133,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -614834,7 +614836,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -615024,7 +615026,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -615290,7 +615292,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -615841,7 +615843,7 @@
       "rame-ochelari"
     ],
     "price": 246.05,
-    "old_price": 307.58,
+    "old_price": 307.57,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -616278,7 +616280,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -616430,7 +616432,7 @@
       "rame-ochelari"
     ],
     "price": 246.15,
-    "old_price": 307.7,
+    "old_price": 307.68,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -616525,7 +616527,7 @@
       "rame-ochelari"
     ],
     "price": 234.87,
-    "old_price": 293.6,
+    "old_price": 293.59,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -616886,7 +616888,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -617076,7 +617078,7 @@
       "rame-ochelari"
     ],
     "price": 313.16,
-    "old_price": 391.46,
+    "old_price": 391.45,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -617703,7 +617705,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -617741,7 +617743,7 @@
       "rame-ochelari"
     ],
     "price": 271.45,
-    "old_price": 339.33,
+    "old_price": 339.32,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -617855,7 +617857,7 @@
       "rame-ochelari"
     ],
     "price": 201.13,
-    "old_price": 251.42,
+    "old_price": 251.41,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -617969,7 +617971,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618121,7 +618123,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618406,7 +618408,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618444,7 +618446,7 @@
       "rame-ochelari"
     ],
     "price": 268.42,
-    "old_price": 335.54,
+    "old_price": 335.53,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618520,7 +618522,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618558,7 +618560,7 @@
       "rame-ochelari"
     ],
     "price": 322.07,
-    "old_price": 402.6,
+    "old_price": 402.58,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -618634,7 +618636,7 @@
       "bijuterii"
     ],
     "price": 280.79,
-    "old_price": null,
+    "old_price": 350.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -619090,7 +619092,7 @@
       "rame-ochelari"
     ],
     "price": 223.68,
-    "old_price": 279.62,
+    "old_price": 279.61,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -619470,7 +619472,7 @@
       "rame-ochelari"
     ],
     "price": 212.5,
-    "old_price": 265.64,
+    "old_price": 265.63,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -619679,7 +619681,7 @@
       "rame-ochelari"
     ],
     "price": 279.61,
-    "old_price": 349.52,
+    "old_price": 349.51,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -620200,7 +620202,8 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202111121617/246649/full/ceas-versace-v-race-ve2b00221-621242.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-barbatesti/versace/v-race-ve2b00221/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=1c3f8fc97&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "246953",
@@ -620477,7 +620480,7 @@
       "ceasuri"
     ],
     "price": 2996.24,
-    "old_price": 3529.99,
+    "old_price": 3524.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -621142,7 +621145,7 @@
       "ceasuri"
     ],
     "price": 3833.49,
-    "old_price": 4509.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -621541,7 +621544,7 @@
       "ceasuri"
     ],
     "price": 471.74,
-    "old_price": 549.99,
+    "old_price": 554.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -621587,7 +621590,8 @@
     "image_url": "https://www.watchshop.ro/images/products/img_201902052353/153110/full/ceas-tommy-hilfiger-evan-1710410-336374.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/tommy-hilfiger/evan-1710410-chronograph/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=xATscKzA3QxZ&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "284071",
@@ -622567,7 +622571,7 @@
       "ceasuri"
     ],
     "price": 471.74,
-    "old_price": 549.99,
+    "old_price": 554.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -623688,7 +623692,7 @@
       "ceasuri"
     ],
     "price": 1483.24,
-    "old_price": 1749.99,
+    "old_price": 1744.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -624315,7 +624319,7 @@
       "ceasuri"
     ],
     "price": 705.49,
-    "old_price": 829.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -624372,7 +624376,7 @@
       "ceasuri"
     ],
     "price": 517.49,
-    "old_price": 599.99,
+    "old_price": 574.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -624505,7 +624509,7 @@
       "ceasuri"
     ],
     "price": 1241.99,
-    "old_price": 1379.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -624961,7 +624965,7 @@
       "ceasuri"
     ],
     "price": 505.74,
-    "old_price": 604.99,
+    "old_price": 594.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -626413,8 +626417,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202111121617/247548/full/ceas-festina-mademoiselle-f20625-2-624746.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/festina/mademoiselle-f20625-2/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=SWqek-2iLFx8&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "304471",
@@ -629370,7 +629373,7 @@
       "ceasuri"
     ],
     "price": 1245.24,
-    "old_price": 1489.99,
+    "old_price": 1464.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -629769,7 +629772,7 @@
       "ceasuri"
     ],
     "price": 1194.24,
-    "old_price": 1474.99,
+    "old_price": 1404.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -629826,7 +629829,7 @@
       "ceasuri"
     ],
     "price": 175.49,
-    "old_price": 199.99,
+    "old_price": 194.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -629921,7 +629924,7 @@
       "ceasuri"
     ],
     "price": 1202.74,
-    "old_price": 1454.99,
+    "old_price": 1414.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -630054,7 +630057,7 @@
       "rame-ochelari"
     ],
     "price": 323.02,
-    "old_price": 403.78,
+    "old_price": 403.77,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -630168,7 +630171,7 @@
       "ceasuri"
     ],
     "price": 1844.99,
-    "old_price": 2044.99,
+    "old_price": 2049.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -630206,7 +630209,7 @@
       "ceasuri"
     ],
     "price": 1043.99,
-    "old_price": 1164.99,
+    "old_price": 1159.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -631042,7 +631045,7 @@
       "ceasuri"
     ],
     "price": 5775.74,
-    "old_price": 6799.99,
+    "old_price": 6794.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -631137,7 +631140,7 @@
       "ceasuri"
     ],
     "price": 2554.24,
-    "old_price": 3004.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -631232,7 +631235,7 @@
       "ceasuri"
     ],
     "price": 171.59,
-    "old_price": 189.99,
+    "old_price": 194.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -631745,7 +631748,7 @@
       "rame-ochelari"
     ],
     "price": 257.24,
-    "old_price": 321.56,
+    "old_price": 321.55,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -632068,7 +632071,7 @@
       "ceasuri"
     ],
     "price": 2065.49,
-    "old_price": 2469.99,
+    "old_price": 2429.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -632847,7 +632850,7 @@
       "rame-ochelari"
     ],
     "price": 290.79,
-    "old_price": 363.5,
+    "old_price": 363.49,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -633018,7 +633021,7 @@
       "ceasuri"
     ],
     "price": 420.74,
-    "old_price": 489.99,
+    "old_price": 494.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -637369,7 +637372,7 @@
       "ceasuri"
     ],
     "price": 2809.24,
-    "old_price": 3304.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -637616,7 +637619,7 @@
       "rame-ochelari"
     ],
     "price": 301.97,
-    "old_price": 377.48,
+    "old_price": 377.47,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -638232,8 +638235,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202504020518/297847/full/ochelari-de-soare-carrera-carrera-victory-c-07-s-003-86-99-710557.jpg",
     "official_url": "https://www.watchshop.ro/ochelari-de-soare/carrera/carrera-victory-c-07-s-003-86-99/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=F2rusHp0H6Yo&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "279953",
@@ -638377,7 +638379,7 @@
       "ceasuri"
     ],
     "price": 208.24,
-    "old_price": 244.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -639392,8 +639394,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202504020518/309964/full/ceas-victorinox-victorinox-242027-ladies-watch-i-n-o-x-small-automatic-32mm-10atm-748012.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/victorinox/victorinox-242027-ladies-watch-i-n-o-x-small-automatic-32mm-10atm/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=lNZixgoa_9Tl&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "293921",
@@ -640164,7 +640165,7 @@
       "ceasuri"
     ],
     "price": 895.49,
-    "old_price": 994.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -640183,7 +640184,7 @@
       "ceasuri"
     ],
     "price": 378.24,
-    "old_price": 314.99,
+    "old_price": 444.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -640658,7 +640659,7 @@
       "ceasuri"
     ],
     "price": 2566.99,
-    "old_price": 3019.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -648505,7 +648506,7 @@
       "ceasuri"
     ],
     "price": 1398.24,
-    "old_price": 1644.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -649417,7 +649418,7 @@
       "ceasuri"
     ],
     "price": 238.49,
-    "old_price": 264.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -649816,7 +649817,7 @@
       "ceasuri"
     ],
     "price": 364.49,
-    "old_price": 384.99,
+    "old_price": 404.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -650204,8 +650205,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202402020518/280595/full/ceas-guess-guess-gw0426g1-691607.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/guess/guess-gw0426g1/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=rVaMVCPB2KZ1&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "280879",
@@ -654111,7 +654111,7 @@
       "ceasuri"
     ],
     "price": 517.49,
-    "old_price": null,
+    "old_price": 574.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -654529,7 +654529,7 @@
       "ceasuri"
     ],
     "price": 127.59,
-    "old_price": 139.99,
+    "old_price": 144.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -654605,7 +654605,7 @@
       "ceasuri"
     ],
     "price": 188.99,
-    "old_price": 204.99,
+    "old_price": 209.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -654719,7 +654719,7 @@
       "ceasuri"
     ],
     "price": 107.99,
-    "old_price": 114.99,
+    "old_price": 119.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -655118,7 +655118,7 @@
       "ceasuri"
     ],
     "price": 109.99,
-    "old_price": 119.99,
+    "old_price": 124.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -655411,7 +655411,8 @@
     "image_url": "https://www.watchshop.ro/images/products/img_201703171432/120542/full/ceas-casio-clasic-ltp-v005d-4budf-247236.jpeg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/casio/dress-ltp-v005d-4b/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=eyLGN9wHi9bu&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "120559",
@@ -655973,7 +655974,7 @@
       "ceasuri"
     ],
     "price": 494.99,
-    "old_price": 559.99,
+    "old_price": 549.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -656011,7 +656012,7 @@
       "ceasuri"
     ],
     "price": 215.99,
-    "old_price": 229.99,
+    "old_price": 239.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -656391,7 +656392,7 @@
       "ceasuri"
     ],
     "price": 148.49,
-    "old_price": 159.99,
+    "old_price": 164.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -658253,7 +658254,7 @@
       "ceasuri"
     ],
     "price": 180.39,
-    "old_price": 199.99,
+    "old_price": 204.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -658348,7 +658349,7 @@
       "ceasuri"
     ],
     "price": 220.49,
-    "old_price": 239.99,
+    "old_price": 244.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -658462,7 +658463,7 @@
       "ceasuri"
     ],
     "price": 148.49,
-    "old_price": 154.99,
+    "old_price": 164.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -660989,7 +660990,7 @@
       "ceasuri"
     ],
     "price": 409.49,
-    "old_price": 459.99,
+    "old_price": 454.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -661274,7 +661275,7 @@
       "ceasuri"
     ],
     "price": 391.49,
-    "old_price": 419.99,
+    "old_price": 434.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -661692,7 +661693,7 @@
       "ceasuri"
     ],
     "price": 328.49,
-    "old_price": 364.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -661996,7 +661997,7 @@
       "ceasuri"
     ],
     "price": 490.49,
-    "old_price": 549.99,
+    "old_price": 544.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -662072,7 +662073,7 @@
       "ceasuri"
     ],
     "price": 180.39,
-    "old_price": 214.99,
+    "old_price": 204.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -662091,7 +662092,7 @@
       "ceasuri"
     ],
     "price": 180.39,
-    "old_price": 214.99,
+    "old_price": 204.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -665891,7 +665892,7 @@
       "ceasuri"
     ],
     "price": 490.49,
-    "old_price": 554.99,
+    "old_price": 544.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -667791,7 +667792,7 @@
       "ceasuri"
     ],
     "price": 437.74,
-    "old_price": 519.99,
+    "old_price": 514.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -668692,8 +668693,7 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202111121617/250342/full/ceas-guess-reveal-gw0302l1-638259.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/guess/reveal-gw0302l1/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=shNWYJsvU1YO&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {},
-    "recomandat": true
+    "specs": {}
   },
   {
     "id": "250405",
@@ -668780,7 +668780,7 @@
       "rame-ochelari"
     ],
     "price": 323.21,
-    "old_price": null,
+    "old_price": 404.01,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -670110,7 +670110,7 @@
       "ceasuri"
     ],
     "price": 827.99,
-    "old_price": 919.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -671011,7 +671011,8 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202504020518/303505/full/ceas-boccia-boccia-3359-02-ladies-watch-titanium-28mm-5atm-719941.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-dama/boccia/boccia-3359-02-ladies-watch-titanium-28mm-5atm/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=E7KW-t7VT7Nq&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "303625",
@@ -673177,7 +673178,8 @@
     "image_url": "https://www.watchshop.ro/images/products/img_202402020518/275269/full/ceas-tissot-tissot-mod-t120-407-11-091-01-683575.jpg",
     "official_url": "https://www.watchshop.ro/ceasuri-de-mana/tissot/t120-407-11-091-01/",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=lODF7iVtWTM7&aff_code=676a7e7d9&campaign_unique=2e49eab4f",
-    "specs": {}
+    "specs": {},
+    "recomandat": true
   },
   {
     "id": "275279",
@@ -674822,7 +674824,7 @@
       "ceasuri"
     ],
     "price": 1878.49,
-    "old_price": 2209.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -675563,7 +675565,7 @@
       "ceasuri"
     ],
     "price": 1399.49,
-    "old_price": 1204.99,
+    "old_price": 1554.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -675924,7 +675926,7 @@
       "ceasuri"
     ],
     "price": 1219.74,
-    "old_price": 1454.99,
+    "old_price": 1434.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -676836,7 +676838,7 @@
       "ceasuri"
     ],
     "price": 1194.24,
-    "old_price": 1454.99,
+    "old_price": 1404.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -679477,7 +679479,7 @@
       "ceasuri"
     ],
     "price": 256.49,
-    "old_price": 289.99,
+    "old_price": 284.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -680009,7 +680011,7 @@
       "ceasuri"
     ],
     "price": 620.99,
-    "old_price": 689.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -680104,7 +680106,7 @@
       "ceasuri"
     ],
     "price": 199.99,
-    "old_price": 194.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -680180,7 +680182,7 @@
       "ceasuri"
     ],
     "price": 1062.49,
-    "old_price": 989.99,
+    "old_price": 1249.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -680370,7 +680372,7 @@
       "ceasuri"
     ],
     "price": 335.74,
-    "old_price": 359.99,
+    "old_price": 394.99,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -682745,7 +682747,7 @@
       "ceasuri"
     ],
     "price": 449.99,
-    "old_price": 499.99,
+    "old_price": null,
     "offer_end": null,
     "currency": "RON",
     "availability": true,
@@ -695752,44 +695754,6 @@
     "specs": {}
   },
   {
-    "id": "csh-89151",
-    "source_site": "ceasuri-shop.ro",
-    "brand": "Lige",
-    "title": "Ceas Bărbați Lige 89151 Argintiu-Negru - Design Business, Funcții Multiple, Rezistent la Șocuri, Rezistent la Apă 3ATM",
-    "category": [
-      "ceasuri"
-    ],
-    "price": 149.99,
-    "old_price": null,
-    "offer_end": null,
-    "currency": "RON",
-    "availability": true,
-    "draft": false,
-    "image_url": "https://gomagcdn.ro/domains/ceasuri-shop.ro/files/product/original/ceas-barbati-lige-89151-argintiu-negru-design-business-functii-multiple-rezistent-la-socuri-rezistent-la-apa-3atm-458140.jpeg",
-    "official_url": "https://www.ceasuri-shop.ro/ceasuri-barbatesti/ceas-barbati-lige-89151-argintiu-negru-design-business-functii-multiple-rezistent-la-socuri-rezistent-la-apa-3atm.html",
-    "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=d3xjGQ4t0UE4&aff_code=676a7e7d9&campaign_unique=ee2808fd9",
-    "specs": {}
-  },
-  {
-    "id": "csh-89153",
-    "source_site": "ceasuri-shop.ro",
-    "brand": "Lige",
-    "title": "Ceas Bărbați Lige 89153 Argintiu-Verde - Design Business, Funcții Multiple, Afișaj Luminos, Rezistent la Apă 3ATM",
-    "category": [
-      "ceasuri"
-    ],
-    "price": 129.99,
-    "old_price": null,
-    "offer_end": null,
-    "currency": "RON",
-    "availability": true,
-    "draft": false,
-    "image_url": "https://gomagcdn.ro/domains/ceasuri-shop.ro/files/product/original/ceas-barbati-lige-89153-argintiu-verde-design-business-functii-multiple-afisaj-luminos-rezistent-la-apa-3atm-142061.jpeg",
-    "official_url": "https://www.ceasuri-shop.ro/ceasuri-barbatesti/ceas-barbati-lige-89153-argintiu-verde-design-business-functii-multiple-afisaj-luminos-rezistent-la-apa-3atm.html",
-    "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=qGqrSHYkC1Nd&aff_code=676a7e7d9&campaign_unique=ee2808fd9",
-    "specs": {}
-  },
-  {
     "id": "9153-1",
     "source_site": "ceasuri-shop.ro",
     "brand": "Naviforce",
@@ -697174,6 +697138,44 @@
     "image_url": "https://gomagcdn.ro/domains/ceasuri-shop.ro/files/product/original/ceas-barbati-curren-8462-verde-smarald-cronograf-quartz-curea-silicon-verde-rezistent-la-apa-3atm-783840.png",
     "official_url": "https://www.ceasuri-shop.ro/ceasuri-barbatesti/ceas-bărbați-curren-8462-verde-smarald-cronograf-quartz-curea-silicon-verde-rezistent-la-apă-3atm.html",
     "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=bDHjPOpaVhtk&aff_code=676a7e7d9&campaign_unique=ee2808fd9",
+    "specs": {}
+  },
+  {
+    "id": "csh-89151",
+    "source_site": "ceasuri-shop.ro",
+    "brand": "Lige",
+    "title": "Ceas Bărbați Lige 89151 Argintiu-Negru - Design Business, Funcții Multiple, Rezistent la Șocuri, Rezistent la Apă 3ATM",
+    "category": [
+      "ceasuri"
+    ],
+    "price": 149.99,
+    "old_price": null,
+    "offer_end": null,
+    "currency": "RON",
+    "availability": true,
+    "draft": false,
+    "image_url": "https://gomagcdn.ro/domains/ceasuri-shop.ro/files/product/original/ceas-barbati-lige-89151-argintiu-negru-design-business-functii-multiple-rezistent-la-socuri-rezistent-la-apa-3atm-458140.jpeg",
+    "official_url": "https://www.ceasuri-shop.ro/ceasuri-barbatesti/ceas-barbati-lige-89151-argintiu-negru-design-business-functii-multiple-rezistent-la-socuri-rezistent-la-apa-3atm.html",
+    "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=d3xjGQ4t0UE4&aff_code=676a7e7d9&campaign_unique=ee2808fd9",
+    "specs": {}
+  },
+  {
+    "id": "csh-89153",
+    "source_site": "ceasuri-shop.ro",
+    "brand": "Lige",
+    "title": "Ceas Bărbați Lige 89153 Argintiu-Verde - Design Business, Funcții Multiple, Afișaj Luminos, Rezistent la Apă 3ATM",
+    "category": [
+      "ceasuri"
+    ],
+    "price": 129.99,
+    "old_price": null,
+    "offer_end": null,
+    "currency": "RON",
+    "availability": true,
+    "draft": false,
+    "image_url": "https://gomagcdn.ro/domains/ceasuri-shop.ro/files/product/original/ceas-barbati-lige-89153-argintiu-verde-design-business-functii-multiple-afisaj-luminos-rezistent-la-apa-3atm-142061.jpeg",
+    "official_url": "https://www.ceasuri-shop.ro/ceasuri-barbatesti/ceas-barbati-lige-89153-argintiu-verde-design-business-functii-multiple-afisaj-luminos-rezistent-la-apa-3atm.html",
+    "affiliate_url": "https://event.2performant.com/events/click?ad_type=product_store&unique=qGqrSHYkC1Nd&aff_code=676a7e7d9&campaign_unique=ee2808fd9",
     "specs": {}
   }
 ]
