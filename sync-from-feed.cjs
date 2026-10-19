@@ -787,8 +787,4 @@ fs.writeFileSync(REPORT_PATH, JSON.stringify({ ...report, summary: { total: prod
 
 console.log(`✅ Salvat: ${PRODUCTS_PATH}`);
 console.log(`📋 Raport: ${REPORT_PATH}`);
-console.log('\n⏭️  Acum faci:');
-console.log('   git pull -X ours');
-console.log('   git add src/data/products.json');
-console.log('   git commit -m "chore: sync feeds local"');
-console.log('   git push\n');
+console.log('\n⏭️  Urmează WatchShop și Ceasuri-Shop (actualizare-json.cjs).\n');

@@ -19,4 +19,9 @@ echo.
 echo Gata. Deschide raport-clasificare.html ca sa verifici categoriile.
 echo Pentru reducerile WatchShop ruleaza separat: node scrape-promotii.cjs
 echo.
+echo Apoi publici pe site:
+echo    git add src/data/products.json
+echo    git commit -m "Actualizare produse"
+echo    git push
+echo.
 pause

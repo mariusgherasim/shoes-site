@@ -104,6 +104,7 @@ function reconcile(products, feedItems, sourceSite, catMap, updateOldPriceMode) 
   const kept = siteProducts.filter((p) => !toRemove.has(p.id));
 
   let oldPriceUpdated = 0;
+  let priceUpdated = 0;
   let nbspFixed = 0;
 
   for (const p of kept) {
@@ -111,7 +112,7 @@ function reconcile(products, feedItems, sourceSite, catMap, updateOldPriceMode) 
     const f = feedById[p.id];
     if (f) {
       const newPrice = parseNum(f.price);
-      if (newPrice !== null) p.price = newPrice;
+      if (newPrice !== null && newPrice !== p.price) { p.price = newPrice; priceUpdated++; }
 
       const newOld = parseNum(f.old_price);
 
@@ -176,8 +177,16 @@ function reconcile(products, feedItems, sourceSite, catMap, updateOldPriceMode) 
   const result = [...other, ...kept, ...added];
   return {
     result,
-    stats: { removed: toRemove.size, added: added.length, kept: kept.length, oldPriceUpdated, nbspFixed },
+    stats: { removed: toRemove.size, added: added.length, kept: kept.length, priceUpdated, oldPriceUpdated, nbspFixed, feedTotal: feedItems.length, feedActive: feedActive.length },
   };
+}
+
+function afiseaza(nume, feed, st) {
+  console.log(`\n=== ${nume} ===`);
+  if (!st.feedTotal) { console.log(`  ⚠ Feed lipsă (${feed}) — comerciantul nu a fost actualizat.`); return; }
+  console.log(`  Feed: ${feed}`);
+  console.log(`  Feed: ${st.feedTotal} total, ${st.feedActive} active`);
+  console.log(`  ✅ actualizate: ${st.kept} (preț schimbat la ${st.priceUpdated}, preț vechi la ${st.oldPriceUpdated}) | ➕ adăugate: ${st.added} | 🗑  scoase: ${st.removed}`);
 }
 
 function main() {
@@ -187,32 +196,22 @@ function main() {
   const wsFeed = loadFeedItems(FEED_WATCHSHOP);
   const wsResult = reconcile(products, wsFeed, "watchshop.ro", WATCHSHOP_CAT_MAP, "keep_unless_feed_has_value");
   products = wsResult.result;
-  console.log(`\n=== watchshop.ro ===`);
-  console.log(`  Șterse (dispărute din feed): ${wsResult.stats.removed}`);
-  console.log(`  Adăugate (noi în feed): ${wsResult.stats.added}`);
-  console.log(`  Total pe comerciant: ${products.filter((p) => p.source_site === "watchshop.ro").length}`);
+  afiseaza('WATCHSHOP', FEED_WATCHSHOP, wsResult.stats);
 
   const csFeed = loadFeedItems(FEED_CEASURI_SHOP);
   const csResult = reconcile(products, csFeed, "ceasuri-shop.ro", CEASURI_SHOP_CAT_MAP, "always_from_feed");
   products = csResult.result;
-  console.log(`\n=== ceasuri-shop.ro ===`);
-  console.log(`  Șterse (dispărute din feed): ${csResult.stats.removed}`);
-  console.log(`  Adăugate (noi în feed): ${csResult.stats.added}`);
-  console.log(`  Total pe comerciant: ${products.filter((p) => p.source_site === "ceasuri-shop.ro").length}`);
+  afiseaza('CEASURI-SHOP', FEED_CEASURI_SHOP, csResult.stats);
 
   const wsWithOffer = products.filter((p) => p.source_site === "watchshop.ro" && p.old_price && p.old_price > p.price).length;
   const csWithOffer = products.filter((p) => p.source_site === "ceasuri-shop.ro" && p.old_price && p.old_price > p.price).length;
-  const benvenuti = products.filter((p) => p.source_site === "benvenuti.com").length;
-  const draftFalse = products.filter((p) => p.draft === false).length;
 
   console.log(`\n=== Rezumat ===`);
   console.log(`  watchshop.ro cu reducere reală: ${wsWithOffer}`);
   console.log(`  ceasuri-shop.ro cu reducere reală: ${csWithOffer}`);
-  console.log(`  benvenuti.com (neatins): ${benvenuti}`);
-  console.log(`  Total catalog: ${products.length}`);
-  console.log(`  draft:false: ${draftFalse}`);
+  console.log(`  Total catalog (toate magazinele): ${products.length}`);
 
-  fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(products, null, 2) + "\n");
+  fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(products), "utf8");
   console.log(`\n✅ Salvat: ${PRODUCTS_PATH}`);
 }
 
