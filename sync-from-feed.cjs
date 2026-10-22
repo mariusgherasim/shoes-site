@@ -1,6 +1,6 @@
 // sync-from-feed.cjs
 // ============================================================
-// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo
+// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo + DyFashion
 // Ruleaza prin: sync-from-feed.bat
 //
 // Ce face:
@@ -16,6 +16,7 @@
 //   Otter:     feed_otter.xml      sau  feed_7a8d24d4f.xml
 //   Picadili:  feed_picadili.xml   sau  feed_f741a4c2e.xml
 //   Menzo:     feed_menzo.xml      sau  feed_382702c75.xml   (haine bărbați)
+//   DyFashion: feed_dyfashion.xml  sau  feed_11e3e2429.xml   (rochii, haine, pantofi, genți damă)
 // ============================================================
 
 const fs   = require('fs');
@@ -50,6 +51,11 @@ const FEED_CONFIG = {
     files: ['feed_menzo.xml', 'feed_382702c75.xml', 'feed_382702c75_1.xml'],
     idPrefix: 'menzo-',
     stripPrefix: 'menzo-',
+  },
+  'dyfashion.ro': {
+    files: ['feed_dyfashion.xml', 'feed_11e3e2429.xml', 'feed_11e3e2429_1.xml'],
+    idPrefix: 'dyfashion-',
+    stripPrefix: 'dyfashion-',
   },
 };
 
@@ -293,7 +299,7 @@ function makeSlug(title, pid, existingSlugs) {
 
 // ── Main ──────────────────────────────────────────────────────
 console.log('\n╔══════════════════════════════════════════════════╗');
-console.log('║  SYNC STYLE — 5 feed-uri → products.json         ║');
+console.log('║  SYNC STYLE — 6 feed-uri → products.json         ║');
 console.log('╚══════════════════════════════════════════════════╝\n');
 
 if (!fs.existsSync(PRODUCTS_PATH)) {
@@ -764,6 +770,97 @@ if (!menzoFeedPath) {
 
   console.log(`  ✅ actualizate: ${mUpd} | ➕ adăugate: ${mAdded} | 🗑️  dezactivate: ${mDeact}`);
   report.sources['menzo.ro'] = { updated: mUpd, added: mAdded, deactivated: mDeact };
+}
+
+// ── PROCESARE DYFASHION (haine, pantofi și genți damă) ───────────
+// Feed-ul nu are brand → „DyFashion". Categoria finală (rochii, bluze, pantofi…)
+// se stabilește la build în src/data/clasificare.mjs, din subcategory_raw.
+const dyfFeedPath = findFeed(FEED_CONFIG['dyfashion.ro'].files);
+if (!dyfFeedPath) {
+  console.log('\n⚠️  Feed DyFashion negăsit — sar peste.');
+} else {
+  console.log(`\n=== DYFASHION ===`);
+  console.log(`  Feed: ${path.basename(dyfFeedPath)}`);
+
+  const dyfRaw = parseItems(fs.readFileSync(dyfFeedPath, 'utf8'));
+  const dyfActive = {};
+  for (const item of dyfRaw) {
+    const pid = getField(item, 'product_id');
+    if (pid && getField(item, 'product_active') === 'true') dyfActive[pid] = item;
+  }
+  console.log(`  Feed: ${dyfRaw.length} total, ${Object.keys(dyfActive).length} active`);
+
+  const dyfData = (item) => {
+    const fp = parsePrice(getField(item, 'price')) || 0;
+    const fo = parsePrice(getField(item, 'old_price'));
+    const imgs = (getField(item, 'image_urls') || '').split(',');
+    const cat = getField(item, 'category') || '';
+    const sub = getField(item, 'subcategory') || '';
+    return {
+      price: fp,
+      old_price: (fo && fo > fp) ? fo : null,
+      image_url: imgs[0] && imgs[0].trim() ? imgs[0].trim() : null,
+      subcategory_raw: sub ? `${cat} > ${sub}` : cat,
+      affiliate_url: getField(item, 'aff_code'),
+      official_url: getField(item, 'url'),
+    };
+  };
+
+  const dyfJsonPids = new Set(
+    products.filter(p => p.source_site === 'dyfashion.ro').map(p => String(p.id).replace('dyfashion-', ''))
+  );
+  let dUpd = 0, dAdded = 0, dDeact = 0;
+
+  for (const p of products) {
+    if (p.source_site !== 'dyfashion.ro') continue;
+    const pid = String(p.id).replace('dyfashion-', '');
+    if (dyfActive[pid]) {
+      const d = dyfData(dyfActive[pid]);
+      p.price = d.price;
+      p.old_price = d.old_price;
+      p.availability = true;
+      p.draft = false;
+      if (d.image_url) p.image_url = d.image_url;
+      if (d.affiliate_url) p.affiliate_url = d.affiliate_url;
+      p.subcategory_raw = d.subcategory_raw;
+      dUpd++;
+    } else if (!p.draft) {
+      p.availability = false;
+      p.draft = true;
+      dDeact++;
+    }
+  }
+
+  for (const [pid, item] of Object.entries(dyfActive)) {
+    if (dyfJsonPids.has(pid)) continue;
+    const d = dyfData(item);
+    const title = getField(item, 'title') || '';
+    products.push({
+      id: `dyfashion-${pid}`,
+      source_site: 'dyfashion.ro',
+      brand: getField(item, 'brand') || 'DyFashion',
+      title,
+      category: ['femei'],
+      subcategory_raw: d.subcategory_raw,
+      price: d.price,
+      old_price: d.old_price,
+      offer_end: null,
+      currency: 'RON',
+      availability: true,
+      draft: false,
+      recomandat: false,
+      featured: false,
+      image_url: d.image_url,
+      official_url: d.official_url,
+      affiliate_url: d.affiliate_url,
+      specs: {},
+      slug: makeSlug(title, pid, existingSlugs),
+    });
+    dAdded++;
+  }
+
+  console.log(`  ✅ actualizate: ${dUpd} | ➕ adăugate: ${dAdded} | 🗑️  dezactivate: ${dDeact}`);
+  report.sources['dyfashion.ro'] = { updated: dUpd, added: dAdded, deactivated: dDeact };
 }
 
 // ── SUMAR + SALVARE ───────────────────────────────────────────

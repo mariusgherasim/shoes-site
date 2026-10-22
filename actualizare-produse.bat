@@ -4,10 +4,10 @@ cd /d "%~dp0"
 echo.
 echo ===============================================
 echo   ACTUALIZARE PRODUSE — styleaccessories.eu
-echo   (cele 7 feed-uri XML trebuie sa fie in folder)
+echo   (cele 8 feed-uri XML trebuie sa fie in folder)
 echo ===============================================
 echo.
-echo [1/3] Benvenuti, Gryxx, Otter, Picadili, Menzo...
+echo [1/3] Benvenuti, Gryxx, Otter, Picadili, Menzo, DyFashion...
 node sync-from-feed.cjs
 echo.
 echo [2/3] WatchShop si Ceasuri-Shop...

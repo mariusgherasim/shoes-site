@@ -44,9 +44,9 @@ const TEXTE = {
     intro: 'De câte ori pe an schimbi mărimea la pantofii copilului? Tocmai de aceea contează prețul. Aici ai {N} de modele pentru copii — sneakers, ghete, sandale — cu reducerile actualizate.',
   },
   imbracaminte: {
-    seoTitle: 'Îmbrăcăminte bărbați — tricouri, blugi, pulovere, geci',
-    metaDescription: '{N} de articole de îmbrăcăminte: tricouri, cămăși, blugi, pulovere, geci, sacouri și lenjerie. Reduceri actualizate.',
-    intro: 'Cât din garderobă porți de fapt? Aici ai {N} de piese care chiar se poartă — tricouri și polo, cămăși, blugi, pulovere, geci și sacouri pentru bărbați, plus lenjerie și pijamale — cu reducerile la zi.',
+    seoTitle: 'Îmbrăcăminte damă și bărbați — rochii, bluze, blugi, geci',
+    metaDescription: '{N} de articole de îmbrăcăminte: rochii de ocazie și de zi, bluze, fuste, compleuri, tricouri, cămăși, blugi, geci și sacouri. Reduceri actualizate.',
+    intro: 'Cât din garderobă porți de fapt? Aici ai {N} de piese care chiar se poartă — rochii de ocazie, elegante și de zi, bluze, fuste și compleuri pentru ea; tricouri, cămăși, blugi, pulovere, geci și sacouri pentru el — cu reducerile la zi.',
   },
   'genti-accesorii': {
     seoTitle: 'Genți, poșete, portofele și curele — oferte',

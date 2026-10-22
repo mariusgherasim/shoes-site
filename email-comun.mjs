@@ -12,7 +12,7 @@ export const LIMITA_KB = 102; // Gmail taie emailurile mai mari (inclusiv linkul
 
 export const MAGAZINE = {
   'watchshop.ro': 'WatchShop.ro', 'ceasuri-shop.ro': 'Ceasuri-Shop.ro', 'benvenuti.com': 'Benvenuti',
-  'otter.ro': 'Otter', 'gryxx.ro': 'Gryxx', 'picadili.ro': 'Picadili', 'menzo.ro': 'Menzo',
+  'otter.ro': 'Otter', 'gryxx.ro': 'Gryxx', 'picadili.ro': 'Picadili', 'menzo.ro': 'Menzo', 'dyfashion.ro': 'DyFashion',
 };
 export const numeCategorie = (slug) => CATEGORII.find((c) => c.slug === slug)?.label || slug;
 export { CATEGORII, TIPURI };

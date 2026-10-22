@@ -14,7 +14,7 @@
 | Repo | `mariusgherasim/shoes-site` — branch `main` |
 | Folder local | `C:\FOLDER DE LUCRU\PAUL MELINTE\shoes-site` |
 | Publicare | **doar manual**, prin `git push` de pe laptop (nimic nu mai rulează automat pe GitHub) |
-| Produse | ~29.400 active din 7 magazine (2Performant), 9 categorii |
+| Produse | ~31.500 active din 8 magazine (2Performant), 9 categorii |
 | Domeniu | cumpărat prin Squarespace, reînnoire automată 2 oct 2028 (18 €) |
 
 ---
@@ -32,11 +32,13 @@ Le descarci din 2Performant → Produse → Feed-uri XML și le pui **direct în
 | gryxx.ro | `feed_82d2c2bf6.xml` | `sync-from-feed.cjs` | din feed |
 | picadili.ro | `feed_f741a4c2e.xml` | `sync-from-feed.cjs` | din feed |
 | menzo.ro | `feed_382702c75.xml` | `sync-from-feed.cjs` | din feed |
+| dyfashion.ro | `feed_11e3e2429.xml` | `sync-from-feed.cjs` | din feed |
 
 - Feed-urile **nu se urcă pe GitHub** (sunt în `.gitignore`). Rămân doar pe laptop.
 - Dacă lipsește un feed, scriptul sare peste magazinul acela și continuă cu restul.
 - Feed-ul Picadili se pune și în folderul **beauty** — acolo intră doar produsele de manichiură; aici ele sunt excluse automat.
 - Menzo are câte un rând pentru fiecare mărime → scriptul le grupează (3.823 rânduri → ~1.040 produse).
+- DyFashion (adăugat 22.10.2026): rochii, bluze, fuste, compleuri, pantaloni, pantofi și genți damă. Feed-ul repetă fiecare produs pe mărimi (7.068 rânduri → ~2.170 produse active). Nu are brand → apare ca „DyFashion”. Rochiile/bluzele etc. merg la Îmbrăcăminte (gen ea), pantofii la Încălțăminte femei, gențile la Genți & accesorii.
 
 **Ce fac scripturile cu produsele:**
 - `sync-from-feed.cjs` (5 magazine): actualizează prețul și prețul vechi, adaugă produsele noi, iar produsele dispărute din feed le marchează `draft: true` (nu le șterge).
@@ -57,7 +59,7 @@ cd "C:\FOLDER DE LUCRU\PAUL MELINTE\shoes-site"
 git pull
 ```
 
-**Pasul 2 — pui cele 7 feed-uri noi în folder** (tabelul de la secțiunea 1).
+**Pasul 2 — pui cele 8 feed-uri noi în folder** (tabelul de la secțiunea 1).
 
 **Pasul 3 — actualizezi produsele:** dublu-click pe **`actualizare-produse.bat`**
 (sau în terminal: `npm run sync` și apoi `npm run raport`)
@@ -165,7 +167,7 @@ git push
 - **Excluse automat:** manichiura Picadili (merge pe beauty-healths.com, ~380 produse) și serviciile WatchShop.
 - Tipurile `alte-*` (ex. „Alte modele" la ceasuri — ceasurile WatchShop fără gen în titlu) nu apar ca tip separat în meniu și căutare, dar produsele apar normal în categorie și la branduri.
 - **Pandora** are tip separat la Bijuterii (titlurile conțin doar codul, fără tipul de bijuterie).
-- **Îmbrăcăminte** = haine bărbați Menzo + lenjerie/pijamale/șosete Picadili (inclusiv damă).
+- **Îmbrăcăminte** = haine damă DyFashion (rochii, bluze & topuri, fuste, compleuri) + haine bărbați Menzo + lenjerie/pijamale/șosete Picadili.
 
 **Ordinea în liste:** întâi produsele cu reducere, după scor (60% procentul + 40% lei economisiți), apoi restul. Reducerile peste 85% (de obicei preț vechi umflat în feed, ex. Picadili) trec la final și nu apar în titluri („până la -X%") sau pe prima pagină.
 

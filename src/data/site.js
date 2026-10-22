@@ -8,7 +8,7 @@ export const SITE = {
   nume: 'style.accessories',
   numeLung: 'Style Accessories',
   descriere:
-    'Ceasuri, ochelari, bijuterii, încălțăminte, haine și genți de la 7 magazine online, cu prețurile și reducerile actualizate.',
+    'Ceasuri, ochelari, bijuterii, încălțăminte, haine și genți de la 8 magazine online, cu prețurile și reducerile actualizate.',
   email: 'office@gherasimmarius.com',
 };
 
@@ -38,5 +38,5 @@ export const PE_PAGINA = 24;
 
 // Comercianții (pentru texte, footer, pagini legale)
 export const COMERCIANTI = [
-  'watchshop.ro', 'ceasuri-shop.ro', 'benvenuti.com', 'otter.ro', 'gryxx.ro', 'picadili.ro', 'menzo.ro',
+  'watchshop.ro', 'ceasuri-shop.ro', 'benvenuti.com', 'otter.ro', 'gryxx.ro', 'picadili.ro', 'menzo.ro', 'dyfashion.ro',
 ];

@@ -114,12 +114,16 @@ export const TIPURI = {
     { slug: 'pantofi',        label: 'Pantofi',          rx: /./ },
   ],
   imbracaminte: [
+    { slug: 'rochii',             label: 'Rochii',                rx: /rochie|rochii/ },
+    { slug: 'fuste',              label: 'Fuste',                 rx: /\bfusta|\bfuste/ },
+    { slug: 'compleuri',          label: 'Compleuri & salopete',  rx: /compleu|salopet|imbracaminte > compleuri/ },
+    { slug: 'bluze-topuri',       label: 'Bluze & topuri damă',   rx: /imbracaminte > bluze|\btop\b|\bbody\b|\bcorset/ },
     { slug: 'tricouri',           label: 'Tricouri & polo',       rx: /tricou|maiou|\bpolo\b/ },
     { slug: 'camasi',             label: 'Cămăși',                rx: /camasa|camasi/ },
     { slug: 'pulovere-hanorace',  label: 'Pulovere & hanorace',   rx: /pulover|cardigan|hanorac|bluza|bluze/ },
     { slug: 'sacouri-costume',    label: 'Sacouri & costume',     rx: /sacou|blazer|costum(?! de baie)/ },
-    { slug: 'geci-paltoane',      label: 'Geci, jachete & paltoane', rx: /geaca|geci|jacheta|jachete|parka|bomber|palton|trench|vesta|veste/ },
-    { slug: 'blugi',              label: 'Blugi',                 rx: /blugi|\bjeans?\b/ },
+    { slug: 'geci-paltoane',      label: 'Geci, jachete & paltoane', rx: /geaca|geci|jacheta|jachete|parka|bomber|palton|trench|vesta|veste|pardesi/ },
+    { slug: 'blugi',              label: 'Blugi',                 rx: /(?<!pantaloni si )blugi|\bjeans?\b/ },
     { slug: 'pantaloni',          label: 'Pantaloni',             rx: /pantalon|bermud|shorts?/ },
     { slug: 'costume-baie',       label: 'Costume de baie',       rx: /de baie|inot|swim/ },
     { slug: 'lenjerie-pijamale',  label: 'Lenjerie, pijamale & șosete', rx: /boxeri|chilot|sosete|pijama|lenjerie|\bslip|sutien|bustier|colanti/ },
@@ -219,6 +223,14 @@ export function clasifica(p) {
     else if (/ochelari de soare/.test(title)) categorie = 'ochelari-de-soare';
     else if (/boxeri|chilot|bustiera|sutien|sosete|pijama|colanti/.test(title)) categorie = 'imbracaminte';
     else categorie = 'genti-accesorii';
+  }
+
+  // 3b. DyFashion: „Rochii > …", „Îmbrăcăminte > …", „Încălțăminte > …", „Genți"
+  if (!categorie && src === 'dyfashion.ro') {
+    if (/^incaltaminte/.test(raw) || RX_INCALTAMINTE.test(title)) categorie = 'incaltaminte-femei';
+    else if (/^genti/.test(raw) || /^(geanta|poseta|rucsac|clutch|borseta)\b/.test(title)) categorie = 'genti-accesorii';
+    else if (/accesorii/.test(raw) && !/rochie|bluza|fusta|pantalon/.test(title)) categorie = 'genti-accesorii';
+    else categorie = 'imbracaminte';
   }
 
   // 4. Menzo: haine, cu excepția încălțămintei și accesoriilor
