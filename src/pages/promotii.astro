@@ -1,0 +1,231 @@
+---
+// /promotii/ — promoțiile și codurile de reducere ale magazinelor partenere.
+//   1. Promoții scrise de mână: src/data/promotii.js (dispar singure după data „expira")
+//   2. Reducerile pe magazine: calculate automat din products.json la fiecare build
+import Layout from '../layouts/Layout.astro';
+import { promotiiActive, quicklink } from '../data/promotii.js';
+import { oferte } from '../data/catalog.mjs';
+import { categorii } from '../data/categorii.js';
+import { MAGAZINE } from '../scripts/magazine.js';
+
+const azi = new Date().toISOString().slice(0, 10);
+const active = promotiiActive(azi);
+const numeCat = Object.fromEntries(categorii.map((c) => [c.slug, c.name]));
+const fmtData = (d) => new Date(d + 'T12:00:00').toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' });
+const ascunde = (cod) => (cod.length <= 3 ? '•••' : '•'.repeat(Math.max(2, cod.length - 2)) + cod.slice(-2));
+const L = (n) => n.toLocaleString('ro-RO');
+const lei = (n) => Number(n).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' lei';
+const DOMENII = { 'watchshop.ro': 'https://www.watchshop.ro/', 'ceasuri-shop.ro': 'https://www.ceasuri-shop.ro/', 'benvenuti.com': 'https://www.benvenuti.com/ro', 'otter.ro': 'https://www.otter.ro/', 'gryxx.ro': 'https://www.gryxx.ro/', 'picadili.ro': 'https://www.picadili.ro/', 'menzo.ro': 'https://www.menzo.ro/', 'dyfashion.ro': 'https://www.dyfashion.ro/' };
+
+// Reducerile pe magazine (fără reducerile suspecte de peste 85%)
+const magazine = Object.keys(MAGAZINE).map((src) => {
+  const list = oferte.filter((p) => p.source_site === src && p.discount_percent <= 85);
+  const cats = [...new Set(list.map((p) => p.categorie))].map((c) => numeCat[c]).filter(Boolean);
+  return {
+    src, nume: MAGAZINE[src], nr: list.length,
+    max: list.reduce((m, p) => Math.max(m, p.discount_percent), 0),
+    peste30: list.filter((p) => p.discount_percent >= 30).length,
+    top: list.filter((p) => p.image_url).slice(0, 3),
+    cats: cats.slice(0, 4),
+    site: quicklink(src, DOMENII[src]),
+  };
+}).filter((m) => m.nr > 0).sort((a, b) => b.nr - a.nr);
+
+const totalRed = magazine.reduce((s, m) => s + m.nr, 0);
+const title = 'Promoții și coduri de reducere — ceasuri, încălțăminte, haine | style.accessories';
+const description = `${active.length + magazine.length} promoții active la ${magazine.length} magazine: ${magazine.map((m) => m.nume).join(', ')}. ${L(totalRed)} de produse cu reducere, actualizate.`;
+---
+<Layout title={title} description={description}>
+  <main class="pr">
+    <section class="pr-hero">
+      <div class="pr-wrap">
+        <p class="pr-eyebrow">Actualizat {fmtData(azi)}</p>
+        <h1>Promoții și coduri de reducere</h1>
+        <p class="pr-lead">
+          <strong>{L(totalRed)} de produse cu reducere</strong> la {magazine.length} magazine partenere — {magazine.map((m) => m.nume).join(', ')}.
+          Cât poți economisi azi la ceasuri, pantofi sau rochii? Ce magazin are cele mai mari reduceri chiar acum?
+          Le găsești pe toate mai jos, cu ofertele expirate scoase automat.
+        </p>
+      </div>
+    </section>
+
+    <section class="pr-wrap">
+      {active.length > 0 && (
+        <>
+          <h2 class="pr-h2">Campanii și coduri active</h2>
+          <div class="pr-chips" role="group" aria-label="Filtrează după magazin">
+            <button type="button" class="pr-chip is-on" data-mag="">Toate ({active.length})</button>
+            {[...new Set(active.map((p) => p.magazin))].map((m) => <button type="button" class="pr-chip" data-mag={m}>{m} ({active.filter((p) => p.magazin === m).length})</button>)}
+          </div>
+          <div class="pr-grid">
+            {active.map((p) => (
+              <article class="pr-card" data-mag={p.magazin} data-expira={p.expira || ''} id={p.id}>
+                <div class="pr-top">
+                  <div><span class="pr-mag">{p.magazin}</span><span class="pr-dom">{p.domeniu}</span></div>
+                  {p.reducere && <span class="pr-badge">{p.reducere}</span>}
+                </div>
+                <h3>{p.titlu}</h3>
+                <p class="pr-desc">{p.descriere}</p>
+                <div class="pr-meta">
+                  <span class="pr-ok">✓ Verificat {fmtData(p.verificat)}</span>
+                  <span>{p.expira ? `Expiră: ${fmtData(p.expira)}` : 'Fără dată de expirare anunțată'}</span>
+                  {p.categorii.length > 0 && <span>{p.categorii.map((c) => numeCat[c]).filter(Boolean).join(' · ')}</span>}
+                </div>
+                <div class="pr-actions">
+                  {p.cod && (
+                    <div class="pr-codzone">
+                      {p.cod_text && <p class="pr-codtext">🎟️ {p.cod_text}</p>}
+                      <button type="button" class="pr-btn pr-btn--cod" data-cod={p.cod} data-titlu={p.cod_text || p.titlu} data-magazin={p.magazin} data-id={p.id}>
+                        <span class="pr-cod-ascuns">{ascunde(p.cod)}</span><span class="pr-cod-lbl">Afișează codul</span>
+                      </button>
+                    </div>
+                  )}
+                  <a class="pr-btn" href={p.link} target="_blank" rel="noopener sponsored nofollow" data-pr-click={p.id}>Vezi oferta →</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
+
+      <h2 class="pr-h2">Reducerile pe magazine, azi</h2>
+      <p class="pr-sub">Calculate din prețurile actualizate ale fiecărui magazin. Reducerile neverosimile (peste 85%) nu sunt incluse.</p>
+      <div class="pr-grid">
+        {magazine.map((m) => (
+          <article class="pr-card pr-card--mag" id={`magazin-${m.src.replace(/\W+/g, '-')}`}>
+            <div class="pr-top">
+              <div><span class="pr-mag">{m.nume}</span><span class="pr-dom">{m.src}</span></div>
+              <span class="pr-badge">până la -{m.max}%</span>
+            </div>
+            <h3>{L(m.nr)} {m.nr % 100 >= 1 && m.nr % 100 <= 19 ? '' : 'de '}produse cu reducere</h3>
+            <p class="pr-desc">{m.peste30 > 0 ? `${L(m.peste30)} au reducere de peste 30%. ` : ''}{m.cats.join(' · ')}</p>
+            <div class="pr-thumbs">
+              {m.top.map((p) => (
+                <a href={p.affiliate_url} target="_blank" rel="noopener sponsored nofollow" title={p.title}>
+                  <img src={p.image_url} alt={p.title} loading="lazy" width="96" height="96" />
+                  <span class="pr-t-pct">-{p.discount_percent}%</span>
+                  <span class="pr-t-pr">{lei(p.price)}</span>
+                </a>
+              ))}
+            </div>
+            <div class="pr-actions">
+              <a class="pr-btn" href={`/oferte/?magazin=${encodeURIComponent(m.src)}`}>Vezi toate reducerile {m.nume} →</a>
+              <a class="pr-link" href={m.site} target="_blank" rel="noopener sponsored nofollow">Mergi pe {m.src}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="pr-note">Linkurile duc pe site-urile magazinelor și sunt linkuri de afiliere: dacă cumperi, putem primi un comision, fără niciun cost în plus pentru tine. Prețurile și condițiile exacte sunt cele de pe site-ul magazinului.</p>
+    </section>
+
+    <div class="pr-modal" id="pr-modal" hidden>
+      <div class="pr-dialog" role="dialog" aria-modal="true" aria-labelledby="pr-m-titlu">
+        <button type="button" class="pr-close" id="pr-close" aria-label="Închide">×</button>
+        <h2 id="pr-m-titlu"></h2>
+        <div class="pr-codebox"><div class="pr-code" id="pr-m-cod"></div><button type="button" class="pr-copy" id="pr-m-copy">Copiază codul</button></div>
+        <p class="pr-copied" id="pr-m-msg" aria-live="polite"></p>
+        <p class="pr-m-desc" id="pr-m-desc"></p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  (function () {
+    var azi = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll('.pr-card[data-expira]').forEach(function (c) { if (c.dataset.expira && c.dataset.expira < azi) c.remove(); });
+    var chips = document.querySelectorAll('.pr-chip');
+    chips.forEach(function (ch) {
+      ch.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.toggle('is-on', x === ch); });
+        document.querySelectorAll('.pr-card[data-mag]').forEach(function (c) { c.hidden = !!ch.dataset.mag && c.dataset.mag !== ch.dataset.mag; });
+      });
+    });
+    var ga = function (ev, p) { if (typeof gtag === 'function') gtag('event', ev, p); };
+    document.querySelectorAll('[data-pr-click]').forEach(function (a) { a.addEventListener('click', function () { ga('sa_promo_click', { promo: a.dataset.prClick }); }); });
+
+    var modal = document.getElementById('pr-modal'), curent = null;
+    function inchide() {
+      modal.hidden = true;
+      if (curent) { var card = curent.closest('.pr-card'); card.classList.add('is-copiat'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+    function arata(b) {
+      curent = b;
+      document.getElementById('pr-m-titlu').textContent = b.dataset.titlu;
+      document.getElementById('pr-m-cod').textContent = b.dataset.cod;
+      document.getElementById('pr-m-desc').textContent = 'Apasă „Copiază codul”, apoi „Vezi oferta” și lipește codul în coș, la „Cod de reducere”, pe site-ul ' + b.dataset.magazin + '.';
+      document.getElementById('pr-m-msg').textContent = '';
+      var btn = document.getElementById('pr-m-copy');
+      btn.textContent = 'Copiază codul'; modal.hidden = false; btn.focus();
+      btn.onclick = function () {
+        var cod = b.dataset.cod;
+        var gata = function () {
+          btn.textContent = 'Copiat ✓';
+          document.getElementById('pr-m-msg').textContent = 'Codul ' + cod + ' a fost copiat.';
+          b.querySelector('.pr-cod-ascuns').textContent = cod;
+          b.querySelector('.pr-cod-lbl').textContent = 'Copiază din nou';
+          ga('sa_promo_code_copy', { promo: b.dataset.id });
+          setTimeout(inchide, 900);
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(cod).then(gata, function () { document.getElementById('pr-m-msg').textContent = 'Selectează codul și copiază-l manual.'; });
+        else document.getElementById('pr-m-msg').textContent = 'Selectează codul și copiază-l manual.';
+      };
+    }
+    document.querySelectorAll('.pr-btn--cod').forEach(function (b) { b.addEventListener('click', function () { arata(b); ga('sa_promo_code', { promo: b.dataset.id }); }); });
+    document.getElementById('pr-close').addEventListener('click', inchide);
+    modal.addEventListener('click', function (e) { if (e.target === modal) inchide(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) inchide(); });
+    if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t) t.classList.add('is-target'); }
+  })();
+</script>
+
+<style>
+  .pr-wrap { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
+  .pr-hero { background: var(--color-navy); color: #fff; padding: 2.6rem 0 2.2rem; text-align: center; border-bottom: 3px solid var(--color-brass); }
+  .pr-eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--color-brass); margin: 0 0 .6rem; }
+  .pr-hero h1 { margin: 0 0 .6rem; font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff; }
+  .pr-lead { color: rgba(255,255,255,.85); max-width: 720px; margin: 0 auto; line-height: 1.6; }
+  .pr-h2 { font-size: 1.45rem; color: var(--color-navy); margin: 2.2rem 0 .8rem; padding-left: .7rem; border-left: 4px solid var(--color-brass); }
+  .pr-sub { color: var(--color-steel); font-size: .9rem; margin: -.3rem 0 1rem; }
+  .pr-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1rem; }
+  .pr-chip { background: #fff; border: 1px solid var(--color-steel-light); border-radius: 999px; padding: .45rem .9rem; cursor: pointer; font: .82rem var(--font-mono); }
+  .pr-chip.is-on { background: var(--color-navy); color: #fff; border-color: var(--color-navy); }
+  .pr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .pr-card { background: #fff; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1.1rem; display: flex; flex-direction: column; gap: .5rem; scroll-margin-top: 90px; }
+  .pr-card[hidden] { display: none; }
+  .pr-card.is-target { box-shadow: 0 0 0 2px var(--color-brass); }
+  .pr-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .6rem; }
+  .pr-mag { display: block; font-family: var(--font-display); font-weight: 600; color: var(--color-navy); font-size: 1.15rem; }
+  .pr-dom { font-family: var(--font-mono); font-size: .72rem; color: var(--color-steel); }
+  .pr-badge { background: var(--color-rust); color: #fff; font: 600 .95rem var(--font-mono); padding: .35rem .6rem; border-radius: var(--radius); white-space: nowrap; }
+  .pr-card h3 { font-size: 1.05rem; margin: .2rem 0 0; color: var(--color-ink); line-height: 1.35; }
+  .pr-desc { color: #555; font-size: .9rem; line-height: 1.5; margin: 0; }
+  .pr-meta { display: flex; flex-direction: column; gap: 2px; font-size: .78rem; color: var(--color-steel); }
+  .pr-ok { color: #1f7a45; font-weight: 600; }
+  .pr-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .3rem; }
+  .pr-thumbs a { position: relative; display: flex; flex-direction: column; align-items: center; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: .35rem; }
+  .pr-thumbs img { width: 100%; height: 86px; object-fit: contain; font-size: 0; }
+  .pr-t-pct { position: absolute; top: 4px; left: 4px; background: var(--color-rust); color: #fff; font: 600 .65rem var(--font-mono); padding: 2px 5px; border-radius: 10px; }
+  .pr-t-pr { font: 600 .72rem var(--font-mono); color: var(--color-brass-dark); margin-top: .25rem; }
+  .pr-actions { margin-top: auto; padding-top: .5rem; display: flex; flex-direction: column; gap: .5rem; }
+  .pr-btn { display: block; text-align: center; background: var(--color-navy); color: #fff; font: 600 .82rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; padding: .8rem 1rem; border-radius: var(--radius); border: 0; width: 100%; cursor: pointer; }
+  .pr-btn:hover { background: var(--color-brass-dark); }
+  .pr-link { text-align: center; font-size: .82rem; color: var(--color-steel); text-decoration: underline; }
+  .pr-codzone { background: #f8f2e6; border-radius: var(--radius); padding: .6rem; }
+  .pr-codtext { margin: 0 0 .5rem; font-size: .86rem; font-weight: 700; color: var(--color-brass-dark); text-align: center; }
+  .pr-btn--cod { background: #fff; color: var(--color-navy); border: 2px dashed var(--color-brass); display: flex; align-items: center; justify-content: center; }
+  .pr-btn--cod:hover { background: #fdf8ee; }
+  .pr-card.is-copiat .pr-btn--cod { border-style: solid; border-color: #1f7a45; }
+  .pr-cod-ascuns { font-weight: 800; letter-spacing: .1em; margin-right: .6rem; }
+  .pr-note { font-size: .8rem; color: var(--color-steel); margin: 1.6rem 0 2.5rem; line-height: 1.5; }
+  .pr-modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 10002; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .pr-modal[hidden] { display: none; }
+  .pr-dialog { position: relative; background: #fff; border-radius: 10px; max-width: 460px; width: 100%; padding: 1.6rem 1.3rem 1.2rem; text-align: center; }
+  .pr-dialog h2 { font-size: 1.15rem; margin: 0 1.5rem 1rem; color: var(--color-ink); }
+  .pr-close { position: absolute; top: 6px; right: 10px; border: 0; background: none; font-size: 1.6rem; cursor: pointer; color: #666; }
+  .pr-codebox { display: flex; border: 2px dashed var(--color-brass); border-radius: var(--radius); overflow: hidden; }
+  .pr-code { flex: 1; font: 800 1.35rem var(--font-mono); letter-spacing: .08em; padding: .75rem; color: var(--color-navy); user-select: all; }
+  .pr-copy { border: 0; background: var(--color-navy); color: #fff; font-weight: 700; padding: 0 1rem; cursor: pointer; }
+  .pr-copied { min-height: 1.2em; color: #1f7a45; font-size: .85rem; margin: .5rem 0 .7rem; }
+  .pr-m-desc { color: #666; font-size: .88rem; margin: .8rem 0 0; line-height: 1.5; }
+</style>

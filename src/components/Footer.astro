@@ -21,6 +21,7 @@ import { categorii, colectii } from '../data/categorii.js';
         <h4>Colecții</h4>
         <ul>
           <li><a href="/oferte/">Toate ofertele</a></li>
+          <li><a href="/promotii/">Promoții și coduri de reducere</a></li>
           {colectii.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}
           <li><a href="/gravura-personalizata/">Gravură personalizată</a></li>
           <li><a href="/ghiduri/ingrijire-pantofi-piele-iarna/">Ghid: pantofii de piele iarna</a></li>

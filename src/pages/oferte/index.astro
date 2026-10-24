@@ -46,6 +46,7 @@ const fmt = (n) => n.toLocaleString('ro-RO');
       </div>
     </div>
 
+    <div class="offers-mag" id="f-mag" hidden>Doar reducerile de la <b id="f-mag-n"></b> · <a href="/oferte/" id="f-mag-x">vezi toate magazinele ✕</a></div>
     <div class="offers-count" id="f-count">{fmt(oferte.length)} rezultate</div>
     <div class="product-grid" id="f-grid">{oferte.slice(0, 48).map((p) => <ProductCard product={p} />)}</div>
     <p class="offers-empty" id="f-empty" hidden>Niciun produs nu corespunde filtrelor — încearcă să lărgești selecția.</p>
@@ -64,6 +65,8 @@ const fmt = (n) => n.toLocaleString('ro-RO');
   .filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.6rem; }
   .filter-row select { padding: 0.55rem; border: 1px solid var(--color-steel-light); border-radius: var(--radius); font: inherit; font-size: 0.85rem; background: #fff; }
   .offers-count { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--color-steel); margin-bottom: 0.75rem; }
+  .offers-mag { background: #f8f2e6; border-left: 3px solid var(--color-brass); padding: .6rem .8rem; margin-bottom: .8rem; font-size: .9rem; }
+  .offers-mag a { color: var(--color-navy); text-decoration: underline; }
   .offers-empty { color: var(--color-steel); padding: 2rem 0; text-align: center; }
   #f-more { cursor: pointer; }
 </style>
@@ -74,10 +77,11 @@ const fmt = (n) => n.toLocaleString('ro-RO');
 <script>
   import { decode, norm } from '../../scripts/compact.js';
   import { renderCard } from '../../scripts/card.js';
+  import { magazin } from '../../scripts/magazine.js';
 
   const PAS = 48;
   const $ = (id) => document.getElementById(id);
-  const st = { q: '', c: 'all', b: 'all', d: 0, pr: 0, sort: 'scor' };
+  const st = { q: '', c: 'all', b: 'all', d: 0, pr: 0, sort: 'scor', m: new URLSearchParams(location.search).get('magazin') || '' };
   const scor = (p) => (p.pct > 85 ? 0.001 : 0.6 * (p.pct / 100) + 0.4 * Math.min(p.op - p.pr, 1500) / 1500);
   let toate = [], rez = [], aratate = 0;
 
@@ -85,6 +89,7 @@ const fmt = (n) => n.toLocaleString('ro-RO');
     const [, min, max] = window.__PRICE_RANGES[st.pr];
     const cuv = norm(st.q).split(' ').filter(Boolean);
     rez = toate.filter((p) =>
+      (!st.m || p.src === st.m) &&
       (st.c === 'all' || p.cat === st.c) &&
       (st.b === 'all' || p.b === st.b) &&
       (p.pct || 0) >= st.d &&
@@ -106,7 +111,7 @@ const fmt = (n) => n.toLocaleString('ro-RO');
   }
   function branduri() {
     const nr = new Map();
-    toate.filter((p) => st.c === 'all' || p.cat === st.c).forEach((p) => p.b && nr.set(p.b, (nr.get(p.b) || 0) + 1));
+    toate.filter((p) => (!st.m || p.src === st.m) && (st.c === 'all' || p.cat === st.c)).forEach((p) => p.b && nr.set(p.b, (nr.get(p.b) || 0) + 1));
     const sel = $('f-brand');
     const lista = [...nr.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ro'));
     sel.innerHTML = '<option value="all">Toate brandurile</option>' + lista.map(([b, n]) => `<option value="${b.replace(/"/g, '&quot;')}">${b} (${n})</option>`).join('');
@@ -116,6 +121,7 @@ const fmt = (n) => n.toLocaleString('ro-RO');
 
   fetch('/offers-index.json').then((r) => r.json()).then((d) => {
     toate = decode(d);
+    if (st.m && toate.some((p) => p.src === st.m)) { $('f-mag-n').textContent = magazin(st.m); $('f-mag').hidden = false; } else st.m = '';
     branduri();
     let t;
     $('f-search').addEventListener('input', (e) => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value; aplica(); }, 200); });

@@ -893,3 +893,22 @@ img { max-width: 100%; }
 
 /* fereastra de sugestii din hero trebuie să poată ieși din hero */
 .hero { overflow-x: clip; overflow-y: visible; z-index: 5; }
+
+/* ---------- Tab lateral „% Promoții" (marginea din dreapta, toate paginile) ---------- */
+.pr-tab {
+  position: fixed; right: 0; top: 22%; z-index: 9997;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  background: var(--color-rust); color: #fff; text-decoration: none;
+  padding: 12px 8px; border-radius: 8px 0 0 8px;
+  box-shadow: -3px 4px 16px rgba(0,0,0,.22); border: 1px solid rgba(184,134,58,.6); border-right: 0;
+  transition: padding .2s, background .2s;
+}
+.pr-tab:hover { background: #8f3627; padding-right: 12px; }
+.pr-tab-pct { font: 600 1.2rem/1 var(--font-display); color: #fff; }
+.pr-tab-txt { writing-mode: vertical-rl; transform: rotate(180deg); font: 600 .74rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.pr-tab-nr { background: var(--color-brass); color: #fff; font: 700 .7rem var(--font-mono); border-radius: 999px; min-width: 22px; height: 22px; line-height: 22px; text-align: center; }
+html.pe-promotii .pr-tab, html.pe-promotii .stk { display: none !important; }
+@media (max-width: 640px) {
+  .pr-tab { top: 30%; padding: 9px 6px; gap: 4px; }
+  .pr-tab-txt { font-size: .62rem; }
+}

@@ -4,30 +4,52 @@
 //   src/data/site.js      — Trustpilot
 import { STICKERE } from '../data/stickere.js';
 import { TRUSTPILOT } from '../data/site.js';
-import { produseColectie, maxReducere } from '../data/catalog.mjs';
+import { produseColectie, hotDealsPrimaPagina } from '../data/catalog.mjs';
+import { MAGAZINE } from '../scripts/magazine.js';
 
 const hot = produseColectie('ofertele-saptamanii');
-const maxPct = maxReducere();
+
+// „Oferta zilei": până la 31 de Hot Deals (amestecate pe categorii). Browserul o alege
+// pe cea de azi după dată, deci se schimbă singură la miezul nopții, fără build nou.
+const scurt = (t, n = 58) => (t.length > n ? t.slice(0, n).trim() + '…' : t);
+const vazute = new Set();
+const ofZi = hotDealsPrimaPagina(60)
+  .filter((p) => p.image_url && p.discount_percent >= 30 && !vazute.has(p.title) && vazute.add(p.title))
+  .slice(0, 31)
+  .map((p) => ({
+    t: scurt(p.title), b: p.brandName || p.brand || '', m: MAGAZINE[p.source_site] || p.source_site,
+    pr: p.price, op: p.old_price, pct: p.discount_percent, img: p.image_url, u: p.affiliate_url,
+  }));
 
 const lista = STICKERE.filter((s) => s.activ !== false).map((s) => {
   if (s.id !== 'hot-deals') return s;
-  return {
-    ...s,
-    auto: true,
-    mare: `-${maxPct}%`,
-    eticheta: 'Hot<br>Deals',
-    brand: `${hot.length.toLocaleString('ro-RO')} oferte`,
-    text: 'Reduceri de peste 30%, actualizate',
-    cta: 'Vezi Hot Deals',
-    link: '/ofertele-saptamanii/',
-    culoare: '#A8402F',
-  };
-}).filter((s) => s.id !== 'hot-deals' || hot.length > 0);
+  return { ...s, zi: true, culoare: '#A8402F', link: '/ofertele-saptamanii/' };
+}).filter((s) => s.id !== 'hot-deals' || ofZi.length > 0);
 
 const tpWidget = !!TRUSTPILOT.businessUnitId;
 ---
 {lista.map((s) => {
   const extern = /^https?:/.test(s.link);
+  if (s.zi) return (
+    <a class={`stk stk-zi stk-${s.pozitie === 'stanga' ? 'st' : 'dr'}`} id="stk-hot-deals" href={s.link}
+       target="_blank" rel="noopener sponsored nofollow" style={`--stk:${s.culoare}`}
+       data-oferte={JSON.stringify(ofZi)} data-total={hot.length}>
+      <div class="stk-top"><span class="stk-mare" data-z="pct">-%</span><span class="stk-et">Oferta<br>zilei</span></div>
+      <div class="stk-img"><img data-z="img" alt="" width="150" height="110" loading="lazy" /></div>
+      <div class="stk-mid">
+        <div class="stk-brand" data-z="b"></div>
+        <div class="stk-text" data-z="t"></div>
+        <div class="stk-pret"><b data-z="pr"></b><s data-z="op"></s><span class="stk-mag">la <span data-z="m"></span></span></div>
+      </div>
+      <div class="stk-timer stk-timer-s" aria-label="Timp rămas până la miezul nopții">
+        <div class="stk-b"><span class="stk-n" data-u="h">--</span><span class="stk-l">Ore</span></div><span class="stk-sep">:</span>
+        <div class="stk-b"><span class="stk-n" data-u="m">--</span><span class="stk-l">Min</span></div><span class="stk-sep">:</span>
+        <div class="stk-b"><span class="stk-n" data-u="s">--</span><span class="stk-l">Sec</span></div>
+      </div>
+      <div class="stk-cta">Vezi oferta →</div>
+      <button type="button" class="stk-x" aria-label="Închide">✕</button>
+    </a>
+  );
   return (
     <a class={`stk stk-${s.pozitie === 'stanga' ? 'st' : 'dr'}`} id={`stk-${s.id}`} href={s.link}
        target={extern ? '_blank' : undefined} rel={extern ? 'noopener sponsored nofollow' : undefined}
@@ -84,6 +106,14 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
   .stk-l { font-size: .48rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.5); margin-top: 2px; }
   .stk-sep { font-size: .75rem; color: rgba(255,255,255,.3); }
   .stk-cta { background: var(--color-brass); text-align: center; padding: 9px 12px; font-family: var(--font-mono); font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .stk-img { background: #fff; height: 96px; display: flex; align-items: center; justify-content: center; padding: 6px; }
+  .stk-img img { max-width: 100%; max-height: 84px; object-fit: contain; font-size: 0; }
+  .stk-zi .stk-text { color: #fff; font-weight: 600; font-size: .74rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .stk-pret { margin-top: 5px; font-family: var(--font-mono); font-size: .82rem; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 6px; }
+  .stk-pret s { color: rgba(255,255,255,.5); font-size: .66rem; }
+  .stk-mag { flex-basis: 100%; font-size: .6rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+  .stk-pret b { color: var(--color-brass); }
+  .stk-zi .stk-n[data-u="s"] { color: var(--color-brass); }
   .stk-x { position: absolute; top: 7px; right: 7px; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 50%; background: rgba(0,0,0,.2); color: #fff; font-size: 10px; line-height: 1; cursor: pointer; }
   .stk-x:hover { background: rgba(0,0,0,.35); }
 
@@ -103,6 +133,10 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
     .stk { width: 136px; bottom: 74px; }
     .stk-dr { right: 10px; } .stk-st { left: 10px; }
     .stk-text, .stk-mid, .stk-timer { display: none; }
+    .stk-zi .stk-img { height: 74px; } .stk-zi .stk-img img { max-height: 66px; }
+    .stk-zi .stk-timer-s { display: flex; padding: 5px 6px; gap: 3px; }
+    .stk-zi .stk-b { min-width: 28px; padding: 3px 4px; } .stk-zi .stk-l { display: none; }
+    .stk-zi .stk-cta { font-size: .6rem; padding: 7px 6px; }
     .stk-top { padding: 8px 30px 6px 12px; }
     .stk-mare { font-size: 1.4rem; }
     #tp-sticker {
@@ -131,7 +165,37 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
       var d = new Date(acum); var zile = (7 - d.getDay()) % 7;
       d.setDate(d.getDate() + zile); d.setHours(23, 59, 59, 0); return d;
     }
-    document.querySelectorAll('.stk').forEach(function (el) {
+    // Ora României, ca oferta și cronometrul să se schimbe la miezul nopții în România
+    function oraRo() {
+      var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      var o = {}; f.formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
+      return { zi: Date.UTC(+o.year, +o.month - 1, +o.day) / 86400000, sec: (+o.hour % 24) * 3600 + (+o.minute) * 60 + (+o.second) };
+    }
+    var zi = document.querySelector('.stk-zi');
+    if (zi) {
+      var lista = []; try { lista = JSON.parse(zi.dataset.oferte || '[]'); } catch (e) {}
+      if (!lista.length) zi.hidden = true;
+      else {
+        var lei = function (n) { return Number(n).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' lei'; };
+        var z = {}; zi.querySelectorAll('[data-z]').forEach(function (n) { z[n.dataset.z] = n; });
+        var p = lista[oraRo().zi % lista.length];
+        z.pct.textContent = '-' + p.pct + '%'; z.b.textContent = p.b; z.t.textContent = p.t; z.m.textContent = p.m;
+        z.op.textContent = lei(p.op); z.pr.textContent = lei(p.pr); z.img.src = p.img; z.img.alt = p.t;
+        zi.href = p.u;
+        var uz = {}; zi.querySelectorAll('[data-u]').forEach(function (n) { uz[n.dataset.u] = n; });
+        var tickZi = function () {
+          var r = 86400 - oraRo().sec;
+          uz.h.textContent = pad(Math.floor(r / 3600)); uz.m.textContent = pad(Math.floor(r % 3600 / 60)); uz.s.textContent = pad(r % 60);
+        };
+        tickZi(); setInterval(tickZi, 1000);
+        zi.addEventListener('click', function () { if (typeof gtag === 'function') gtag('event', 'oferta_zilei_click', { produs: p.t, magazin: p.m }); });
+        zi.querySelector('.stk-x').addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          zi.style.opacity = '0'; setTimeout(function () { zi.hidden = true; }, 300);
+        });
+      }
+    }
+    document.querySelectorAll('.stk:not(.stk-zi)').forEach(function (el) {
       var start = el.dataset.start ? new Date(el.dataset.start) : null;
       var end = el.dataset.auto ? duminica() : (el.dataset.end ? new Date(el.dataset.end) : null);
       if ((start && acum < start) || (end && acum > end)) { el.hidden = true; return; }

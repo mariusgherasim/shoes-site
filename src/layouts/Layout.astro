@@ -5,6 +5,10 @@ import Newsletter from '../components/Newsletter.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Stickere from '../components/Stickere.astro';
 import { SITE, GA_ID, TRUSTPILOT } from '../data/site.js';
+import { promotiiActive } from '../data/promotii.js';
+import { MAGAZINE } from '../scripts/magazine.js';
+// numărul de pe tabul „% Promoții": promoțiile scrise + câte un card pe magazin
+const nrPromotii = promotiiActive().length + Object.keys(MAGAZINE).length;
 import '../styles/global.css';
 
 const {
@@ -62,6 +66,15 @@ const ogImageURL = new URL(ogImage, SITE.domeniu).href;
     <Footer />
     <CookieBanner />
     <Stickere />
+    <a class="pr-tab" id="pr-tab" href="/promotii/" aria-label={`Promoții și coduri de reducere (${nrPromotii})`}>
+      <span class="pr-tab-pct">%</span>
+      <span class="pr-tab-txt">Promoții</span>
+      <span class="pr-tab-nr">{nrPromotii}</span>
+    </a>
+    <script is:inline>
+      // Pe pagina de promoții: fără tab și fără stickere peste carduri
+      if (location.pathname.indexOf('/promotii/') === 0) document.documentElement.classList.add('pe-promotii');
+    </script>
 
     <script is:inline>
       // affiliate_click — același eveniment ca pe celelalte site-uri (diferențiat după hostname)

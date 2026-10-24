@@ -144,6 +144,7 @@ git push
 | În ce categorie / tip intră produsele | `src/data/clasificare.mjs` → apoi `npm run raport` și verifici |
 | Textele categoriilor și colecțiilor (titlu SEO, descriere, intro cu {N}) | `src/data/categorii.js` |
 | Stickerele cu reclame (colțul de jos) | `src/data/stickere.js` (are un exemplu gata completat, comentat) |
+| Promoțiile și codurile de reducere (pagina `/promotii/`) | `src/data/promotii.js` (exemplu comentat + codurile de campanie pentru quicklink) |
 | Trustpilot, MailerLite, GA4, numele site-ului | `src/data/site.js` |
 | Bannerele 2Performant | `public/banners.json` — câmpul `categorii` = pe ce pagini apar; `valid_from` / `valid_until` = perioada |
 | Logo-uri de brand în fereastra de căutare | `public/logos/{slug-brand}.png` sau `.svg` (ex: `casio.png`, `michael-kors.png`) — descărcare automată cu `descarca-logo-uri.bat` (vezi §11b) |
@@ -156,7 +157,14 @@ git push
 | Ghidurile educative | `src/pages/ghiduri/` (ex. `ingrijire-pantofi-piele-iarna.astro`; produsele din ghid se aleg singure la build) — link în footer, la Colecții |
 
 ### Cum adaugi un sticker de reclamă
-În `src/data/stickere.js` copiezi blocul de exemplu (fără `//`), completezi `id`, `de_la`, `pana_la`, `pozitie` (`'stanga'` sau `'dreapta'`), `mare`, `eticheta`, `brand`, `text`, `cta`, `link`, `culoare`. Stickerul apare singur între cele două date și dispare singur după `pana_la`. Butonul ✕ îl ascunde doar pe pagina curentă. Stickerul automat **Hot Deals** (dreapta) ia singur cea mai mare reducere și numără până duminică seara.
+În `src/data/stickere.js` copiezi blocul de exemplu (fără `//`), completezi `id`, `de_la`, `pana_la`, `pozitie` (`'stanga'` sau `'dreapta'`), `mare`, `eticheta`, `brand`, `text`, `cta`, `link`, `culoare`. Stickerul apare singur între cele două date și dispare singur după `pana_la`. Butonul ✕ îl ascunde doar pe pagina curentă. Stickerul automat **Oferta zilei** (dreapta jos, id `hot-deals`) arată în fiecare zi alt produs Hot Deal (poză, preț, reducere), cu cronometru cu secunde până la miezul nopții. Se schimbă singur la 00:00 (ora României), fără build nou: la fiecare build intră în listă până la 31 de Hot Deals amestecate pe categorii, iar browserul îl alege pe cel de azi.
+
+### Pagina /promotii/ și tabul „% Promoții"
+- **Tabul** roșu de pe marginea din dreapta apare pe toate paginile (în `Layout.astro`) și duce la `/promotii/`. Numărul de pe el = promoțiile din `promotii.js` + câte un card pe magazin.
+- **Sus pe pagină:** campaniile și codurile scrise de mână în `src/data/promotii.js` (la fel ca la beauty: cod ascuns → „Afișează codul" → „Copiază codul"). Dispar singure după data `expira`. Doar coduri primite în 2Performant pentru contul tău.
+- **Jos:** „Reducerile pe magazine, azi" — calculate automat la build: câte produse cu reducere are fiecare magazin, reducerea maximă (fără cele peste 85%), 3 produse exemplu și butonul spre `/oferte/?magazin=…`.
+- Linkul spre o pagină a magazinului se face cu `quicklink('benvenuti.com', 'https://www.benvenuti.com/ro/...')` din `promotii.js` — codurile de campanie sunt deja trecute acolo.
+- Pe `/promotii/` tabul și stickerul se ascund, ca să nu acopere cardurile.
 
 ---
 

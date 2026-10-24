@@ -21,8 +21,9 @@
 //   link       linkul de afiliere 2Performant (sau o pagină a site-ului, ex: /oferte/)
 //   culoare    culoarea benzii de sus și a butonului
 //
-// Stickerul cu id 'hot-deals' e automat: ia singur cea mai mare reducere de
-// pe site și numără până duminică seara. Îl poți dezactiva cu activ: false.
+// Stickerul cu id 'hot-deals' e automat: „Oferta zilei" — în fiecare zi alt produs
+// Hot Deal (poză, preț, reducere), cu cronometru până la miezul nopții, cu secunde.
+// Se schimbă singur la 00:00 (ora României), fără build nou. Îl poți dezactiva cu activ: false.
 // ============================================================
 
 export const STICKERE = [
