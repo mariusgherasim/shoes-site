@@ -1,0 +1,34 @@
+---
+// Blocul „Ghiduri utile" de pe paginile de categorie (date: src/data/ghiduri.js)
+import { ghiduriPentru, ghiduriSortate } from '../data/ghiduri.js';
+const { categorie = null, toate = false, titlu = 'Ghiduri utile' } = Astro.props;
+const lista = toate ? ghiduriSortate() : categorie ? ghiduriPentru(categorie) : [];
+---
+{lista.length > 0 && (
+  <section class="gh-bloc" aria-label={titlu}>
+    <div class="section-head"><h2>📖 {titlu}</h2>{!toate && <a href="/ghiduri/" class="eyebrow">Toate ghidurile →</a>}</div>
+    <div class="gh-grid">
+      {lista.map((g) => (
+        <a class="gh-card" href={`/ghiduri/${g.slug}/`}>
+          <span class="gh-emoji" aria-hidden="true">{g.emoji}</span>
+          <span class="gh-meta">{g.eticheta} · {g.minute} min de citit</span>
+          <span class="gh-titlu">{g.titlu}</span>
+          <span class="gh-desc">{g.descriere}</span>
+          <span class="gh-cta">Citește ghidul →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .gh-bloc { margin: 2.5rem 0 1rem; }
+  .gh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .gh-card { display: flex; flex-direction: column; gap: .4rem; background: var(--color-surface); border: 1px solid var(--color-steel-light); border-top: 3px solid var(--color-brass); border-radius: var(--radius); padding: 1.1rem; transition: transform .15s, box-shadow .15s; }
+  .gh-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(20,33,61,.12); }
+  .gh-emoji { font-size: 1.6rem; line-height: 1; }
+  .gh-meta { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-brass-dark); }
+  .gh-titlu { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--color-navy); line-height: 1.3; }
+  .gh-desc { font-size: .9rem; color: #555; line-height: 1.5; }
+  .gh-cta { margin-top: auto; padding-top: .4rem; font-family: var(--font-mono); font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--color-navy); }
+</style>

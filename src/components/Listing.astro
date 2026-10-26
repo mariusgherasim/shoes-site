@@ -3,6 +3,7 @@
 import ProductCard from './ProductCard.astro';
 import CategorySearch from './CategorySearch.astro';
 import Banner from './Banner.astro';
+import GhiduriUtile from './GhiduriUtile.astro';
 import { categorii, colectii } from '../data/categorii.js';
 import { tipuriCategorie, brandsCategorie } from '../data/catalog.mjs';
 
@@ -92,6 +93,8 @@ const href = (n) => (n === 1 ? base : `${base}${n}/`);
       {page.url.next ? <a class="pagination-link" href={page.url.next}>Înainte →</a> : <span class="pagination-link pagination-disabled">Înainte →</span>}
     </nav>
   )}
+
+  {categorie && <GhiduriUtile categorie={categorie} />}
 
   <Banner variant="rectangle" categorie={categorie || colectie || 'homepage'} />
 </main>

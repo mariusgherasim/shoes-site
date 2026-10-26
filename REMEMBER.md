@@ -154,7 +154,7 @@ git push
 | Prima pagină | `src/pages/index.astro` |
 | Paginile legale | `src/pages/termeni-si-conditii.astro`, `src/pages/politica-de-confidentialitate.astro` |
 | Gravura personalizată | `src/pages/gravura-personalizata.astro` (pozele în `public/gravura/`) |
-| Ghidurile educative | `src/pages/ghiduri/` (ex. `ingrijire-pantofi-piele-iarna.astro`; produsele din ghid se aleg singure la build) — link în footer, la Colecții |
+| Ghidurile educative | pagina ghidului în `src/pages/ghiduri/{slug}.astro` **+ o intrare în `src/data/ghiduri.js`** (titlu, descriere, minute, categorii). Apare singur pe `/ghiduri/`, în blocul „📖 Ghiduri utile” de pe paginile categoriilor din `categorii` și e accesibil din meniul de sus („📖 Ghiduri”) și din footer |
 
 ### Cum adaugi un sticker de reclamă
 În `src/data/stickere.js` copiezi blocul de exemplu (fără `//`), completezi `id`, `de_la`, `pana_la`, `pozitie` (`'stanga'` sau `'dreapta'`), `mare`, `eticheta`, `brand`, `text`, `cta`, `link`, `culoare`. Stickerul apare singur între cele două date și dispare singur după `pana_la`. Butonul ✕ îl ascunde doar pe pagina curentă. Stickerul automat **Oferta zilei** (dreapta jos, id `hot-deals`) arată în fiecare zi alt produs Hot Deal (poză, preț, reducere), cu cronometru cu secunde până la miezul nopții. Se schimbă singur la 00:00 (ora României), fără build nou: la fiecare build intră în listă până la 31 de Hot Deals amestecate pe categorii, iar browserul îl alege pe cel de azi.

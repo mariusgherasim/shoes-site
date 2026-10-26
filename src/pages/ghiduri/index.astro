@@ -1,0 +1,16 @@
+---
+// /ghiduri/ — lista tuturor ghidurilor (date: src/data/ghiduri.js)
+import Layout from '../../layouts/Layout.astro';
+import GhiduriUtile from '../../components/GhiduriUtile.astro';
+import { ghiduri } from '../../data/ghiduri.js';
+const n = ghiduri.length;
+---
+<Layout title="Ghiduri — îngrijire, alegere și stil | style.accessories" description={`${n} ${n === 1 ? 'ghid practic' : 'ghiduri practice'} despre cum alegi, porți și îngrijești ceasuri, încălțăminte, genți și haine.`}>
+  <main class="container page">
+    <nav class="breadcrumbs"><a href="/">Acasă</a> / <span>Ghiduri</span></nav>
+    <p class="eyebrow">Ghiduri practice</p>
+    <h1>Ghiduri: cum alegi, porți și îngrijești</h1>
+    <p class="intro">Cât rezistă de fapt o pereche de ghete din piele? Cum alegi un ceas care să se potrivească la încheietură? Ce faci cu petele de sare de pe pantofi? Răspunsuri scurte, verificate din surse, cu produsele potrivite la final.</p>
+    <GhiduriUtile toate titlu="Toate ghidurile" />
+  </main>
+</Layout>
