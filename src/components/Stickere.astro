@@ -54,9 +54,11 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
     <a class={`stk stk-${s.pozitie === 'stanga' ? 'st' : 'dr'}`} id={`stk-${s.id}`} href={s.link}
        target={extern ? '_blank' : undefined} rel={extern ? 'noopener sponsored nofollow' : undefined}
        data-start={s.de_la || ''} data-end={s.pana_la || ''} data-auto={s.auto ? '1' : ''}
+       data-faze={s.faze ? JSON.stringify(s.faze) : undefined} data-valuri={s.valuri ? JSON.stringify(s.valuri) : undefined}
        style={`--stk:${s.culoare || '#A8402F'}`}>
       <div class="stk-top"><span class="stk-mare">{s.mare}</span><span class="stk-et" set:html={s.eticheta} /></div>
       <div class="stk-mid"><div class="stk-brand">{s.brand}</div><div class="stk-text">{s.text}</div></div>
+      {s.faze && <div class="stk-tl">&nbsp;</div>}
       <div class="stk-timer">
         <div class="stk-b"><span class="stk-n" data-u="d">--</span><span class="stk-l">Zile</span></div><span class="stk-sep">:</span>
         <div class="stk-b"><span class="stk-n" data-u="h">--</span><span class="stk-l">Ore</span></div><span class="stk-sep">:</span>
@@ -105,6 +107,8 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
   .stk-n { font-family: var(--font-mono); font-size: .9rem; font-weight: 600; line-height: 1; }
   .stk-l { font-size: .48rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.5); margin-top: 2px; }
   .stk-sep { font-size: .75rem; color: rgba(255,255,255,.3); }
+  .stk-tl { padding: 7px 12px 0; text-align: center; font-family: var(--font-mono); font-size: .56rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.55); }
+  .stk-val { display: block; margin-top: 4px; color: var(--color-brass); font-weight: 600; }
   .stk-cta { background: var(--color-brass); text-align: center; padding: 9px 12px; font-family: var(--font-mono); font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
   .stk-img { background: #fff; height: 96px; display: flex; align-items: center; justify-content: center; padding: 6px; }
   .stk-img img { max-width: 100%; max-height: 84px; object-fit: contain; font-size: 0; }
@@ -132,7 +136,7 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
   @media (max-width: 640px) {
     .stk { width: 136px; bottom: 74px; }
     .stk-dr { right: 10px; } .stk-st { left: 10px; }
-    .stk-text, .stk-mid, .stk-timer { display: none; }
+    .stk-text, .stk-mid, .stk-timer, .stk-tl { display: none; }
     .stk-zi .stk-img { height: 74px; } .stk-zi .stk-img img { max-height: 66px; }
     .stk-zi .stk-timer-s { display: flex; padding: 5px 6px; gap: 3px; }
     .stk-zi .stk-b { min-width: 28px; padding: 3px 4px; } .stk-zi .stk-l { display: none; }
@@ -195,9 +199,51 @@ const tpWidget = !!TRUSTPILOT.businessUnitId;
         });
       }
     }
+    var ZILE = ['duminică', 'luni', 'marți', 'miercuri', 'joi', 'vineri', 'sâmbătă'];
+    // ora și ziua unui moment, în ora României
+    function ro(d) {
+      var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+      var o = {}; f.formatToParts(d).forEach(function (p) { o[p.type] = p.value; });
+      return { zi: o.year + o.month + o.day, ora: o.hour + ':' + o.minute, wd: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday) };
+    }
+    function cand(d) {
+      var a = ro(new Date()), b = ro(d), m = ro(new Date(Date.now() + 864e5));
+      return (a.zi === b.zi ? 'azi' : m.zi === b.zi ? 'mâine' : ZILE[b.wd]) + ', ' + b.ora;
+    }
     document.querySelectorAll('.stk:not(.stk-zi)').forEach(function (el) {
       var start = el.dataset.start ? new Date(el.dataset.start) : null;
       var end = el.dataset.auto ? duminica() : (el.dataset.end ? new Date(el.dataset.end) : null);
+      if (el.dataset.faze && location.pathname.indexOf('/black-friday/') === 0) { el.hidden = true; return; } // pagina are deja cronometrul ei
+      if (el.dataset.faze) {
+        // sticker cu faze: alegem faza de acum și, dacă are valuri, ținta e următorul val.
+        // La ora țintei recalculăm singuri (fără reîncărcarea paginii).
+        var faze = JSON.parse(el.dataset.faze), valuri = (el.dataset.valuri ? JSON.parse(el.dataset.valuri) : []).map(function (v) { return new Date(v); });
+        var q = function (c) { return el.querySelector(c); };
+        var seteaza = function () {
+          var n = new Date(), f = null;
+          for (var i = 0; i < faze.length; i++) { if (n < new Date(faze[i].pana_la)) { f = faze[i]; break; } }
+          if (!f) { el.hidden = true; end = null; return false; }
+          end = new Date(f.pana_la);
+          var schimba = end; // când trecem în faza următoare
+          if (f.numara_pana) end = new Date(f.numara_pana);
+          q('.stk-mare').textContent = f.mare; q('.stk-et').innerHTML = f.eticheta; q('.stk-cta').textContent = f.cta + ' →';
+          var tl = q('.stk-tl'), txt = f.text;
+          if (f.valuri) {
+            var urm = valuri.filter(function (v) { return v > n; })[0];
+            if (urm) {
+              end = urm;
+              txt = f.text + (urm - n <= 45 * 60000 ? ' Coada pentru val e deschisă!' : '');
+              tl.innerHTML = f.timer + '<span class="stk-val">Val Best Deals: ' + cand(urm) + '</span>';
+            } else { txt = f.text_final || f.text; tl.textContent = f.timer_final || f.timer; }
+          } else tl.textContent = f.timer;
+          q('.stk-text').textContent = txt;
+          // reverificăm la următoarea schimbare (sau peste 45 min înainte de val, pentru mesajul cu coada)
+          var urmator = Math.min(end, schimba) - n, coadaIn = f.valuri ? urmator - 45 * 60000 : 0;
+          setTimeout(seteaza, Math.min(coadaIn > 0 ? coadaIn + 1000 : urmator + 1000, 2147483000));
+          return true;
+        };
+        if (!seteaza()) return;
+      }
       if ((start && acum < start) || (end && acum > end)) { el.hidden = true; return; }
       if (el.getAttribute('href') && location.pathname === el.getAttribute('href')) { el.hidden = true; return; }
       var u = {}; el.querySelectorAll('[data-u]').forEach(function (n) { u[n.dataset.u] = n; });

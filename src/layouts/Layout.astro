@@ -5,10 +5,12 @@ import Newsletter from '../components/Newsletter.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Stickere from '../components/Stickere.astro';
 import { SITE, GA_ID, TRUSTPILOT } from '../data/site.js';
-import { promotiiActive } from '../data/promotii.js';
+import { promotiiActive, promotiiNeexpirate } from '../data/promotii.js';
 import { MAGAZINE } from '../scripts/magazine.js';
 // numărul de pe tabul „% Promoții": promoțiile scrise + câte un card pe magazin
 const nrPromotii = promotiiActive().length + Object.keys(MAGAZINE).length;
+// browserul recalculează numărul după data de azi (promoțiile programate apar singure)
+const datePromo = JSON.stringify({ m: Object.keys(MAGAZINE).length, p: promotiiNeexpirate().map((p) => [p.incepe || '', p.expira || '']) });
 import '../styles/global.css';
 
 const {
@@ -60,13 +62,36 @@ const ogImageURL = new URL(ogImage, SITE.domeniu).href;
     <slot name="head" />
   </head>
   <body>
+    <!-- Bara Black Friday 2026: apare singură 29 oct – 30 nov (ora României), nu apare pe /black-friday/ -->
+    <a class="bf-bar" id="bf-bar" href="/black-friday/" hidden>
+      <span id="bf-bar-t">🖤 Black Friday 2026: Otter 3–8 noiembrie · Menzo până la -60% · vezi calendarul reducerilor</span>
+      <span class="bf-bar-cta">Vezi →</span>
+      <button type="button" class="bf-bar-x" id="bf-bar-x" aria-label="Închide">✕</button>
+    </a>
+    <script is:inline>
+      (function () {
+        var b = document.getElementById('bf-bar'), n = new Date();
+        if (!b || location.pathname.indexOf('/black-friday/') === 0) return;
+        if (n < new Date('2026-10-29T18:00:00+02:00') || n > new Date('2026-11-30T23:59:59+02:00')) return;
+        try { if (sessionStorage.getItem('bf-bar') === '0') return; } catch (e) {}
+        var t = document.getElementById('bf-bar-t');
+        if (n >= new Date('2026-11-03T06:00:00+02:00') && n < new Date('2026-11-06T16:00:00+02:00')) t.textContent = '🖤 Black Friday la Otter: acum, cu valuri Best Deals până vineri · Menzo până la -60%';
+        else if (n >= new Date('2026-11-06T16:00:00+02:00') && n <= new Date('2026-11-08T23:59:59+02:00')) t.textContent = '🖤 Black Friday la Otter: reduceri până duminică, 8 noiembrie · Menzo până la -60%';
+        else if (n > new Date('2026-11-08T23:59:59+02:00')) t.textContent = '🖤 Black Friday 2026: calendarul reducerilor la pantofi, ceasuri și haine';
+        b.hidden = false;
+        document.getElementById('bf-bar-x').addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation(); b.hidden = true;
+          try { sessionStorage.setItem('bf-bar', '0'); } catch (x) {}
+        });
+      })();
+    </script>
     <Header />
     <slot />
     {newsletter && <Newsletter />}
     <Footer />
     <CookieBanner />
     <Stickere />
-    <a class="pr-tab" id="pr-tab" href="/promotii/" aria-label={`Promoții și coduri de reducere (${nrPromotii})`}>
+    <a class="pr-tab" id="pr-tab" href="/promotii/" data-promo={datePromo} aria-label={`Promoții și coduri de reducere (${nrPromotii})`}>
       <span class="pr-tab-pct">%</span>
       <span class="pr-tab-txt">Promoții</span>
       <span class="pr-tab-nr">{nrPromotii}</span>
@@ -74,6 +99,14 @@ const ogImageURL = new URL(ogImage, SITE.domeniu).href;
     <script is:inline>
       // Pe pagina de promoții: fără tab și fără stickere peste carduri
       if (location.pathname.indexOf('/promotii/') === 0) document.documentElement.classList.add('pe-promotii');
+      (function () {
+        var t = document.getElementById('pr-tab'); if (!t || !t.dataset.promo) return;
+        try {
+          var d = JSON.parse(t.dataset.promo), azi = new Date(Date.now() + 2 * 3600e3).toISOString().slice(0, 10);
+          var n = d.m + d.p.filter(function (x) { return (!x[0] || x[0] <= azi) && (!x[1] || x[1] >= azi); }).length;
+          t.querySelector('.pr-tab-nr').textContent = n;
+        } catch (e) {}
+      })();
     </script>
 
     <script is:inline>

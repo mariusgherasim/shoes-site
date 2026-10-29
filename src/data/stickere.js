@@ -21,6 +21,13 @@
 //   link       linkul de afiliere 2Performant (sau o pagină a site-ului, ex: /oferte/)
 //   culoare    culoarea benzii de sus și a butonului
 //
+// FAZE (opțional): un sticker poate avea mai multe faze, una după alta (ex: teasing → reduceri).
+//   faze: [{ pana_la, numara_pana, mare, eticheta, text, cta, timer }]   — timer = textul de deasupra cronometrului;
+//           numara_pana (opțional) = momentul până la care numără cronometrul, dacă diferă de pana_la
+//   Ora de start a Black Friday Otter („dis-de-dimineață”, 3 nov) e presupusă 06:00 — corecteaz-o dacă Otter anunță alta.
+//   valuri: ['AAAA-LL-ZZTHH:MM:SS+02:00', ...] — în faza cu valuri: true, cronometrul numără până la
+//           următorul val și textul arată ora lui („Următorul val: azi, 13:00").
+//
 // Stickerul cu id 'hot-deals' e automat: „Oferta zilei" — în fiecare zi alt produs
 // Hot Deal (poză, preț, reducere), cu cronometru până la miezul nopții, cu secunde.
 // Se schimbă singur la 00:00 (ora României), fără build nou. Îl poți dezactiva cu activ: false.
@@ -28,6 +35,31 @@
 
 export const STICKERE = [
   { id: 'hot-deals', activ: true, pozitie: 'dreapta' },
+
+  // Otter — Black Friday „Shoefisticat 3": teasing 29 oct seara – 2 nov, reduceri 3–8 nov 2026.
+  {
+    id: 'otter-black-friday',
+    activ: true,
+    de_la: '2026-10-29T18:00:00+02:00',
+    pozitie: 'stanga',
+    brand: 'Otter · Black Friday',
+    link: 'https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=7e537fc0d&redirect_to=https%253A//www.otter.ro/blackfriday',
+    culoare: '#111111',
+    faze: [
+      { pana_la: '2026-11-02T23:00:00+02:00', numara_pana: '2026-11-03T06:00:00+02:00', mare: '3–8', eticheta: 'noiembrie<br>Black Friday', timer: 'Începe în',
+        text: 'Prețurile Best Deals se văd deja. Salvează-le acum în wishlist.', cta: 'Vezi prețurile' },
+      { pana_la: '2026-11-03T06:00:00+02:00', numara_pana: '2026-11-03T06:00:00+02:00', mare: '3–8', eticheta: 'noiembrie<br>Black Friday', timer: 'Începe în',
+        text: 'Site-ul Otter se pregătește. Black Friday începe dimineață.', cta: 'Vezi pagina' },
+      { pana_la: '2026-11-08T23:59:59+02:00', mare: 'LIVE', eticheta: 'Black Friday<br>3–8 nov', timer: 'Următorul val în', valuri: true,
+        text: 'Reduceri la toate articolele.', cta: 'Vezi reducerile', timer_final: 'Se termină în',
+        text_final: 'Toate cele 10 valuri Best Deals sunt deschise. Până duminică, în limita stocului.' },
+    ],
+    valuri: [
+      '2026-11-03T06:00:00+02:00', '2026-11-03T10:00:00+02:00', '2026-11-03T13:00:00+02:00', '2026-11-03T16:00:00+02:00',
+      '2026-11-04T10:00:00+02:00', '2026-11-05T10:00:00+02:00',
+      '2026-11-06T07:00:00+02:00', '2026-11-06T10:00:00+02:00', '2026-11-06T13:00:00+02:00', '2026-11-06T16:00:00+02:00',
+    ],
+  },
 
   // {
   //   id: 'watchshop-black-friday',

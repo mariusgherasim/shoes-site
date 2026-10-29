@@ -1,0 +1,259 @@
+---
+// /black-friday/ — Black Friday 2026 pe style.accessories: calendarul campaniilor magazinelor partenere,
+// programul valurilor Otter, reducerile de azi și cum recunoști o reducere reală.
+// Campaniile vin din src/data/promotii.js (aceleași ca pe /promotii/). Starea fiecărei campanii
+// („începe în…", „activă", „încheiată") se calculează în browser, deci pagina rămâne corectă fără build nou.
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { promotii, quicklink } from '../data/promotii.js';
+import { oferte, amestecaPeCategorii } from '../data/catalog.mjs';
+import { MAGAZINE } from '../scripts/magazine.js';
+
+const azi = new Date().toISOString().slice(0, 10);
+const L = (n) => n.toLocaleString('ro-RO');
+const fmt = (d) => new Date(d + 'T12:00:00').toLocaleDateString('ro-RO', { day: 'numeric', month: 'long' });
+
+const OTTER = quicklink('otter.ro', 'https://www.otter.ro/blackfriday');
+const MENZO = quicklink('menzo.ro', 'https://www.menzo.ro/');
+const DOMENII = { 'watchshop.ro': 'https://www.watchshop.ro/', 'ceasuri-shop.ro': 'https://www.ceasuri-shop.ro/', 'benvenuti.com': 'https://www.benvenuti.com/ro', 'gryxx.ro': 'https://www.gryxx.ro/', 'picadili.ro': 'https://www.picadili.ro/', 'dyfashion.ro': 'https://www.dyfashion.ro/' };
+
+// Reducerile de azi pe magazine (fără reducerile neverosimile de peste 85%)
+const valide = oferte.filter((p) => p.discount_percent <= 85);
+const statMag = (src) => {
+  const l = valide.filter((p) => p.source_site === src);
+  return { nr: l.length, max: l.reduce((m, p) => Math.max(m, p.discount_percent), 0) };
+};
+const totalRed = valide.length;
+const nrMag = Object.keys(MAGAZINE).filter((s) => statMag(s).nr > 0).length;
+const maxRed = valide.reduce((m, p) => Math.max(m, p.discount_percent), 0);
+const otterAzi = statMag('otter.ro');
+const menzoAzi = statMag('menzo.ro');
+
+// Campaniile de Black Friday scrise în promotii.js
+const bf = promotii.filter((p) => /black-friday/.test(p.id) && (!p.expira || p.expira >= azi));
+const alte = Object.keys(DOMENII).map((src) => ({ src, nume: MAGAZINE[src], ...statMag(src), site: quicklink(src, DOMENII[src]) })).filter((m) => m.nr > 0);
+
+// Produse reduse acum, de la Otter și Menzo (prețurile de azi; cele de Black Friday intră la actualizarea feedurilor)
+const produse = amestecaPeCategorii(valide.filter((p) => ['otter.ro', 'menzo.ro'].includes(p.source_site) && p.image_url && p.discount_percent >= 25), 12);
+
+const VALURI = [
+  ['Marți, 3 noiembrie', 'dimineața (la redeschiderea site-ului), 10:00, 13:00, 16:00'],
+  ['Miercuri, 4 noiembrie', '10:00'],
+  ['Joi, 5 noiembrie', '10:00'],
+  ['Vineri, 6 noiembrie', '07:00, 10:00, 13:00, 16:00'],
+];
+
+const FAQ = [
+  ['Când este Black Friday în 2026?', 'Vinerea de Black Friday pică pe 27 noiembrie 2026, dar magazinele încep mult mai devreme. Otter are Black Friday între 3 și 8 noiembrie, iar Menzo are deja reduceri de până la 60%. Pe pagina asta adăugăm fiecare campanie de îndată ce magazinul o anunță.'],
+  ['Ce sunt valurile Best Deals de la Otter?', 'Sunt aproximativ 300 de articole cu cele mai mari reduceri, care nu se deblochează toate odată, ci în 10 valuri, la ore fixe, între 3 și 6 noiembrie. Coada de așteptare pe pagina produsului se deschide cu 45 de minute înainte de fiecare val.'],
+  ['Pot folosi coduri de reducere la Best Deals?', 'Nu. Între 3 și 8 noiembrie, codurile de reducere nu se aplică articolelor Best Deal de la Otter, indiferent de unde provin. Pe restul articolelor, fiecare cod funcționează după condițiile lui.'],
+  ['Cum îmi dau seama dacă o reducere de Black Friday e reală?', 'Regula europeană (Directiva Omnibus) cere ca prețul „de dinainte” afișat la o reducere să fie cel mai mic preț practicat de magazin în cel puțin ultimele 30 de zile. Compară și prețul final, cu transport, la mai multe magazine, nu doar procentul.'],
+  ['De la ce sumă e livrarea gratuită la Otter?', 'Livrarea este gratuită pentru comenzile de minimum 299 de lei, iar termenul estimat este de 3–5 zile lucrătoare.'],
+];
+const faqLd = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
+
+const title = 'Black Friday 2026 — calendarul reducerilor la pantofi, ceasuri și haine | style.accessories';
+const description = `Black Friday 2026: Otter 3–8 noiembrie, cu 10 valuri Best Deals, Menzo cu reduceri de până la 60% și ${L(totalRed)} de produse reduse azi la ${nrMag} magazine. Programul, regulile și cum recunoști o reducere reală.`;
+---
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={faqLd} slot="head" />
+  <main class="bf">
+    <section class="bf-hero">
+      <div class="bf-wrap">
+        <p class="bf-eyebrow">Black Friday 2026 · actualizat {fmt(azi)}</p>
+        <h1>Black Friday 2026: calendarul reducerilor</h1>
+        <p class="bf-lead">
+          Black Friday pică pe <strong>27 noiembrie</strong>. Dar de ce să aștepți până atunci, când Otter începe pe <strong>3 noiembrie</strong>?
+          Știi la ce oră se deblochează cele mai mari reduceri? Știi care coduri nu funcționează? Și cum îți dai seama dacă un „-60%” e real?
+          Aici găsești toate campaniile magazinelor partenere, plus <strong>{L(totalRed)} de produse</strong> reduse chiar azi, la {nrMag} magazine, cu reduceri de până la <strong>-{maxRed}%</strong>.
+        </p>
+        <div class="bf-next" id="bf-next" hidden>
+          <span class="bf-next-l" id="bf-next-l"></span>
+          <span class="bf-next-t" id="bf-next-t">--</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bf-wrap">
+      <h2 class="bf-h2">Campaniile de Black Friday</h2>
+      <div class="bf-grid">
+        <article class="bf-card bf-card--otter" data-start="2026-11-03T06:00:00+02:00" data-tease="2026-10-29T18:00:00+02:00" data-end="2026-11-08T23:59:59+02:00">
+          <a class="bf-img" href={OTTER} target="_blank" rel="noopener sponsored nofollow"><img src="/banners/otter/otter-bf-1200x628.jpg" alt="Black Friday Otter Shoefisticat 3, 3–8 noiembrie" width="1200" height="628" loading="lazy" /></a>
+          <div class="bf-top"><div><span class="bf-mag">Otter</span><span class="bf-dom">otter.ro · „Shoefisticat 3”</span></div><span class="bf-st" data-st>3–8 nov</span></div>
+          <h3>Black Friday 3–8 noiembrie, cu 10 valuri Best Deals</h3>
+          <p>Reduceri la toate articolele, iar cele aproximativ 300 de articole-vedetă, Best Deals, se deblochează în valuri. Până pe 2 noiembrie vezi deja o parte din ele, cu prețul de Black Friday, și le poți salva în wishlist.</p>
+          <ul class="bf-list">
+            <li>Teasing: din <strong>29 octombrie</strong> seara până pe <strong>2 noiembrie</strong></li>
+            <li>Reduceri: <strong>3–8 noiembrie</strong>, până duminică la 23:59, în limita stocului</li>
+            <li>Livrare gratuită de la <strong>299 lei</strong>, în 3–5 zile lucrătoare</li>
+            {otterAzi.nr > 0 && <li>Azi: {L(otterAzi.nr)} de produse Otter au deja reducere, până la -{otterAzi.max}%</li>}
+          </ul>
+          <a class="bf-btn" href={OTTER} target="_blank" rel="noopener sponsored nofollow">Vezi pagina de Black Friday Otter →</a>
+        </article>
+
+        <article class="bf-card" data-start="2026-10-29T00:00:00+02:00" data-end={`${(bf.find((p) => p.id === 'menzo-black-friday') || {}).expira || '2026-11-30'}T23:59:59+02:00`}>
+          <div class="bf-top"><div><span class="bf-mag">Menzo</span><span class="bf-dom">menzo.ro</span></div><span class="bf-badge">-60%</span></div>
+          <h3>Reduceri de până la 60% la toate produsele</h3>
+          <p>Black Friday la Menzo: îmbrăcăminte și încălțăminte pentru bărbați și copii, cu reduceri de până la 60% în tot magazinul.</p>
+          <ul class="bf-list">
+            {menzoAzi.nr > 0 && <li>Azi: {L(menzoAzi.nr)} de produse Menzo cu reducere, până la -{menzoAzi.max}%</li>}
+          </ul>
+          <a class="bf-btn" href={MENZO} target="_blank" rel="noopener sponsored nofollow">Vezi reducerile Menzo →</a>
+        </article>
+
+        <article class="bf-card bf-card--alte">
+          <div class="bf-top"><div><span class="bf-mag">Celelalte magazine</span><span class="bf-dom">campanii anunțate pe parcurs</span></div></div>
+          <h3>Până își anunță campaniile, iată reducerile de azi</h3>
+          <ul class="bf-mags">
+            {alte.map((m) => (
+              <li><a href={`/oferte/?magazin=${encodeURIComponent(m.src)}`}><b>{m.nume}</b><span>{L(m.nr)} produse · până la -{m.max}%</span></a></li>
+            ))}
+          </ul>
+          <a class="bf-link" href="/promotii/">Toate promoțiile și codurile active →</a>
+        </article>
+      </div>
+
+      <div class="bf-video">
+        <video controls muted playsinline preload="none" poster="/banners/otter/otter-bf-spot-poster.jpg" width="960" height="540">
+          <source src="/banners/otter/otter-bf-spot-16x9.mp4" type="video/mp4" />
+        </video>
+        <p>Spotul Otter pentru Black Friday „Shoefisticat 3”, 3–8 noiembrie · <a href={OTTER} target="_blank" rel="noopener sponsored nofollow">Vezi ofertele în avans →</a></p>
+      </div>
+
+      <h2 class="bf-h2" id="valuri">Programul valurilor Best Deals la Otter</h2>
+      <div class="bf-two">
+        <table class="bf-table">
+          <thead><tr><th>Ziua</th><th>Orele valurilor</th></tr></thead>
+          <tbody>{VALURI.map(([z, o]) => <tr><td>{z}</td><td>{o}</td></tr>)}</tbody>
+        </table>
+        <div class="bf-tips">
+          <h3>Cum prinzi un Best Deal</h3>
+          <ol>
+            <li><strong>Fă-ți cont din timp</strong> și salvează în wishlist ce îți place. Comanzi mai repede.</li>
+            <li><strong>Intră cu 30–45 de minute înainte de val:</strong> coada de pe pagina produsului se deschide cu 45 de minute înainte, iar cine e în coadă la ora de start primește un loc aleatoriu.</li>
+            <li>Best Deals se cumpără <strong>doar din pagina produsului</strong>, cel mult <strong>o bucată pe mărime</strong>.</li>
+            <li><strong>Codurile de reducere nu se aplică</strong> la Best Deals. Pe celelalte articole, fiecare cod după condițiile lui.</li>
+            <li>Luni, 2 noiembrie, de la 23:00, site-ul Otter intră în mentenanță până marți dimineața.</li>
+          </ol>
+          <a class="bf-link" href="https://www.otter.ro/regulament-campanie-sale" target="_blank" rel="noopener nofollow">Regulamentul campaniei Otter</a>
+        </div>
+      </div>
+
+      {produse.length > 0 && (
+        <>
+          <h2 class="bf-h2">Reduse chiar acum la Otter și Menzo</h2>
+          <p class="bf-sub">Prețurile de azi, actualizate zilnic din feedurile magazinelor. Prețurile de Black Friday apar pe măsură ce le publică magazinele.</p>
+          <div class="product-grid">{produse.map((p) => <ProductCard product={p} />)}</div>
+          <p class="bf-center"><a class="bf-btn bf-btn--inline" href="/oferte/">Toate cele {L(totalRed)} de produse cu reducere →</a></p>
+        </>
+      )}
+
+      <h2 class="bf-h2">Cum recunoști o reducere reală de Black Friday</h2>
+      <div class="bf-grid bf-grid--4">
+        <div class="bf-mini"><b>1. Prețul „de dinainte”</b><p>Directiva europeană Omnibus cere ca la o reducere să apară, ca preț anterior, cel mai mic preț din cel puțin ultimele 30 de zile. Dacă prețul a urcat chiar înainte de Black Friday, procentul spune mai puțin.</p></div>
+        <div class="bf-mini"><b>2. Prețul final, nu procentul</b><p>Un -60% dintr-un preț umflat poate costa mai mult decât un -20% corect. Compară prețul final la 2–3 magazine.</p></div>
+        <div class="bf-mini"><b>3. Transportul și retururile</b><p>La Otter, livrarea e gratuită de la 299 lei. Verifică pragul și condițiile de retur înainte să adaugi în coș.</p></div>
+        <div class="bf-mini"><b>4. Lista făcută dinainte</b><p>Ce ai nevoie, ce mărime, ce buget? Wishlistul de acum te ferește de cumpărăturile din impuls din ziua reducerilor.</p></div>
+      </div>
+
+      <h2 class="bf-h2">Întrebări frecvente</h2>
+      <div class="bf-faq">
+        {FAQ.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
+
+      <p class="bf-note">Linkurile duc pe site-urile magazinelor și sunt linkuri de afiliere: dacă cumperi, putem primi un comision, fără niciun cost în plus pentru tine. Condițiile complete și prețurile finale sunt cele de pe site-ul fiecărui magazin.</p>
+    </section>
+  </main>
+</Layout>
+
+<script is:inline>
+  (function () {
+    var acum = new Date();
+    function pad(n) { return String(n).padStart(2, '0'); }
+    // eticheta de stare pe cardul Otter
+    document.querySelectorAll('.bf-card[data-end]').forEach(function (c) {
+      var end = new Date(c.dataset.end), start = c.dataset.start ? new Date(c.dataset.start) : null;
+      var st = c.querySelector('[data-st]');
+      if (acum > end) { c.classList.add('is-gata'); if (st) st.textContent = 'Încheiată'; return; }
+      if (st && start) st.textContent = acum < start ? (c.dataset.tease && acum >= new Date(c.dataset.tease) ? 'Teasing acum' : '3–8 nov') : 'Activă acum';
+    });
+    // cronometrul din hero: până la startul Otter, apoi până la următorul val, apoi până la final
+    var valuri = ['2026-11-03T06:00:00+02:00', '2026-11-03T10:00:00+02:00', '2026-11-03T13:00:00+02:00', '2026-11-03T16:00:00+02:00', '2026-11-04T10:00:00+02:00', '2026-11-05T10:00:00+02:00', '2026-11-06T07:00:00+02:00', '2026-11-06T10:00:00+02:00', '2026-11-06T13:00:00+02:00', '2026-11-06T16:00:00+02:00'].map(function (v) { return new Date(v); });
+    var START = valuri[0], FINAL = new Date('2026-11-08T23:59:59+02:00');
+    var box = document.getElementById('bf-next'), l = document.getElementById('bf-next-l'), t = document.getElementById('bf-next-t');
+    function tinta() {
+      var n = new Date();
+      if (n < START) return [START, 'Black Friday Otter începe în'];
+      var v = valuri.filter(function (x) { return x > n; })[0];
+      if (v) return [v, 'Următorul val Best Deals Otter, la ' + v.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Bucharest' }) + ', începe în'];
+      if (n < FINAL) return [FINAL, 'Black Friday Otter se termină în'];
+      return null;
+    }
+    function tick() {
+      var x = tinta(); if (!x) { box.hidden = true; return; }
+      box.hidden = false; l.textContent = x[1];
+      var r = Math.max(0, Math.floor((x[0] - new Date()) / 1000));
+      var z = Math.floor(r / 86400);
+      t.textContent = (z ? z + (z === 1 ? ' zi ' : ' zile ') : '') + pad(Math.floor(r % 86400 / 3600)) + ':' + pad(Math.floor(r % 3600 / 60)) + ':' + pad(r % 60);
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+
+<style>
+  .bf-wrap { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
+  .bf-hero { background: #0d0d0d; color: #fff; padding: 2.8rem 0 2.4rem; text-align: center; border-bottom: 3px solid var(--color-brass); }
+  .bf-eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--color-brass); margin: 0 0 .6rem; }
+  .bf-hero h1 { margin: 0 0 .7rem; font-size: clamp(1.9rem, 4.4vw, 2.8rem); color: #fff; }
+  .bf-lead { color: rgba(255,255,255,.85); max-width: 760px; margin: 0 auto; line-height: 1.65; }
+  .bf-next { margin: 1.4rem auto 0; display: inline-flex; flex-direction: column; gap: .3rem; background: rgba(255,255,255,.06); border: 1px solid rgba(184,134,58,.5); border-radius: 10px; padding: .8rem 1.4rem; }
+  .bf-next[hidden] { display: none; }
+  .bf-next-l { font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.65); }
+  .bf-next-t { font: 600 1.7rem var(--font-mono); color: var(--color-brass); font-variant-numeric: tabular-nums; }
+  .bf-h2 { font-size: 1.45rem; color: var(--color-navy); margin: 2.4rem 0 .9rem; padding-left: .7rem; border-left: 4px solid var(--color-brass); scroll-margin-top: 90px; }
+  .bf-sub { color: var(--color-steel); font-size: .9rem; margin: -.4rem 0 1rem; }
+  .bf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .bf-grid--4 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .bf-card { background: #fff; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1.2rem; display: flex; flex-direction: column; gap: .55rem; }
+  .bf-card--otter { border: 2px solid #0d0d0d; }
+  .bf-img { display: block; margin: -1.2rem -1.2rem .4rem; }
+  .bf-img img { display: block; width: 100%; height: auto; border-radius: var(--radius) var(--radius) 0 0; }
+  .bf-video { max-width: 760px; margin: 2rem auto 0; text-align: center; }
+  .bf-video video { width: 100%; height: auto; border-radius: var(--radius); background: #000; display: block; }
+  .bf-video p { font-size: .84rem; color: var(--color-steel); margin: .6rem 0 0; }
+  .bf-video a { color: var(--color-brass-dark); text-decoration: underline; }
+  .bf-card.is-gata { opacity: .55; }
+  .bf-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .6rem; }
+  .bf-mag { display: block; font-family: var(--font-display); font-weight: 600; color: var(--color-navy); font-size: 1.2rem; }
+  .bf-dom { font-family: var(--font-mono); font-size: .72rem; color: var(--color-steel); }
+  .bf-st, .bf-badge { background: #0d0d0d; color: #fff; font: 600 .8rem var(--font-mono); padding: .35rem .6rem; border-radius: var(--radius); white-space: nowrap; }
+  .bf-badge { background: var(--color-rust); font-size: .95rem; }
+  .bf-card h3 { margin: .1rem 0 0; font-size: 1.08rem; line-height: 1.35; color: var(--color-ink); }
+  .bf-card p { margin: 0; color: #555; font-size: .9rem; line-height: 1.55; }
+  .bf-list { margin: 0; padding-left: 1.1rem; font-size: .86rem; color: #444; line-height: 1.6; }
+  .bf-mags { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .4rem; }
+  .bf-mags a { display: flex; justify-content: space-between; gap: .6rem; padding: .5rem .7rem; border: 1px solid var(--color-steel-light); border-radius: var(--radius); font-size: .86rem; color: var(--color-ink); }
+  .bf-mags a:hover { border-color: var(--color-brass); }
+  .bf-mags span { color: var(--color-steel); font-family: var(--font-mono); font-size: .74rem; }
+  .bf-btn { margin-top: auto; display: block; text-align: center; background: #0d0d0d; color: #fff; font: 600 .82rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; padding: .85rem 1rem; border-radius: var(--radius); }
+  .bf-btn:hover { background: var(--color-brass-dark); color: #fff; }
+  .bf-btn--inline { display: inline-block; }
+  .bf-link { font-size: .84rem; color: var(--color-brass-dark); text-decoration: underline; }
+  .bf-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.2rem; align-items: start; }
+  .bf-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-steel-light); }
+  .bf-table th { background: #0d0d0d; color: #fff; text-align: left; font: 600 .74rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; padding: .7rem .9rem; }
+  .bf-table td { padding: .75rem .9rem; border-top: 1px solid var(--color-steel-light); font-size: .9rem; }
+  .bf-table td:first-child { font-weight: 600; white-space: nowrap; }
+  .bf-tips { background: #fff; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1.1rem 1.2rem; }
+  .bf-tips h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+  .bf-tips ol { margin: 0 0 .7rem; padding-left: 1.2rem; font-size: .88rem; line-height: 1.6; color: #444; }
+  .bf-center { text-align: center; margin: 1.2rem 0 0; }
+  .bf-mini { background: #fff; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: 1rem 1.1rem; }
+  .bf-mini b { color: var(--color-navy); font-family: var(--font-display); font-size: 1rem; }
+  .bf-mini p { margin: .4rem 0 0; font-size: .86rem; line-height: 1.55; color: #555; }
+  .bf-faq details { background: #fff; border: 1px solid var(--color-steel-light); border-radius: var(--radius); padding: .8rem 1rem; margin-bottom: .5rem; }
+  .bf-faq summary { cursor: pointer; font-weight: 600; color: var(--color-navy); }
+  .bf-faq p { margin: .6rem 0 0; font-size: .9rem; line-height: 1.6; color: #444; }
+  .bf-note { font-size: .78rem; color: var(--color-steel); margin: 2rem 0 2.5rem; line-height: 1.5; }
+  @media (max-width: 760px) { .bf-two { grid-template-columns: 1fr; } }
+</style>

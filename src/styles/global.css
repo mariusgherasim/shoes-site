@@ -914,3 +914,11 @@ html.pe-promotii .pr-tab, html.pe-promotii .stk { display: none !important; }
   .pr-tab { top: 30%; padding: 9px 6px; gap: 4px; }
   .pr-tab-txt { font-size: .62rem; }
 }
+
+/* Bara Black Friday 2026 (Layout.astro) */
+.bf-bar { position: relative; display: flex; align-items: center; justify-content: center; gap: .8rem; background: #0d0d0d; color: #fff; padding: .55rem 2.6rem .55rem 1rem; font: 500 .82rem var(--font-body); text-align: center; border-bottom: 1px solid var(--color-brass); }
+.bf-bar[hidden] { display: none; }
+.bf-bar:hover { color: #fff; background: #1a1a1a; }
+.bf-bar-cta { font: 600 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--color-brass); white-space: nowrap; }
+.bf-bar-x { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; font-size: 11px; line-height: 1; cursor: pointer; padding: 0; }
+@media (max-width: 640px) { .bf-bar { font-size: .74rem; gap: .5rem; } .bf-bar-cta { display: none; } }

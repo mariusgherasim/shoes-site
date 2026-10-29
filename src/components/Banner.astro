@@ -82,8 +82,11 @@ const LABELS: Record<string, string> = {
     return Math.abs(hash);
   }
 
+  // data de azi după ora României (bannerele de campanie pornesc/se opresc la miezul nopții în România)
+  const aziRo = () => new Date(Date.now() + 2 * 3600e3).toISOString().slice(0, 10);
+
   function isActive(b: any): boolean {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = aziRo();
     if (b.valid_from && today < b.valid_from) return false;
     if (b.valid_until && today > b.valid_until) return false;
     return true;
@@ -100,7 +103,7 @@ const LABELS: Record<string, string> = {
   }
 
   async function initBanners() {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = aziRo();
     let banners: any[] = [];
     try {
       const res = await fetch("/banners.json");
@@ -112,7 +115,10 @@ const LABELS: Record<string, string> = {
 
     document.querySelectorAll<HTMLElement>(".banner-slot").forEach((slot) => {
       const variant = slot.dataset.variant || "";
-      const pool = banners.filter((b) => matchesVariant(b, variant, slot.dataset.categorie || "homepage"));
+      let pool = banners.filter((b) => matchesVariant(b, variant, slot.dataset.categorie || "homepage"));
+      // bannerele de campanie marcate "prioritar": true (în perioada lor) au întâietate
+      const prio = pool.filter((b) => b.prioritar);
+      if (prio.length) pool = prio;
 
       if (pool.length === 0) {
         slot.setAttribute("data-empty", "true");
@@ -128,6 +134,7 @@ const LABELS: Record<string, string> = {
       if (link && img) {
         link.href = chosen.click_url;
         img.src = chosen.image_url;
+        img.alt = chosen.source_site || "";
         link.style.display = "block";
       }
     });

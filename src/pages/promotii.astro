@@ -3,13 +3,14 @@
 //   1. Promoții scrise de mână: src/data/promotii.js (dispar singure după data „expira")
 //   2. Reducerile pe magazine: calculate automat din products.json la fiecare build
 import Layout from '../layouts/Layout.astro';
-import { promotiiActive, quicklink } from '../data/promotii.js';
+import { promotiiActive, promotiiNeexpirate, quicklink } from '../data/promotii.js';
 import { oferte } from '../data/catalog.mjs';
 import { categorii } from '../data/categorii.js';
 import { MAGAZINE } from '../scripts/magazine.js';
 
 const azi = new Date().toISOString().slice(0, 10);
-const active = promotiiActive(azi);
+const active = promotiiNeexpirate(azi); // cele programate (incepe în viitor) sunt ascunse până în ziua lor
+const activeAzi = promotiiActive(azi);
 const numeCat = Object.fromEntries(categorii.map((c) => [c.slug, c.name]));
 const fmtData = (d) => new Date(d + 'T12:00:00').toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' });
 const ascunde = (cod) => (cod.length <= 3 ? '•••' : '•'.repeat(Math.max(2, cod.length - 2)) + cod.slice(-2));
@@ -33,7 +34,7 @@ const magazine = Object.keys(MAGAZINE).map((src) => {
 
 const totalRed = magazine.reduce((s, m) => s + m.nr, 0);
 const title = 'Promoții și coduri de reducere — ceasuri, încălțăminte, haine | style.accessories';
-const description = `${active.length + magazine.length} promoții active la ${magazine.length} magazine: ${magazine.map((m) => m.nume).join(', ')}. ${L(totalRed)} de produse cu reducere, actualizate.`;
+const description = `${activeAzi.length + magazine.length} promoții active la ${magazine.length} magazine: ${magazine.map((m) => m.nume).join(', ')}. ${L(totalRed)} de produse cu reducere, actualizate.`;
 ---
 <Layout title={title} description={description}>
   <main class="pr">
@@ -50,16 +51,17 @@ const description = `${active.length + magazine.length} promoții active la ${ma
     </section>
 
     <section class="pr-wrap">
+      <a class="pr-bf" href="/black-friday/" data-pana="2026-11-30">🖤 <b>Black Friday 2026</b>: calendarul campaniilor, programul valurilor Otter și cum recunoști o reducere reală <span>→</span></a>
       {active.length > 0 && (
         <>
           <h2 class="pr-h2">Campanii și coduri active</h2>
           <div class="pr-chips" role="group" aria-label="Filtrează după magazin">
-            <button type="button" class="pr-chip is-on" data-mag="">Toate ({active.length})</button>
+            <button type="button" class="pr-chip is-on" data-mag="">Toate ({activeAzi.length})</button>
             {[...new Set(active.map((p) => p.magazin))].map((m) => <button type="button" class="pr-chip" data-mag={m}>{m} ({active.filter((p) => p.magazin === m).length})</button>)}
           </div>
           <div class="pr-grid">
             {active.map((p) => (
-              <article class="pr-card" data-mag={p.magazin} data-expira={p.expira || ''} id={p.id}>
+              <article class="pr-card" data-mag={p.magazin} data-expira={p.expira || ''} data-incepe={p.incepe || ''} id={p.id} hidden={p.incepe && p.incepe > azi ? true : undefined}>
                 <div class="pr-top">
                   <div><span class="pr-mag">{p.magazin}</span><span class="pr-dom">{p.domeniu}</span></div>
                   {p.reducere && <span class="pr-badge">{p.reducere}</span>}
@@ -132,8 +134,20 @@ const description = `${active.length + magazine.length} promoții active la ${ma
 
 <script is:inline>
   (function () {
-    var azi = new Date().toISOString().slice(0, 10);
-    document.querySelectorAll('.pr-card[data-expira]').forEach(function (c) { if (c.dataset.expira && c.dataset.expira < azi) c.remove(); });
+    var azi = new Date(Date.now() + 2 * 3600e3).toISOString().slice(0, 10); // ora României
+    var bfl = document.querySelector('.pr-bf'); if (bfl && bfl.dataset.pana < azi) bfl.remove();
+    // scoate ofertele expirate și pe cele care încă n-au început (câmpul incepe)
+    document.querySelectorAll('.pr-card[data-expira]').forEach(function (c) {
+      if ((c.dataset.expira && c.dataset.expira < azi) || (c.dataset.incepe && c.dataset.incepe > azi)) c.remove();
+      else c.hidden = false;
+    });
+    // numerele de pe butoanele de filtrare (doar cardurile scrise de mână, nu „Reducerile pe magazine")
+    document.querySelectorAll('.pr-chip').forEach(function (ch) {
+      var sel = ch.dataset.mag ? '.pr-card[data-expira][data-mag="' + ch.dataset.mag + '"]' : '.pr-card[data-expira]';
+      var n = document.querySelectorAll(sel).length;
+      if (!n && ch.dataset.mag) { ch.remove(); return; }
+      ch.textContent = ch.textContent.replace(/\(\d+\)/, '(' + n + ')');
+    });
     var chips = document.querySelectorAll('.pr-chip');
     chips.forEach(function (ch) {
       ch.addEventListener('click', function () {
@@ -181,6 +195,9 @@ const description = `${active.length + magazine.length} promoții active la ${ma
 
 <style>
   .pr-wrap { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
+  .pr-bf { display: block; margin: 1.4rem 0 0; background: #0d0d0d; color: #fff; border-radius: var(--radius); padding: .9rem 1.1rem; font-size: .92rem; border-left: 4px solid var(--color-brass); }
+  .pr-bf:hover { color: #fff; background: #1a1a1a; }
+  .pr-bf span { color: var(--color-brass); font-weight: 700; }
   .pr-hero { background: var(--color-navy); color: #fff; padding: 2.6rem 0 2.2rem; text-align: center; border-bottom: 3px solid var(--color-brass); }
   .pr-eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--color-brass); margin: 0 0 .6rem; }
   .pr-hero h1 { margin: 0 0 .6rem; font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff; }

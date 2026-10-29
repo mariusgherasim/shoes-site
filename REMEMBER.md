@@ -312,3 +312,43 @@ Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty
 - [ ] Logo-uri de brand: rularea `descarca-logo-uri.bat`, verificarea raportului, ștergerea celor greșite (vezi §11b).
 - [ ] Ștergerea grupului SHOP din MailerLite, după primul email trimis către STYLE.
 - [ ] Verificare Search Console peste 3 zile: sitemap „Success" și pagini indexate în creștere.
+
+## Black Friday 2026 (implementat 29 Oct 2026)
+
+**Otter „Shoefisticat 3”:** teasing 29 oct seara – 2 nov, reduceri 3–8 nov (duminică 23:59).
+- ~300 de Best Deals deblocate în 10 valuri: marți 3 nov (dimineața, 10, 13, 16), miercuri 4 și joi 5 (10:00), vineri 6 nov (7, 10, 13, 16).
+- Coada se deschide cu 45 de minute înainte de fiecare val.
+- Regulile Otter:
+  - linkul e mereu `otter.ro/blackfriday`;
+  - codurile NU se aplică la Best Deals;
+  - cel mult 1 bucată pe mărime;
+  - livrare gratuită de la 299 lei;
+  - mentenanță 2 nov 23:00 – 3 nov dimineața: nu trimitem nimic atunci.
+- Ora de start „dis-de-dimineață” a fost presupusă 06:00 (în `stickere.js` și `black-friday.astro`). Corecteaz-o dacă Otter anunță alta.
+
+**Menzo:** până la -60% la toate produsele. ⚠️ Datele nu erau în descriere: `incepe` 2026-10-29 și `expira` 2026-11-30 sunt provizorii, corectează-le în `promotii.js`.
+
+**Ce s-a pus pe site** (totul pornește și se oprește singur după dată):
+- `promotii.js`: câmp nou **`incepe`** (oferta apare singură din ziua aceea). Carduri: `otter-black-friday-teasing` (29 oct–2 nov), `otter-black-friday` (3–8 nov), `menzo-black-friday`.
+  - Numărul de pe tabul „% Promoții” și filtrele de pe /promotii/ se recalculează în browser.
+- `stickere.js` + `Stickere.astro`: stickerele pot avea **faze** (`faze`, `numara_pana`, `valuri`).
+  - Stickerul `otter-black-friday` stă în stânga și arată, pe rând:
+    1. „Începe în” până la 3 nov;
+    2. mesajul de mentenanță;
+    3. „Următorul val în”, cu ora valului; cu 45 de minute înainte scrie „Coada pentru val e deschisă!”;
+    4. după ultimul val, „Se termină în”.
+  - Stickerul nu apare pe /black-friday/, unde pagina are deja cronometrul ei.
+- Pagina nouă **/black-friday/** (`src/pages/black-friday.astro`) conține:
+  - campaniile, cu starea calculată în browser;
+  - tabelul valurilor și regulile Best Deals;
+  - produse reduse azi la Otter și Menzo;
+  - „cum recunoști o reducere reală” (regula UE Omnibus, prețul minim din ultimele 30 de zile);
+  - întrebări frecvente cu schema FAQPage.
+- **Bara neagră** de sus (Layout.astro), 29 oct – 30 nov: duce la /black-friday/, textul se schimbă după fază, iar butonul X o ascunde pe durata vizitei. Pe /promotii/ e un link spre /black-friday/ până pe 30 nov.
+- **Emailuri** (nu sunt în repo): teasing pe 30 oct la 10:00, start pe 3 nov la 09:15, ultimele valuri pe 6 nov la 06:15.
+- **Bannere Otter:** imaginile sunt în `public/banners/otter/`, cu 9 intrări în `public/banners.json` (`campanie: "otter-black-friday-2026"`, `prioritar: true`, valabile 29 oct – 8 nov).
+  - Pe site: 1200x628 și 728x90 în slotul mare, 300x250 în slotul pătrat. Apar pe paginile de încălțăminte, genți, colecții, prima pagină, /oferte/ și /black-friday/.
+  - În email: 1200x628, care apare și în emailurile zilnice. Formatele 300x600, 300x300 și 1080x1080 sunt pentru email și social.
+- `Banner.astro`: bannerele `prioritar` au întâietate în perioada lor, iar data se calculează după ora României.
+- Pe /black-friday/: imaginea 1200x628 pe cardul Otter și spotul de 15 secunde (`otter-bf-spot-16x9.mp4`, comprimat la 0,7 MB).
+- ⚠️ Bannerele actuale spun „Vezi ofertele în avans”. Când vin materialele Otter pentru perioada de reduceri (3–8 nov), le înlocuim.
