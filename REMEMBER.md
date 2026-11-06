@@ -41,7 +41,8 @@ Le descarci din 2Performant → Produse → Feed-uri XML și le pui **direct în
 - DyFashion (adăugat 22.10.2026): rochii, bluze, fuste, compleuri, pantaloni, pantofi și genți damă. Feed-ul repetă fiecare produs pe mărimi (7.068 rânduri → ~2.170 produse active). Nu are brand → apare ca „DyFashion”. Rochiile/bluzele etc. merg la Îmbrăcăminte (gen ea), pantofii la Încălțăminte femei, gențile la Genți & accesorii.
 
 **Ce fac scripturile cu produsele:**
-- `sync-from-feed.cjs` (5 magazine): actualizează prețul și prețul vechi, adaugă produsele noi, iar produsele dispărute din feed le marchează `draft: true` (nu le șterge).
+- `sync-from-feed.cjs` (5 magazine): actualizează prețul și prețul vechi, adaugă produsele noi, iar produsele dispărute din feed **sau inactive în feed** (`product_active=false`) le marchează `draft: true` (nu le șterge).
+  - Din 06.11.2026 actualizează și **linkul de afiliere** (`aff_code`) la produsele existente. Motiv: 2Performant a semnalat un link Benvenuti mort (`notoolerror.html`, produsul Premiata Trivor 1690DGT439N); înainte, scriptul păstra linkul vechi pentru totdeauna, iar produsele inactive în feed rămâneau vizibile pe site.
 - `actualizare-json.cjs` (WatchShop + Ceasuri-Shop): adaugă produsele noi, **șterge** produsele dispărute, actualizează prețul; la WatchShop nu atinge prețul vechi.
 - `scrape-promotii.cjs` (doar WatchShop): citește `watchshop.ro/promotii` cu Camoufox și scrie prețul vechi real. ~10–15 minute, **doar local**.
 

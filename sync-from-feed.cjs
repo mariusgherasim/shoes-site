@@ -353,8 +353,10 @@ if (!benvFeedPath) {
       p.availability = true;
       p.draft = false;
       if (imgs[0] && imgs[0].trim()) p.image_url = imgs[0].trim();
+      { const aff = getField(item, 'aff_code'); if (aff) p.affiliate_url = aff; } // linkul se poate schimba în feed
       upd++;
-    } else if (!benvAll.has(pid)) {
+    } else if (!p.draft) {
+      // dispărut din feed SAU prezent, dar inactiv (product_active=false): linkul 2Performant nu mai funcționează
       p.availability = false;
       p.draft = true;
       deact++;
@@ -437,8 +439,10 @@ if (!gryxxFeedPath) {
       p.availability = true;
       p.draft = false;
       if (imgs[0] && imgs[0].trim()) p.image_url = imgs[0].trim();
+      { const aff = getField(item, 'aff_code'); if (aff) p.affiliate_url = aff; } // linkul se poate schimba în feed
       upd++;
-    } else if (!gryxxAll.has(pid)) {
+    } else if (!p.draft) {
+      // dispărut din feed SAU prezent, dar inactiv (product_active=false): linkul 2Performant nu mai funcționează
       p.availability = false;
       p.draft = true;
       deact++;
@@ -528,9 +532,11 @@ if (!otterFeedPath) {
       p.availability = true;
       p.draft = false;
       if (imgs[0] && imgs[0].trim()) p.image_url = imgs[0].trim();
+      { const aff = getField(item, 'aff_code'); if (aff) p.affiliate_url = aff; } // linkul se poate schimba în feed
       if (getField(item, 'url')) p.official_url = getField(item, 'url');
       oUpd++;
-    } else if (!otterAll.has(pid)) {
+    } else if (!p.draft) {
+      // dispărut din feed SAU prezent, dar inactiv (product_active=false): linkul 2Performant nu mai funcționează
       p.availability = false;
       p.draft = true;
       oDeact++;
@@ -621,8 +627,10 @@ if (!picadiliFeedPath) {
       p.availability = true;
       p.draft = false;
       if (imgs[0] && imgs[0].trim()) p.image_url = imgs[0].trim();
+      { const aff = getField(item, 'aff_code'); if (aff) p.affiliate_url = aff; } // linkul se poate schimba în feed
       pUpd++;
-    } else if (!picadiliAll.has(pid)) {
+    } else if (!p.draft) {
+      // dispărut din feed SAU prezent, dar inactiv (product_active=false): linkul 2Performant nu mai funcționează
       p.availability = false;
       p.draft = true;
       pDeact++;
