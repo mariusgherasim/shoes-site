@@ -353,3 +353,10 @@ Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty
 - `Banner.astro`: bannerele `prioritar` au întâietate în perioada lor, iar data se calculează după ora României.
 - Pe /black-friday/: imaginea 1200x628 pe cardul Otter și spotul de 15 secunde (`otter-bf-spot-16x9.mp4`, comprimat la 0,7 MB).
 - ⚠️ Bannerele actuale spun „Vezi ofertele în avans”. Când vin materialele Otter pentru perioada de reduceri (3–8 nov), le înlocuim.
+
+## Magazine oprite temporar — `src/data/magazine-pauza.json` (06.11.2026)
+
+- Un singur comutator: magazinele din lista `"magazine"` dispar de pe site (toate paginile, /promotii/, /black-friday/, căutare) și din emailurile generate. products.json nu se modifică, sincronizarea merge normal.
+- **Acum oprit: benvenuti.com** — în 2Performant are statusul **Budget lock** (relația rămâne Approved): advertiserul a rămas fără buget, iar toate linkurile duc la `notoolerror.html`.
+- **Repornire:** când statusul din 2Performant revine la Active, schimbi în `"magazine": []`, apoi `git add -A`, `git commit -m "Benvenuti repornit"`, `git push`. Verifică înainte un link de produs Benvenuti.
+- Folosit de: `src/data/catalog.mjs`, `email-comun.mjs`, `generate-daily-email.cjs`, `generate-subcat-email.cjs`.

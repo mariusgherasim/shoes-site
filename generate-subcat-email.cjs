@@ -10,6 +10,7 @@ const fs       = require('fs');
 const path     = require('path');
 const readline = require('readline');
 
+const PAUZA = new Set((() => { try { return JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'src', 'data', 'magazine-pauza.json'), 'utf8')).magazine || []; } catch { return []; } })());
 const PRODUCTS_PATH = path.join(__dirname, 'src', 'data', 'products.json');
 const OUTPUT_PATH   = path.join(__dirname, 'subcat-email-output.html');
 const TOP_N = 20;
@@ -163,7 +164,7 @@ async function main() {
     rl.close(); return;
   }
 
-  const products = JSON.parse(fs.readFileSync(PRODUCTS_PATH, 'utf8'));
+  const products = JSON.parse(fs.readFileSync(PRODUCTS_PATH, 'utf8')).filter((p) => !PAUZA.has(p.source_site));
   const active = products.filter(p => p.draft === false && p.availability && p.price);
 
   // Filtreaza dupa regula subcategoriei

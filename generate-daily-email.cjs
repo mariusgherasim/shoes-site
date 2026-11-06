@@ -5,7 +5,8 @@
 
 const fs = require("fs");
 
-const products = JSON.parse(fs.readFileSync("src/data/products.json", "utf8"));
+const PAUZA = new Set((() => { try { return JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'src', 'data', 'magazine-pauza.json'), 'utf8')).magazine || []; } catch { return []; } })());
+const products = JSON.parse(fs.readFileSync("src/data/products.json", "utf8")).filter((p) => !PAUZA.has(p.source_site));
 const banners = JSON.parse(fs.readFileSync("src/data/banners.json", "utf8"));
 
 // ---- 1. Selectează produsele cu reducere (benvenuti + gryxx mixt) ----

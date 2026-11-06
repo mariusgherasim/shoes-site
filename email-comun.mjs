@@ -3,6 +3,7 @@
 // Clasificarea produselor e ACEEAȘI ca pe site (src/data/clasificare.mjs).
 import fs from 'node:fs';
 import { clasifica, CATEGORII, TIPURI } from './src/data/clasificare.mjs';
+const PAUZA = new Set((() => { try { return JSON.parse(fs.readFileSync('src/data/magazine-pauza.json', 'utf8')).magazine || []; } catch { return []; } })());
 
 export const SITE = 'https://styleaccessories.eu';
 export const LOGO = `${SITE}/brand/logo-email.png`;
@@ -23,6 +24,7 @@ export function incarcaProduse() {
   const out = [];
   for (const p of raw) {
     if (p.draft || p.availability === false || !p.price || !p.affiliate_url || !p.image_url) continue;
+    if (PAUZA.has(p.source_site)) continue; // magazin oprit temporar (src/data/magazine-pauza.json)
     const r = clasifica(p);
     if (r.exclus) continue;
     const pct = p.old_price && p.old_price > p.price ? Math.round(100 - (p.price / p.old_price) * 100) : 0;

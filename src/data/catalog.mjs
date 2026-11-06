@@ -9,6 +9,7 @@
 // ============================================================
 
 import productsData from './products.json';
+import pauza from './magazine-pauza.json';
 import { clasifica, TIPURI } from './clasificare.mjs';
 import { categorii } from './categorii.js';
 import { brandKey, slugify, niceCount } from './text.mjs';
@@ -20,6 +21,9 @@ export const MAX_BRANDURI_CATEGORIE = 24;
 // Tipurile „de rest" (ex. „Alte modele") nu apar ca tip separat în meniu/căutare
 const ASCUNSE = /^alte-/;
 
+// Magazine oprite temporar (ex. Budget lock în 2Performant): vezi src/data/magazine-pauza.json
+const PAUZA = new Set(pauza.magazine || []);
+
 const t0 = Date.now();
 
 // ── 1. Produse active + clasificare ─────────────────────────────────────
@@ -27,6 +31,7 @@ export const produse = [];
 export const excluse = {};
 for (const p of productsData) {
   if (p.draft || p.availability === false || !p.price || !p.affiliate_url) continue;
+  if (PAUZA.has(p.source_site)) continue; // magazin oprit temporar (magazine-pauza.json)
   const r = clasifica(p);
   if (r.exclus) { excluse[r.exclus] = (excluse[r.exclus] || 0) + 1; continue; }
   const reducere = p.old_price && p.old_price > p.price ? Math.round(100 - (p.price / p.old_price) * 100) : null;

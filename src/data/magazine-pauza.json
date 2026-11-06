@@ -1,0 +1,5 @@
+{
+  "_info": "Magazine oprite temporar: produsele lor nu apar pe site și nici în emailuri. Pentru a le reporni, scoate-le din listă (lasă [] dacă nu e niciunul), apoi git add/commit/push.",
+  "magazine": ["benvenuti.com"],
+  "_motiv": "benvenuti.com: Budget lock în 2Performant din 06.11.2026 — linkurile duc la notoolerror.html"
+}
