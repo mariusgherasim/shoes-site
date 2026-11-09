@@ -360,3 +360,8 @@ Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty
 - **Acum oprit: benvenuti.com** — în 2Performant are statusul **Budget lock** (relația rămâne Approved): advertiserul a rămas fără buget, iar toate linkurile duc la `notoolerror.html`.
 - **Repornire:** când statusul din 2Performant revine la Active, schimbi în `"magazine": []`, apoi `git add -A`, `git commit -m "Benvenuti repornit"`, `git push`. Verifică înainte un link de produs Benvenuti.
 - Folosit de: `src/data/catalog.mjs`, `email-comun.mjs`, `generate-daily-email.cjs`, `generate-subcat-email.cjs`.
+
+## Footer: BusinessLeague + SAL ANPC (09.11.2026)
+- În `src/components/Footer.astro`, deasupra textului de divulgare: insigna **BusinessLeague · Affiliate Marketing Partner** (→ https://businessleague.com/, logo oficial în `public/businessleague-logo.png`) și pictograma **SAL ANPC** (→ https://reclamatiisal.anpc.ro/). Stilurile: `.footer-badges`, `.bl-partner`, `.sal-anpc` în `global.css`.
+- `public/anpc-sal.png` a fost înlocuit: înainte era plăcuța pătrată „Telefonul consumatorului” (CJPC Neamț), turtită la 250 x 50. Acum e pictograma oficială SAL de pe https://www.anpc.ro/download/sal/SAL-PICTOGRAMA.png (500 x 124, afișată la 250 px).
+- SOL nu se mai pune: platforma europeană a fost desființată (Ordinul ANPC 270/2026).
