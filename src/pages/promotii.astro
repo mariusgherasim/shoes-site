@@ -16,7 +16,7 @@ const fmtData = (d) => new Date(d + 'T12:00:00').toLocaleDateString('ro-RO', { d
 const ascunde = (cod) => (cod.length <= 3 ? '•••' : '•'.repeat(Math.max(2, cod.length - 2)) + cod.slice(-2));
 const L = (n) => n.toLocaleString('ro-RO');
 const lei = (n) => Number(n).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' lei';
-const DOMENII = { 'watchshop.ro': 'https://www.watchshop.ro/', 'ceasuri-shop.ro': 'https://www.ceasuri-shop.ro/', 'benvenuti.com': 'https://www.benvenuti.com/ro', 'otter.ro': 'https://www.otter.ro/', 'gryxx.ro': 'https://www.gryxx.ro/', 'picadili.ro': 'https://www.picadili.ro/', 'menzo.ro': 'https://www.menzo.ro/', 'dyfashion.ro': 'https://www.dyfashion.ro/' };
+const DOMENII = { 'watchshop.ro': 'https://www.watchshop.ro/', 'ceasuri-shop.ro': 'https://www.ceasuri-shop.ro/', 'benvenuti.com': 'https://www.benvenuti.com/ro', 'otter.ro': 'https://www.otter.ro/', 'gryxx.ro': 'https://www.gryxx.ro/', 'picadili.ro': 'https://www.picadili.ro/', 'menzo.ro': 'https://www.menzo.ro/', 'dyfashion.ro': 'https://www.dyfashion.ro/', 'tezyo.ro': 'https://www.tezyo.ro/' };
 
 // Reducerile pe magazine (fără reducerile suspecte de peste 85%)
 const magazine = Object.keys(MAGAZINE).map((src) => {

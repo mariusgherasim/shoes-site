@@ -365,3 +365,12 @@ Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty
 - În `src/components/Footer.astro`, deasupra textului de divulgare: insigna **BusinessLeague · Affiliate Marketing Partner** (→ https://businessleague.com/, logo oficial în `public/businessleague-logo.png`) și pictograma **SAL ANPC** (→ https://reclamatiisal.anpc.ro/). Stilurile: `.footer-badges`, `.bl-partner`, `.sal-anpc` în `global.css`.
 - `public/anpc-sal.png` a fost înlocuit: înainte era plăcuța pătrată „Telefonul consumatorului” (CJPC Neamț), turtită la 250 x 50. Acum e pictograma oficială SAL de pe https://www.anpc.ro/download/sal/SAL-PICTOGRAMA.png (500 x 124, afișată la 250 px).
 - SOL nu se mai pune: platforma europeană a fost desființată (Ordinul ANPC 270/2026).
+
+## Tezyo — rezervă pentru Otter (16.11.2026)
+
+- Feed `feed_5b3551b1c.xml` (tezyo.ro, campaign_unique `14d232641`), descărcat la StyleGherasim în `sites.json`.
+- Tezyo e magazinul-soră Otter: **aceleași produse, același `product_id`, aceleași prețuri** (verificat 16.11: 2.594 produse active, toate cu cod Otter; 2.577 active la ambele, la același preț).
+- În `sync-from-feed.cjs` (după Otter): intră pe site **doar** produsele active la Tezyo și inactive/lipsă la Otter (16.11: 17 produse), cu `source_site: 'tezyo.ro'`, `id: tezyo-<cod>`. Când produsul revine activ la Otter, varianta Tezyo se dezactivează singură → fără dubluri.
+- Dacă lipsește feedul Otter din folder, Tezyo se sare (altfel ar intra ~2.500 de dubluri).
+- Categoria din feed („Femei / Pantofi sport”) e transformată în formatul Otter („Femei > Pantofi sport”) și clasificată cu aceleași reguli.
+- Tezyo adăugat în: `src/scripts/magazine.js` (nume), `src/data/site.js` (COMERCIANTI), `src/data/promotii.js` (CODURI_CAMPANIE), `src/pages/promotii.astro` (DOMENII), `email-comun.mjs`, `generate-daily-email.cjs`, paginile legale (lista comercianților).

@@ -1,6 +1,6 @@
 // sync-from-feed.cjs
 // ============================================================
-// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo + DyFashion
+// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo + DyFashion (+ Tezyo ca rezervă pentru Otter)
 // Ruleaza prin: sync-from-feed.bat
 //
 // Ce face:
@@ -17,6 +17,8 @@
 //   Picadili:  feed_picadili.xml   sau  feed_f741a4c2e.xml
 //   Menzo:     feed_menzo.xml      sau  feed_382702c75.xml   (haine bărbați)
 //   DyFashion: feed_dyfashion.xml  sau  feed_11e3e2429.xml   (rochii, haine, pantofi, genți damă)
+//   Tezyo:     feed_tezyo.xml      sau  feed_5b3551b1c.xml   (magazinul-soră Otter: aceleași produse și coduri —
+//              intră pe site DOAR produsele active la Tezyo și inactive/lipsă la Otter, ca să nu avem dubluri)
 // ============================================================
 
 const fs   = require('fs');
@@ -56,6 +58,11 @@ const FEED_CONFIG = {
     files: ['feed_dyfashion.xml', 'feed_11e3e2429.xml', 'feed_11e3e2429_1.xml'],
     idPrefix: 'dyfashion-',
     stripPrefix: 'dyfashion-',
+  },
+  'tezyo.ro': {
+    files: ['feed_tezyo.xml', 'feed_5b3551b1c.xml', 'feed_5b3551b1c_1.xml'],
+    idPrefix: 'tezyo-',
+    stripPrefix: 'tezyo-',
   },
 };
 
@@ -299,7 +306,7 @@ function makeSlug(title, pid, existingSlugs) {
 
 // ── Main ──────────────────────────────────────────────────────
 console.log('\n╔══════════════════════════════════════════════════╗');
-console.log('║  SYNC STYLE — 6 feed-uri → products.json         ║');
+console.log('║  SYNC STYLE — 7 feed-uri → products.json         ║');
 console.log('╚══════════════════════════════════════════════════╝\n');
 
 if (!fs.existsSync(PRODUCTS_PATH)) {
@@ -489,6 +496,7 @@ if (!gryxxFeedPath) {
 
 
 // ── PROCESARE OTTER ───────────────────────────────────────────
+let otterActivePids = null;   // folosit de Tezyo (rezervă): null = feedul Otter lipsește
 const otterFeedPath = findFeed(FEED_CONFIG['otter.ro'].files);
 if (!otterFeedPath) {
   console.log('\n⚠️  Feed Otter negăsit — sar peste.');
@@ -511,6 +519,7 @@ if (!otterFeedPath) {
   }
 
   console.log(`  Feed: ${otterRaw.length} total, ${Object.keys(otterActive).length} active`);
+  otterActivePids = new Set(Object.keys(otterActive));
 
   const otterJsonPids = new Set(
     products.filter(p => p.source_site === 'otter.ro').map(p => String(p.id).replace('otter-', ''))
@@ -869,6 +878,110 @@ if (!dyfFeedPath) {
 
   console.log(`  ✅ actualizate: ${dUpd} | ➕ adăugate: ${dAdded} | 🗑️  dezactivate: ${dDeact}`);
   report.sources['dyfashion.ro'] = { updated: dUpd, added: dAdded, deactivated: dDeact };
+}
+
+
+// ── PROCESARE TEZYO (rezervă pentru Otter) ────────────────────
+// Tezyo vinde aceleași produse ca Otter, cu aceleași coduri (product_id) și aceleași prețuri.
+// Ca să nu apară fiecare produs de două ori, pe site intră doar produsele active la Tezyo
+// care NU sunt active la Otter. Când produsul revine la Otter, varianta Tezyo se dezactivează singură.
+// Fără feedul Otter nu putem compara → Tezyo se sare (altfel ar intra mii de dubluri).
+const tezyoFeedPath = findFeed(FEED_CONFIG['tezyo.ro'].files);
+if (!tezyoFeedPath) {
+  console.log('\n⚠️  Feed Tezyo negăsit — sar peste.');
+} else if (!otterActivePids) {
+  console.log('\n⚠️  Tezyo: lipsește feedul Otter, nu pot verifica dublurile — sar peste (produsele Tezyo rămân cum erau).');
+} else {
+  console.log(`\n=== TEZYO (rezervă Otter) ===`);
+  console.log(`  Feed: ${path.basename(tezyoFeedPath)}`);
+
+  const tezyoRaw = parseItems(fs.readFileSync(tezyoFeedPath, 'utf8'));
+  const tezyoActive = {};
+  for (const item of tezyoRaw) {
+    const pid = getField(item, 'product_id');
+    if (pid && getField(item, 'product_active') === 'true') tezyoActive[pid] = item;
+  }
+  const rezerva = Object.keys(tezyoActive).filter((pid) => !otterActivePids.has(pid));
+  const rezervaSet = new Set(rezerva);
+  console.log(`  Feed: ${tezyoRaw.length} rânduri, ${Object.keys(tezyoActive).length} produse active`);
+  console.log(`  Active la Tezyo și inactive/lipsă la Otter (intră pe site): ${rezerva.length}`);
+
+  // „Femei / Pantofi sport” → „Femei > Pantofi sport”, ca să folosim aceleași reguli ca la Otter
+  const catOtter = (raw) => (raw || '').replace(/\s*\/\s*/, ' > ');
+  const tezyoData = (item) => {
+    const fp = parsePrice(getField(item, 'price')) || 0;
+    const fo = parsePrice(getField(item, 'old_price'));
+    const imgs = (getField(item, 'image_urls') || '').split(',');
+    return {
+      price: fp,
+      old_price: (fo && fo > fp) ? fo : null,
+      image_url: imgs[0] && imgs[0].trim() ? imgs[0].trim() : null,
+      affiliate_url: getField(item, 'aff_code'),
+      official_url: getField(item, 'url'),
+    };
+  };
+
+  const tezyoJsonPids = new Set(
+    products.filter(p => p.source_site === 'tezyo.ro').map(p => String(p.id).replace('tezyo-', ''))
+  );
+  let tUpd = 0, tAdded = 0, tDeact = 0;
+
+  for (const p of products) {
+    if (p.source_site !== 'tezyo.ro') continue;
+    const pid = String(p.id).replace('tezyo-', '');
+    if (rezervaSet.has(pid)) {
+      const d = tezyoData(tezyoActive[pid]);
+      p.price = d.price;
+      p.old_price = d.old_price;
+      p.availability = true;
+      p.draft = false;
+      if (d.image_url) p.image_url = d.image_url;
+      if (d.affiliate_url) p.affiliate_url = d.affiliate_url;
+      if (d.official_url) p.official_url = d.official_url;
+      tUpd++;
+    } else if (!p.draft) {
+      // inactiv la Tezyo SAU din nou activ la Otter (atunci rămâne varianta Otter)
+      p.availability = false;
+      p.draft = true;
+      tDeact++;
+    }
+  }
+
+  for (const pid of rezerva) {
+    if (tezyoJsonPids.has(pid)) continue;
+    const item = tezyoActive[pid];
+    const d = tezyoData(item);
+    const title = getField(item, 'title') || '';
+    const catRaw = catOtter(getField(item, 'category'));
+    const cats = getOtterCategory(catRaw);
+    const subcat = getOtterSubcat(catRaw, cats);
+    const prod = {
+      id: `tezyo-${pid}`,
+      source_site: 'tezyo.ro',
+      brand: getField(item, 'brand') || 'Tezyo',
+      title,
+      category: cats,
+      price: d.price,
+      old_price: d.old_price,
+      offer_end: null,
+      currency: 'RON',
+      availability: true,
+      draft: false,
+      recomandat: false,
+      featured: false,
+      image_url: d.image_url,
+      official_url: d.official_url,
+      affiliate_url: d.affiliate_url,
+      specs: {},
+      slug: makeSlug(title, `tezyo-${pid}`, existingSlugs),
+    };
+    if (subcat) prod.subcategory = subcat;
+    products.push(prod);
+    tAdded++;
+  }
+
+  console.log(`  ✅ actualizate: ${tUpd} | ➕ adăugate: ${tAdded} | 🗑️  dezactivate: ${tDeact}`);
+  report.sources['tezyo.ro'] = { updated: tUpd, added: tAdded, deactivated: tDeact, rezerva_otter: rezerva.length };
 }
 
 // ── SUMAR + SALVARE ───────────────────────────────────────────

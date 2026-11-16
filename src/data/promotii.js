@@ -42,6 +42,7 @@ export const CODURI_CAMPANIE = {
   'picadili.ro': 'd404a783d',
   'menzo.ro': '479d5acd3',
   'dyfashion.ro': '884f13c4f',
+  'tezyo.ro': '14d232641',
 };
 
 // Quicklink 2Performant spre orice pagină a magazinului

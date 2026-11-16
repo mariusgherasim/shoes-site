@@ -8,5 +8,6 @@ export const MAGAZINE = {
   'picadili.ro': 'Picadili',
   'menzo.ro': 'Menzo',
   'dyfashion.ro': 'DyFashion',
+  'tezyo.ro': 'Tezyo',
 };
 export const magazin = (src) => MAGAZINE[src] || src || '';
