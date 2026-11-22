@@ -9,5 +9,6 @@ export const MAGAZINE = {
   'menzo.ro': 'Menzo',
   'dyfashion.ro': 'DyFashion',
   'tezyo.ro': 'Tezyo',
+  'answear.ro': 'Answear',
 };
 export const magazin = (src) => MAGAZINE[src] || src || '';

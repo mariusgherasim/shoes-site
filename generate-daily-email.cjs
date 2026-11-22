@@ -117,7 +117,7 @@ function truncate(s, n=55) {
 
 function productCard(p) {
   const hasOld = p.old_price && p.old_price > p.price;
-  const src = p.source_site === 'gryxx.ro' ? 'Gryxx' : p.source_site === 'otter.ro' ? 'Otter' : p.source_site === 'tezyo.ro' ? 'Tezyo' : p.source_site === 'picadili.ro' ? 'Picadili' : 'Benvenuti';
+  const src = p.source_site === 'gryxx.ro' ? 'Gryxx' : p.source_site === 'otter.ro' ? 'Otter' : p.source_site === 'tezyo.ro' ? 'Tezyo' : p.source_site === 'answear.ro' ? 'Answear' : p.source_site === 'picadili.ro' ? 'Picadili' : 'Benvenuti';
   return `
   <td style="width:50%;padding:8px;vertical-align:top;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"

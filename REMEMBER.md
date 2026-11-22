@@ -374,3 +374,17 @@ Logo-urile apar în fereastra de căutare (rândul „Branduri”), ca la beauty
 - Dacă lipsește feedul Otter din folder, Tezyo se sare (altfel ar intra ~2.500 de dubluri).
 - Categoria din feed („Femei / Pantofi sport”) e transformată în formatul Otter („Femei > Pantofi sport”) și clasificată cu aceleași reguli.
 - Tezyo adăugat în: `src/scripts/magazine.js` (nume), `src/data/site.js` (COMERCIANTI), `src/data/promotii.js` (CODURI_CAMPANIE), `src/pages/promotii.astro` (DOMENII), `email-comun.mjs`, `generate-daily-email.cjs`, paginile legale (lista comercianților).
+
+## Answear (22.11.2026)
+
+- Feed `feed_9ab0f2841.xml` (answear.ro, campaign_unique `a5e9e1225`), descărcat la StyleGherasim în `sites.json`.
+- Haine + încălțăminte premium (Polo Ralph Lauren, Marc O'Polo, AllSaints, Tommy Hilfiger, BOSS, Liu Jo…), pentru femei, bărbați și copii. 22.11: 4.756 rânduri → **2.561 produse unice**, prețuri 421–5.500 lei, fără `old_price` (fără reduceri în feed).
+- `sync-from-feed.cjs`, blocul ANSWEAR:
+  - fiecare produs apare de 2 ori în feed (o dată cu categoria scurtă „Îmbrăcăminte”, o dată cu calea completă „Femei/Îmbrăcăminte/Pulovere și cardigane/Pulovere”) → se păstrează rândul cu calea cea mai lungă;
+  - genul din începutul căii: Femei → `femei`, Bărbaţi → `barbati`, Copii/Fete → `femei, copii`, Copii/Băieți → `barbati, copii`;
+  - `subcategory_raw`: la încălțăminte „Încălțăminte > Botine”; la haine doar tipul („Pulovere și cardigane > Pulovere”), cu excepția „Îmbrăcăminte > Bluze subțiri” (bluze de damă);
+  - titlul: spațiile duble din feed („Rotate  bluză…”) devin unul.
+- `src/data/clasificare.mjs`, regula 3c: Answear cu `subcategory_raw` „Încălțăminte…” → încălțăminte femei/bărbați/copii, restul → Îmbrăcăminte. La clasificare se scoate brandul din titlu și nu se folosește adresa produsului (altfel „Polo” din „Polo Ralph Lauren” / „Marc O'Polo” trimitea pantalonii la „Tricouri & polo”).
+- Tot în `clasificare.mjs`: „Sacouri & costume” nu mai prinde „costume de baie” (`costum(?!e? de baie)`) — corectare valabilă pentru toate magazinele.
+- Answear adăugat în: `src/scripts/magazine.js`, `src/data/site.js`, `src/data/promotii.js` (CODURI_CAMPANIE), `src/pages/promotii.astro` (DOMENII), `email-comun.mjs`, `generate-daily-email.cjs`, paginile legale, `actualizare-produse.bat`.
+- Pe /promotii/ cardul de magazin Answear apare doar când feedul are produse reduse (acum nu are).

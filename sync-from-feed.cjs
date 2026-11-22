@@ -1,6 +1,6 @@
 // sync-from-feed.cjs
 // ============================================================
-// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo + DyFashion (+ Tezyo ca rezervă pentru Otter)
+// Sincronizare products.json cu feed-urile XML Benvenuti + Gryxx + Otter + Picadili + Menzo + DyFashion (+ Tezyo ca rezervă pentru Otter) + Answear
 // Ruleaza prin: sync-from-feed.bat
 //
 // Ce face:
@@ -19,6 +19,7 @@
 //   DyFashion: feed_dyfashion.xml  sau  feed_11e3e2429.xml   (rochii, haine, pantofi, genți damă)
 //   Tezyo:     feed_tezyo.xml      sau  feed_5b3551b1c.xml   (magazinul-soră Otter: aceleași produse și coduri —
 //              intră pe site DOAR produsele active la Tezyo și inactive/lipsă la Otter, ca să nu avem dubluri)
+//   Answear:   feed_answear.xml    sau  feed_9ab0f2841.xml   (haine + încălțăminte premium, femei/bărbați/copii)
 // ============================================================
 
 const fs   = require('fs');
@@ -63,6 +64,11 @@ const FEED_CONFIG = {
     files: ['feed_tezyo.xml', 'feed_5b3551b1c.xml', 'feed_5b3551b1c_1.xml'],
     idPrefix: 'tezyo-',
     stripPrefix: 'tezyo-',
+  },
+  'answear.ro': {
+    files: ['feed_answear.xml', 'feed_9ab0f2841.xml', 'feed_9ab0f2841_1.xml'],
+    idPrefix: 'answear-',
+    stripPrefix: 'answear-',
   },
 };
 
@@ -306,7 +312,7 @@ function makeSlug(title, pid, existingSlugs) {
 
 // ── Main ──────────────────────────────────────────────────────
 console.log('\n╔══════════════════════════════════════════════════╗');
-console.log('║  SYNC STYLE — 7 feed-uri → products.json         ║');
+console.log('║  SYNC STYLE — 8 feed-uri → products.json         ║');
 console.log('╚══════════════════════════════════════════════════╝\n');
 
 if (!fs.existsSync(PRODUCTS_PATH)) {
@@ -982,6 +988,127 @@ if (!tezyoFeedPath) {
 
   console.log(`  ✅ actualizate: ${tUpd} | ➕ adăugate: ${tAdded} | 🗑️  dezactivate: ${tDeact}`);
   report.sources['tezyo.ro'] = { updated: tUpd, added: tAdded, deactivated: tDeact, rezerva_otter: rezerva.length };
+}
+
+
+// ── PROCESARE ANSWEAR (haine + încălțăminte, femei / bărbați / copii) ──
+// Același produs apare de 2 ori în feed (o dată cu categoria scurtă „Îmbrăcăminte”,
+// o dată cu calea completă „Femei/Îmbrăcăminte/Pulovere și cardigane/Pulovere”) → păstrăm rândul cu calea cea mai lungă.
+// Genul vine din începutul căii (Femei / Bărbaţi / Copii/Fete / Copii/Băieți).
+// Categoria de pe site (încălțăminte vs. îmbrăcăminte, tipul) se stabilește la build în src/data/clasificare.mjs, din subcategory_raw.
+const answFeedPath = findFeed(FEED_CONFIG['answear.ro'].files);
+if (!answFeedPath) {
+  console.log('\n⚠️  Feed Answear negăsit — sar peste.');
+} else {
+  console.log(`\n=== ANSWEAR ===`);
+  console.log(`  Feed: ${path.basename(answFeedPath)}`);
+
+  const answRaw = parseItems(fs.readFileSync(answFeedPath, 'utf8'));
+  const answActive = {};
+  for (const item of answRaw) {
+    const pid = getField(item, 'product_id');
+    if (!pid || getField(item, 'product_active') !== 'true') continue;
+    const cat = getField(item, 'category') || '';
+    if (!answActive[pid] || cat.length > (getField(answActive[pid], 'category') || '').length) answActive[pid] = item;
+  }
+  console.log(`  Feed: ${answRaw.length} rânduri → ${Object.keys(answActive).length} produse unice active`);
+
+  const answNorm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[şș]/g, 's').replace(/[ţț]/g, 't');
+  const answData = (item) => {
+    const fp = parsePrice(getField(item, 'price')) || 0;
+    const fo = parsePrice(getField(item, 'old_price'));
+    const imgs = (getField(item, 'image_urls') || '').split(',');
+    const parts = (getField(item, 'category') || '').split('/').map((x) => x.trim()).filter(Boolean);
+    const g = answNorm(parts[0]);
+    let cats, rest;
+    if (g === 'copii') {
+      const c = answNorm(parts[1]);
+      cats = c.startsWith('fete') ? ['femei', 'copii'] : c.startsWith('baiet') ? ['barbati', 'copii'] : ['copii'];
+      rest = parts.slice(2);
+    } else if (g === 'femei') { cats = ['femei']; rest = parts.slice(1); }
+    else if (g.startsWith('barbat')) { cats = ['barbati']; rest = parts.slice(1); }
+    else {
+      const t = answNorm(getField(item, 'title'));
+      cats = /pentru copii|\bfete\b|baieti/.test(t) ? ['copii'] : /femei|de dama/.test(t) ? ['femei'] : /barbati/.test(t) ? ['barbati'] : ['femei', 'barbati'];
+      rest = parts;
+    }
+    // subcategory_raw: „Încălțăminte > Botine” (prefixul e semnalul pentru clasificare) sau, la haine,
+    // doar tipul („Pulovere și cardigane > Pulovere”), fără „Îmbrăcăminte” — altfel „Îmbrăcăminte > Bluze și hanorace”
+    // ar intra la „Bluze & topuri damă”, și la bărbați. Excepție: „Bluze subțiri” (bluze de damă) → „Îmbrăcăminte > Bluze subțiri”.
+    const inc = /incaltaminte/.test(answNorm(rest[0]));
+    const tip = rest.slice(/incaltaminte|imbracaminte/.test(answNorm(rest[0])) ? 1 : 0);
+    const raw = inc ? ['Încălțăminte', ...tip].join(' > ')
+      : /^bluze subtiri$/.test(answNorm(tip[tip.length - 1])) ? ['Îmbrăcăminte', ...tip.slice(-1)].join(' > ')
+      : (tip.join(' > ') || 'Îmbrăcăminte');
+    return {
+      cats,
+      subcategory_raw: raw,
+      price: fp,
+      old_price: (fo && fo > fp) ? fo : null,
+      image_url: imgs[0] && imgs[0].trim() ? imgs[0].trim() : null,
+      affiliate_url: getField(item, 'aff_code'),
+      official_url: getField(item, 'url'),
+      brand: getField(item, 'brand') || 'Answear',
+      title: (getField(item, 'title') || '').replace(/\s{2,}/g, ' ').trim(),
+    };
+  };
+
+  const answJsonPids = new Set(
+    products.filter(p => p.source_site === 'answear.ro').map(p => String(p.id).replace('answear-', ''))
+  );
+  let aUpd = 0, aAdded = 0, aDeact = 0;
+
+  for (const p of products) {
+    if (p.source_site !== 'answear.ro') continue;
+    const pid = String(p.id).replace('answear-', '');
+    if (answActive[pid]) {
+      const d = answData(answActive[pid]);
+      p.price = d.price;
+      p.old_price = d.old_price;
+      p.availability = true;
+      p.draft = false;
+      if (d.image_url) p.image_url = d.image_url;
+      if (d.affiliate_url) p.affiliate_url = d.affiliate_url;
+      if (d.official_url) p.official_url = d.official_url;
+      p.category = d.cats;
+      p.subcategory_raw = d.subcategory_raw;
+      aUpd++;
+    } else if (!p.draft) {
+      p.availability = false;
+      p.draft = true;
+      aDeact++;
+    }
+  }
+
+  for (const [pid, item] of Object.entries(answActive)) {
+    if (answJsonPids.has(pid)) continue;
+    const d = answData(item);
+    products.push({
+      id: `answear-${pid}`,
+      source_site: 'answear.ro',
+      brand: d.brand,
+      title: d.title,
+      category: d.cats,
+      subcategory_raw: d.subcategory_raw,
+      price: d.price,
+      old_price: d.old_price,
+      offer_end: null,
+      currency: 'RON',
+      availability: true,
+      draft: false,
+      recomandat: false,
+      featured: false,
+      image_url: d.image_url,
+      official_url: d.official_url,
+      affiliate_url: d.affiliate_url,
+      specs: {},
+      slug: makeSlug(d.title, `answear-${pid}`, existingSlugs),
+    });
+    aAdded++;
+  }
+
+  console.log(`  ✅ actualizate: ${aUpd} | ➕ adăugate: ${aAdded} | 🗑️  dezactivate: ${aDeact}`);
+  report.sources['answear.ro'] = { updated: aUpd, added: aAdded, deactivated: aDeact };
 }
 
 // ── SUMAR + SALVARE ───────────────────────────────────────────

@@ -38,5 +38,5 @@ export const PE_PAGINA = 24;
 
 // Comercianții (pentru texte, footer, pagini legale)
 export const COMERCIANTI = [
-  'watchshop.ro', 'ceasuri-shop.ro', 'benvenuti.com', 'otter.ro', 'gryxx.ro', 'picadili.ro', 'menzo.ro', 'dyfashion.ro', 'tezyo.ro',
+  'watchshop.ro', 'ceasuri-shop.ro', 'benvenuti.com', 'otter.ro', 'gryxx.ro', 'picadili.ro', 'menzo.ro', 'dyfashion.ro', 'tezyo.ro', 'answear.ro',
 ];

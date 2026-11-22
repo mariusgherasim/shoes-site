@@ -121,7 +121,7 @@ export const TIPURI = {
     { slug: 'tricouri',           label: 'Tricouri & polo',       rx: /tricou|maiou|\bpolo\b/ },
     { slug: 'camasi',             label: 'Cămăși',                rx: /camasa|camasi/ },
     { slug: 'pulovere-hanorace',  label: 'Pulovere & hanorace',   rx: /pulover|cardigan|hanorac|bluza|bluze/ },
-    { slug: 'sacouri-costume',    label: 'Sacouri & costume',     rx: /sacou|blazer|costum(?! de baie)/ },
+    { slug: 'sacouri-costume',    label: 'Sacouri & costume',     rx: /sacou|blazer|costum(?!e? de baie)/ },
     { slug: 'geci-paltoane',      label: 'Geci, jachete & paltoane', rx: /geaca|geci|jacheta|jachete|parka|bomber|palton|trench|vesta|veste|pardesi/ },
     { slug: 'blugi',              label: 'Blugi',                 rx: /(?<!pantaloni si )blugi|\bjeans?\b/ },
     { slug: 'pantaloni',          label: 'Pantaloni',             rx: /pantalon|bermud|shorts?/ },
@@ -182,9 +182,12 @@ const RX_INCALTAMINTE_ORIUNDE = /\b(pantofi|sneakers?|ghete|botine|cizme|sandale
 // Întoarce { categorie, tip, tipuriExtra[], gen } sau { exclus: motiv }
 export function clasifica(p) {
   const src = p.source_site;
-  const title = norm(p.title);
+  // Answear: titlul începe cu brandul („Polo Ralph Lauren pantaloni…”, „Marc O'Polo cardigan…”) —
+  // îl scoatem la clasificare, altfel „polo” din brand ar trimite pantalonii la „Tricouri & polo”.
+  const title = norm(src === 'answear.ro' && p.brand && (p.title || '').startsWith(p.brand) ? p.title.slice(p.brand.length) : p.title);
   const raw = norm(p.subcategory_raw || '');
-  const url = norm((p.official_url || '').replace(/^https?:\/\/[^/]+/, '').split('?')[0]);
+  // (la Answear, adresa conține și brandul — „/p/polo-ralph-lauren-…” — deci nu o folosim)
+  const url = src === 'answear.ro' ? '' : norm((p.official_url || '').replace(/^https?:\/\/[^/]+/, '').split('?')[0]);
   const sub = p.subcategory || '';
   const cats = p.category || [];
   const text = `${title} | ${raw} | ${url} | ${sub}`;
@@ -231,6 +234,14 @@ export function clasifica(p) {
     else if (/^genti/.test(raw) || /^(geanta|poseta|rucsac|clutch|borseta)\b/.test(title)) categorie = 'genti-accesorii';
     else if (/accesorii/.test(raw) && !/rochie|bluza|fusta|pantalon/.test(title)) categorie = 'genti-accesorii';
     else categorie = 'imbracaminte';
+  }
+
+  // 3c. Answear: subcategory_raw începe cu „Încălțăminte” sau „Îmbrăcăminte” (pus de sync-from-feed.cjs)
+  if (!categorie && src === 'answear.ro') {
+    if (/^incaltaminte/.test(raw)) {
+      categorie = cats.includes('copii') ? 'incaltaminte-copii'
+        : cats.includes('barbati') && !cats.includes('femei') ? 'incaltaminte-barbati' : 'incaltaminte-femei';
+    } else categorie = 'imbracaminte';
   }
 
   // 4. Menzo: haine, cu excepția încălțămintei și accesoriilor
